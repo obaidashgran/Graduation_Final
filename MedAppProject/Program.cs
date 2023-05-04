@@ -6,7 +6,7 @@ using MedAppProject.Models;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
-
+//test
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
