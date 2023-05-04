@@ -13,6 +13,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
 
+//Test
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     //options.UseSqlServer
