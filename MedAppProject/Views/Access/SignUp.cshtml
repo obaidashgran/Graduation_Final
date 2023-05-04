@@ -1,0 +1,23 @@
+﻿@model MedAppProject.Models.Patient
+@{
+    Layout = null;
+}
+<html>
+    <head>
+
+    </head>
+    <body>
+        <form asp-controller="Access" asp-action="SignUp" method="post">
+            <input type="text" asp-for="FirstName"/>
+            <input type="text" asp-for="LastName"/>
+            <input type="text" asp-for="Email"/>
+            <input type="text" asp-for="PatientLocation"/>
+            <input type="text" asp-for="PhoneNumber"/>
+            
+            </br>
+            <input type="submit" value="Submit"/>
+
+
+        </form>
+    </body>
+</html>

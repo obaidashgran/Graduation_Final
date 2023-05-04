@@ -1,0 +1,184 @@
+﻿@model MedAppProject.ViewMoels.PatientDashboardViewModel
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+<title>Booking Form HTML Template</title>
+
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:400" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+
+<!-- Custom stlylesheet -->
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="~/css/SearchDoctor.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/SearchDoctorResult.css" asp-append-version="true">
+     
+		 
+	<div id="booking" class="section">
+		
+		<div class="section-center">
+			<div class="container">
+				<div class="row">
+					<div class="booking-form">
+						<form asp-controller="Patient" asp-action="SearchForDoctors" method="post" style="height:100px;width:1200px;margin-top:-350px;margin-right:250px
+;background-color:#1e88e5">
+						<input asp-for="PatientInfo.Id" value="@Model.PatientInfo.Id" hidden> 
+						<div class="row no-margin">
+							<div class="col-md-3" style="width:250px">
+								<div class="form-group">
+									<span class="form-label">Doctor Name</span>
+									<input style="color:white" class="form-control" type="search" placeholder="Write Doctor name" name="searchBox">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row no-margin">
+									<div class="col-md-5" style="width:200px;margin-left:-25px">
+										<div class="form-group">
+											<span class="form-label">Specialization</span>
+												<select class="form-control" asp-items="@(new SelectList(Model.Specializations,"Id", "Name"))" asp-for="SelectedSpecialization.Id"
+													required>
+
+												<option style="background-:grey">Select</option>
+										</select>
+										</div>
+									</div>
+									<div class="col-md-5" style="width:150px;margin-left:-50px">
+										<div class="form-group">
+											<span class="form-label">City</span>
+											<select class="form-control" name="city">
+												<option style="background-color:grey" value="">Select City</option>
+												<option style="background-color:grey">ramtha</option>
+												<option style="background-color:grey">amman</option>
+												<option style="background-color:grey">Irbid</option>
+												<option style="background-color:grey">Zarqa</option>
+												<option style="background-color:grey">Aqaba</option>
+												<option style="background-color:grey">Al-Taybeh</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-5" style="width:250px;margin-top:-135px;margin-left:350px">
+										<div class="form-group">
+											<span class="form-label">Date</span>
+											<input class="form-control" type="date" name="date">
+										</div>
+									</div>
+									<div class="col-md-2" style="width:100px;margin-top:-135px;margin-left:600px">
+										<div class="form-group">
+											<span class="form-label">Filter</span>
+											<select class="form-control" name="sort">
+												<option style="background-color:grey">View</option>
+												<option style="background-color:grey">Rate</option>
+												<option style="background-color:grey">Price</option>
+											</select>
+											
+											<span class="select-arrow"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3" style="margin-top:-158px;margin-left:980px">
+								<div class="form-btn">
+									<button class="submit-btn" id="Search" name="Search" style="width:253px;height:100px" type="submit">Search</button>
+								</div>
+							</div>
+					    </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<section class="ftco-section" style="margin-top:-650px">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table-wrap">
+
+					<form asp-controller="Patient" asp-action="MakeAppointment" method="post">
+						<input name="patient" value="@Model.PatientInfo.Id.ToString()" hidden>
+					@foreach (var c in "A")
+					{
+						<table class="table" style="width:1000px">
+							<thead class="thead-primary">
+								<tr>
+									<th>Rate</th>
+									<th>Contact</th><!--to let it empty-->
+									<th>Doctor</th>
+									<th>Fees</th>
+									<th>Available Time</th>
+									<th>City</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+					
+					@foreach(var i in Model.Doctors)
+					{
+	
+						
+							<tbody>
+		 
+						    <tr class="alert" role="alert">
+								
+						    	<td>
+									
+									<input type="hidden" name="id" value="@i.Id.ToString()">
+						    		@i.DoctorRate.ToString()
+						    	</td>
+									<td>
+										@i.PhoneNumber.ToString()
+									</td>
+									<td>
+										<div class="email">
+											<a href="" style="color:black;font-weight:bold">Dr.@(i.FirstName + " " + @i.LastName)</a>
+										</div>
+									</td>
+									<td>@(i.Fees.ToString()) JD</td>
+
+									<td class="quantity">
+										<div class="input-group">
+											<select name="appointment">
+												@{
+													foreach (var x in i.AvailableTime){
+													if(ViewBag.selectedDate.Equals(DateTime.Now.Date))
+														{
+															if(x.Time.Date.Equals(DateTime.Now.Date))
+															{
+																	<option>@x.Time.ToString()</option>
+																}
+															}
+															else
+															{
+																if(x.Time.Date.Equals(DateTime.Parse(ViewBag.selectedDate).Date))
+																{
+																	<option>@x.Time.ToString()</option>
+																}
+															}
+
+													}
+												}
+												
+											</select>
+										</div>
+									</td>
+									<td>@(i.ClincLocation)</td>
+									<td>
+										<button>Confirm Appointment</button>
+									</td>
+									</tr>
+									
+	
+						</tbody>
+				
+						}
+						</table>
+					}
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
