@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 //ttttttttttt
+//test
+//dsdsd
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
