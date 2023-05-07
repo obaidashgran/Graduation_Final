@@ -1,1 +1,8 @@
-﻿<div>hiiiiii</div>
+﻿@model MedAppProject.Models.Doctor;
+<div>@Model.FirstName</div>
+<ul>
+    @foreach(var x in Model.Appointments)
+        {
+            <li>@x.patient.FirstName  @x.bookTime.ToString()</li>
+        }
+</ul>

@@ -1,6 +1,9 @@
 ﻿using MedAppProject.Data;
 using MedAppProject.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+
 namespace MedAppProject.Repositories
 {
     public class MedAppRepository<TEntity> : IMedAppRepository<TEntity> where TEntity : class
@@ -27,10 +30,16 @@ namespace MedAppProject.Repositories
             return user;
         }
 
-        public void Delete(TEntity entity)
+        public void Delete(int id)
         {
-            _entity.Remove(entity);
-            _context.SaveChanges();
+            var entit = _entity.Find(id);
+            if (entit != null)
+            {
+                
+                _entity.Remove(entit);
+                _context.SaveChanges();
+            }
+            
         }
 
         public IEnumerable<TEntity> GetAll()

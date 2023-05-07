@@ -24,8 +24,15 @@
 			<div class="container">
 				<div class="row">
 					<div class="booking-form">
+						
 						<form asp-controller="Patient" asp-action="SearchForDoctors" method="post" style="height:100px;width:1200px;margin-top:-350px;margin-right:250px
 ;background-color:#1e88e5">
+						<input asp-for="Doctors" hidden/> 
+						<input asp-for="PatientInfo" hidden/>
+						<input asp-for="doctorAvailableTimes" hidden/>
+						<input asp-for="Specializations" hidden/>
+						<input asp-for="SelectedSpecialization" hidden/>
+
 						<input asp-for="PatientInfo.Id" value="@Model.PatientInfo.Id" hidden> 
 						<div class="row no-margin">
 							<div class="col-md-3" style="width:250px">
@@ -87,6 +94,12 @@
 							</div>
 					    </div>
 						</form>
+						@if(ViewData["AppointmentMsg"]!=null)
+							{
+								<div class="alert alert-danger">
+								@ViewData["AppointmentMsg"].ToString()
+								</div>
+							}
 					</div>
 				</div>
 			</div>
@@ -99,6 +112,11 @@
 				<div class="table-wrap">
 
 					<form asp-controller="Patient" asp-action="MakeAppointment" method="post">
+						<input asp-for="Doctors" hidden/> 
+						<input asp-for="PatientInfo.Id" hidden/>
+						<input asp-for="doctorAvailableTimes" hidden/>
+						<input asp-for="Specializations" hidden/>
+						<input asp-for="SelectedSpecialization" hidden/>
 						<input name="patient" value="@Model.PatientInfo.Id.ToString()" hidden>
 					@foreach (var c in "A")
 					{
@@ -133,7 +151,8 @@
 									</td>
 									<td>
 										<div class="email">
-											<a href="" style="color:black;font-weight:bold">Dr.@(i.FirstName + " " + @i.LastName)</a>
+											
+											<a asp-controller="Patient" asp-action="DoctorProfile" asp-route-docID="@i.Id" style="color:black;font-weight:bold">Dr.@(i.FirstName + " " + @i.LastName)</a>
 										</div>
 									</td>
 									<td>@(i.Fees.ToString()) JD</td>
@@ -143,18 +162,21 @@
 											<select name="appointment">
 												@{
 													foreach (var x in i.AvailableTime){
+														
 													if(ViewBag.selectedDate.Equals(DateTime.Now.Date))
 														{
 															if(x.Time.Date.Equals(DateTime.Now.Date))
-															{
-																	<option>@x.Time.ToString()</option>
+																{
+																	
+																	<option value="@x.Id">@x.Time.ToString()</option>
+																	
 																}
 															}
 															else
 															{
 																if(x.Time.Date.Equals(DateTime.Parse(ViewBag.selectedDate).Date))
 																{
-																	<option>@x.Time.ToString()</option>
+																	<option value="@x.Id">@x.Time.ToString()</option>
 																}
 															}
 

@@ -28,7 +28,9 @@ builder.Services.AddAuthentication(
         option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     });
 //builder.Services.AddScoped<IMedAppRepository<VMLogin>, VMLoginRepository>();
-builder.Services.AddScoped<IMedAppRepository<Doctor>, PatientRepository>();
+builder.Services.AddScoped<IMedAppRepository<Doctor>, DoctorRepository>();
+builder.Services.AddScoped<IMedAppRepository<Patient>, PatientRepository>();
+//builder.Services.AddScoped<IMedAppRepository<DoctorAvailableTimes>, DoctorAvailableTimesRepository>();
 builder.Services.AddScoped(typeof(IMedAppRepository<>), typeof(MedAppRepository<>));
 //builder.Services.AddSingleton<VMLoginRepository>();
 var app = builder.Build();
