@@ -18,12 +18,7 @@ namespace MedAppProject.Data
             modelBuilder.HasSequence<int>("UserIdSequence", schema: "shared")
                 .StartsAt(100)
                 .IncrementsBy(1);
-            modelBuilder.Entity<DoctorAvailableTimes>(entity =>
-            {
-                entity.HasOne(e=>e.Doctor)
-                .WithMany(d=>d.AvailableTime)
-                .HasForeignKey(e=>e.DoctorId);
-            });
+            
             modelBuilder.Entity<Doctor>()
                 .Property(d => d.DoctorRate)
                 .HasDefaultValue(0);

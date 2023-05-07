@@ -3,17 +3,16 @@ using MedAppProject.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedAppProject.Repositories
+
 {
-    public class PatientRepository : IMedAppRepository<Patient>
+    public class DoctorAvailableTimesRepository 
     {
-        ApplicationDbContext _db;
-
-        public PatientRepository(ApplicationDbContext db)
+        ApplicationDbContext db;
+        public DoctorAvailableTimesRepository(ApplicationDbContext _db)
         {
-            _db = db;
+            db = _db;
         }
-
-        public void Add(Patient entity)
+        public void Add(DoctorAvailableTimes entity)
         {
             throw new NotImplementedException();
         }
@@ -26,22 +25,22 @@ namespace MedAppProject.Repositories
         public void Delete(int id)
         {
             throw new NotImplementedException();
+            //var av = db.Find(id);
+            //db.Remove(av);
+            //db.SaveChanges();
         }
 
-        public IEnumerable<Patient> GetAll()
+        public IEnumerable<DoctorAvailableTimes> GetAll()
         {
-            var pa = _db.Patients.Include(p => p.DoctorAppointments).ToList();
-            return pa;
+            throw new NotImplementedException();
         }
 
-        public Patient GetById(int id)
+        public DoctorAvailableTimes GetById(int id)
         {
-            var pa = _db.Patients.Include(p => p.DoctorAppointments).SingleOrDefault(a=>a.Id==id);
-            return pa;
-        
+            throw new NotImplementedException();
         }
 
-        public void Update(Patient entity)
+        public void Update(DoctorAvailableTimes entity)
         {
             throw new NotImplementedException();
         }

@@ -7,6 +7,7 @@ namespace MedAppProject.ViewMoels
         public IEnumerable<Specialization> Specializations { get; set; }
         public Specialization SelectedSpecialization { get; set; }
         public IEnumerable<Doctor> Doctors { get; set; }
+        public DoctorAvailableTimes doctorAvailableTimes { get; set; }  
 
     }
 }

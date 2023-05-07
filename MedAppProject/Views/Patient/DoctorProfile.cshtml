@@ -1,0 +1,12 @@
+﻿@model MedAppProject.Models.Doctor;
+
+<div>@(Model.FirstName + " "+ Model.LastName )</div>
+<div>@Model.Fees</div>
+<div>@Model.ClincLocation</div>
+<div>@Model.PhoneNumber</div>
+<ul>
+    @foreach(var a in Model.AvailableTime)
+    {
+        <li>@a.Time</li>
+    }
+</ul>

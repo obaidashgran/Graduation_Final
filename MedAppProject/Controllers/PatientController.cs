@@ -12,15 +12,19 @@ namespace MedAppProject.Controllers
         private readonly IMedAppRepository<Doctor> _doctor;
         private readonly IMedAppRepository<Patient> _patient;
         private readonly IMedAppRepository<DoctorAppointment> _docAppointment;
+        private readonly IMedAppRepository<DoctorAvailableTimes> _docAvilableTime;
 
 
 
-        public PatientController(IMedAppRepository<Specialization> specialization, IMedAppRepository<Doctor> doctor, IMedAppRepository<DoctorAppointment> docAppointment, IMedAppRepository<Patient> patient)
+        public PatientController(IMedAppRepository<Specialization> specialization, IMedAppRepository<Doctor> doctor,
+            IMedAppRepository<DoctorAppointment> docAppointment, IMedAppRepository<Patient> patient,
+            IMedAppRepository<DoctorAvailableTimes> docAvilableTime)
         {
             _specialization = specialization;
             _doctor = doctor;
             _docAppointment = docAppointment;
             _patient = patient;
+            _docAvilableTime = docAvilableTime;
         }
 
         // GET: PatientController
@@ -43,6 +47,7 @@ namespace MedAppProject.Controllers
 
             else
             {
+                
                 modelSort.Doctors = _doctor.GetAll().Where(x => x.DoctorSpecialization.Id.Equals(modelSort.SelectedSpecialization.Id)).ToList();
             }
                 
@@ -79,18 +84,44 @@ namespace MedAppProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult MakeAppointment([FromForm] string patient, [FromForm] string appointment , [FromForm] string id)
+        public ActionResult MakeAppointment([FromForm] string patient, [FromForm] string appointment ,
+            [FromForm] string id ,PatientDashboardViewModel model)
         {
-            DoctorAppointment doctopApp = new DoctorAppointment()
+            Patient patientChek = _patient.GetById(int.Parse(patient));
+            DateTime times = _docAvilableTime.GetById(int.Parse(appointment)).Time;
+            var av = patientChek.DoctorAppointments.SingleOrDefault(a=>a.bookTime.Equals(times));
+            ViewData["AppointmentMsg"] = null;
+            if (av == null)
             {
-                patient = _patient.GetById(int.Parse(patient)),
-                bookTime = DateTime.Parse(appointment),
-                Doctor = _doctor.GetById(int.Parse(id))
+                //create DocApp obj to add 
+                DoctorAppointment doctopApp = new DoctorAppointment()
+                {
+                    patient = _patient.GetById(int.Parse(patient)),
+                    bookTime = _docAvilableTime.GetById(int.Parse(appointment)).Time,
+                    Doctor = _doctor.GetById(int.Parse(id))
 
-            };
-            _docAppointment.Add(doctopApp);
+                };
+
+
+                //remove from available time
+                _docAvilableTime.Delete(int.Parse(appointment));
+                //add to docApp
+                _docAppointment.Add(doctopApp);
+            }
+            else
+            {
+                ViewData["AppointmentMsg"] = "You have an appointment in this time , please try again!";
+            }
             
-            return View("~/Views/Doctor/Index.cshtml");
+            model.Specializations= _specialization.GetAll().ToList();
+            return View("~/Views/Patient/Index.cshtml", model);
+
+        }
+        public ActionResult DoctorProfile()
+        {
+            string docId = Request.Query["docId"];
+           var doc =  _doctor.GetById(int.Parse(docId));
+            return View(doc);
         }
 
 
