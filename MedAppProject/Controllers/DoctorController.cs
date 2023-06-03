@@ -1,10 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MedAppProject.Models;
+using MedAppProject.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedAppProject.Controllers
 {
     public class DoctorController : Controller
     {
+        private readonly IMedAppRepository<Doctor> _doctor;
+
+        public DoctorController(IMedAppRepository<Doctor> doctor)
+        {
+            _doctor = doctor;
+        }
+
+
+
         // GET: DoctorController
         public ActionResult Index()
         {
@@ -21,6 +32,12 @@ namespace MedAppProject.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+        public ActionResult spesificDate([FromForm]string date, Doctor model)
+        {
+            var doc = _doctor.GetAll();
+            
+            return View("~/Views/Doctor/TestPage.cshtml");
         }
 
         // POST: DoctorController/Create

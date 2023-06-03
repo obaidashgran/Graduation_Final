@@ -75,7 +75,7 @@ namespace MedAppProject.Controllers
             }
             else
             {
-                modelSort.Doctors = modelSort.Doctors.Where(d => d.AvailableTime.Any(a => a.Time.Date.Equals(DateTime.Now.Date))).ToList();
+                modelSort.Doctors = modelSort.Doctors.Where(d => d.AvailableTime.Any(a => a.Time.Date>=DateTime.Now.Date)).ToList();
                 
             }
 

@@ -1,0 +1,6 @@
+﻿@model MedAppProject.Models.Patient;
+@foreach(var p in Model.DoctorAppointments)
+{
+    <div>@p.bookTime</div>
+    <div>@p.Doctor.FirstName</div>
+}

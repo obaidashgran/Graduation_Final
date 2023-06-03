@@ -151,7 +151,7 @@
 									</td>
 									<td>
 										<div class="email">
-											
+											<!--  الانتقال -->
 											<a asp-controller="Patient" asp-action="DoctorProfile" asp-route-docID="@i.Id" style="color:black;font-weight:bold">Dr.@(i.FirstName + " " + @i.LastName)</a>
 										</div>
 									</td>
@@ -165,7 +165,7 @@
 														
 													if(ViewBag.selectedDate.Equals(DateTime.Now.Date))
 														{
-															if(x.Time.Date.Equals(DateTime.Now.Date))
+															if(x.Time.Date>=DateTime.Now.Date)
 																{
 																	
 																	<option value="@x.Id">@x.Time.ToString()</option>
