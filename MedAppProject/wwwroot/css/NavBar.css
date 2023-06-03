@@ -1,0 +1,37 @@
+﻿*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+.bg{
+    background-color:dodgerblue;
+}
+.navbar {
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin:0;
+
+}
+#NavBarL{
+    width:100%;
+    
+}
+.navbar-toggler:focus{
+    box-shadow:none;
+}
+@media(max-width:767px){
+    .ul-bg {
+        background-color: dodgerblue;
+    }
+}
+nav .nav-item a:hover{
+    color:white !important
+}
+.navbar-brand {
+    font-family: 'Lato', sans-serif;
+    color: grey;
+    font-size: 50px;
+    margin: 0px;
+}

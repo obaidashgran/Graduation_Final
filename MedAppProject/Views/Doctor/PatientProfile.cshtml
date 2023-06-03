@@ -1,0 +1,630 @@
+﻿@{
+	Layout = null;
+}
+<!DOCTYPE html> 
+<html lang="en">
+	<head>
+	<title>@ViewData["Title"] - MedAppProject</title>
+		<meta charset="utf-8">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+		<!-- Favicons -->
+
+	<link href="~/assets/img/favicon.png" rel="icon" />
+	<!-- Bootstrap CSS -->
+
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css" />
+	<!-- Fontawesome CSS -->
+
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css" />
+
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css" />
+	<!-- Feathericon CSS -->
+
+	<link rel="stylesheet" href="~/assets/css/feather.css" />
+	<!-- Main CSS -->
+
+	<link rel="stylesheet" href="~/assets/css/custom.css" />
+
+	</head>
+	<body>
+
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+
+			<!-- Header -->
+
+		<header class="header header-fixed header-one">
+			<div class="container">
+				<nav class="navbar navbar-expand-lg header-nav">
+					<div class="navbar-header">
+						<a id="mobile_btn" href="javascript:void(0);">
+							<span class="bar-icon">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</a>
+						<a asp-action="Index" asp-controller="Doctor" class="navbar-brand logo">
+							<img src="~/Images/websiteLogo.png" class="img-fluid" alt="Logo">
+						</a>
+					</div>
+					<div class="main-menu-wrapper">
+						<div class="menu-header">
+							<a href="index.html" class="menu-logo">
+								<img src="~/Images/websiteLogo.png" class="img-fluid" alt="Logo">
+							</a>
+							<a id="menu_close" class="menu-close" href="javascript:void(0);">
+								<i class="fas fa-times"></i>
+							</a>
+						</div>
+						<ul class="main-nav">
+							<li class="has-submenu ">
+								<a href="">Home <i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a asp-action="Index" asp-controller="Doctor">Home</a></li>
+								</ul>
+							</li>
+							<li class="has-submenu active">
+								<a href="javascript:void(0);">View<i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a asp-action="Index" asp-controller="Doctor">Dashboard</a></li>
+									<li class="active"><a asp-action="Appointments" asp-controller="Doctor">My Appointments</a></li>
+									<li><a asp-action="MyPatients" asp-controller="Doctor">My Patients</a></li>
+									<li><a asp-action="AddAvailableTimes" asp-controller="Doctor">Add available time</a></li>
+
+								</ul>
+							</li>
+
+
+							<li class="has-submenu">
+								<a href="javascript:void(0);">Pages <i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="about-us.html">About Us</a></li>
+									<li><a href="contact-us.html">Contact Us</a></li>
+
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<ul class="nav header-navbar-rht">
+
+
+
+
+
+
+
+						<!-- Notifications -->
+						<li class="nav-item dropdown noti-nav me-3 pe-0">
+							<a href="#" class="dropdown-toggle nav-link p-0" data-bs-toggle="dropdown">
+								<i class="fa-solid fa-bell"></i> <span class="badge">0</span>
+							</a>
+							<div class="dropdown-menu notifications dropdown-menu-end ">
+								<div class="topnav-dropdown-header">
+									<span class="notification-title">Notifications</span>
+								</div>
+								<div class="noti-content">
+									<ul class="notification-list">
+										<li class="notification-message">
+											<a href="#">
+												<div class="media d-flex">
+													<span class="avatar">
+														<img class="avatar-img" alt="" src="assets/img/clients/client-01.jpg">
+													</span>
+													<div class="media-body">
+														<h6>Travis Tremble <span class="notification-time">18.30 PM</span></h6>
+														<p class="noti-details">No notification yet.<span class="noti-title">Dr.Ruby perin </span></p>
+													</div>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<!-- /Notifications -->
+						<!-- User Menu -->
+						<li class="nav-item dropdown has-arrow logged-item">
+							<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+								<span class="user-img">
+									<i class="fa-solid fa-user-doctor fa-beat-fade fa-xl" style="color: #4d8eff;"></i>
+								</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<div class="user-header">
+									<div class="avatar avatar-sm">
+										<i class="fa-solid fa-user-doctor"></i>
+									</div>
+									<div class="user-text">
+										<h6>Darren Elder</h6>
+										<p class="text-muted mb-0">Doctor</p>
+									</div>
+								</div>
+								<a class="dropdown-item" href="doctor-dashboard.html">Profile</a>
+								<a class="dropdown-item" href="doctor-profile-settings.html">Profile Settings</a>
+								<a class="dropdown-item" href="login.html">Sign out</a>
+							</div>
+						</li>
+						<!-- /User Menu -->
+
+					</ul>
+				</nav>
+			</div>
+		</header>
+					
+			<!-- /Header -->
+
+			<!-- Breadcrumb -->
+			<div class="breadcrumb-bar-two">
+				<div class="container">
+					<div class="row align-items-center inner-banner">
+						<div class="col-md-12 col-12 text-center">
+							<h2 class="breadcrumb-title">Profile</h2>
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Doctor">Home</a></li>
+									<li class="breadcrumb-item" aria-current="page">Profile</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->
+
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container">
+
+					<div class="row">
+						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar dct-dashbd-lft">
+
+							<!-- Profile Widget -->
+							<div class="card widget-profile pat-widget-profile">
+								<div class="card-body">
+									<div class="pro-widget-content">
+										<div class="profile-info-widget">
+											<a href="#" class="booking-doc-img">
+												<img src="~/Images/patient.png" alt="User Image">
+											</a>
+											<div class="profile-det-info">
+												<h3>Richard Wilson</h3>
+
+												<div class="patient-details">
+													<h5><b>Patient ID :</b> PT0016</h5>
+													<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, United States</h5>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="patient-info">
+										<ul>
+											<li>Phone <span>+1 952 001 8563</span></li>
+											<li>Age <span>38 Years, Male</span></li>
+											<li>Blood Group <span>AB+</span></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- /Profile Widget -->
+
+							<!-- Last Booking -->
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">Last Booking</h4>
+								</div>
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">
+										<div class="media align-items-center d-flex">
+											<div class="me-3 flex-shrink-0">
+												<img alt="Image placeholder" src="~/Images/drImage.png" class="avatar  rounded-circle">
+											</div>
+											<div class="media-body flex-grow-1">
+												<h5 class="d-block mb-0">Dr. Darren Elder </h5>
+												<span class="d-block text-sm text-muted">Dentist</span>
+												<span class="d-block text-sm text-muted">14 Nov 2019 5.00 PM</span>
+											</div>
+										</div>
+									</li>
+									
+								</ul>
+							</div>
+							<!-- /Last Booking -->
+
+						</div>
+
+						<div class="col-md-7 col-lg-8 col-xl-9 dct-appoinment">
+							<div class="card">
+								<div class="card-body pt-0">
+									<div class="user-tabs">
+										<ul class="nav nav-tabs nav-tabs-bottom nav-justified flex-wrap">
+											<li class="nav-item">
+												<a class="nav-link active" href="#pat_appointments" data-bs-toggle="tab">Appointments</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#pres" data-bs-toggle="tab"><span>Prescription</span></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#medical" data-bs-toggle="tab"><span class="med-records">Medical Records</span></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#billing" data-bs-toggle="tab"><span>Billing</span></a>
+											</li> 
+										</ul>
+									</div>
+									<div class="tab-content">
+
+										<!-- Appointment Tab -->
+										<div id="pat_appointments" class="tab-pane fade show active">
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>Doctor</th>
+																	<th>Appt Date</th>
+																	<th>Booking Date</th>
+																	<th>Amount</th>
+																	<th>Follow Up</th>
+																	<th>Status</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>
+																		<h2 class="table-avatar">
+																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
+																			</a>
+																			<a href="doctor-profile.html">Dr. Darren Elder <span>Dental</span></a>
+																		</h2>
+																	</td>
+																	<td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
+																	<td>12 Nov 2019</td>
+																	<td>$160</td>
+																	<td>16 Nov 2019</td>
+																	<td><span class="badge rounded-pill bg-success-light">Confirm</span></td>
+																	<td class="text-end">
+																		<div class="table-action">
+																			<a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+																				<i class="far fa-edit"></i> Edit
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+																
+																
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Appointment Tab -->
+
+										<!-- Prescription Tab -->
+										<div class="tab-pane fade" id="pres">
+											<div class="text-end">
+												<a asp-action="AddPrescription" asp-controller="Doctor" class="add-new-btn">Add Prescription</a>
+											</div>
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>Date </th>
+																	<th>Name</th>									
+																	<th>Created by </th>
+																	<th></th>
+																</tr>     
+															</thead>
+															<tbody>
+																<tr>
+																	<td>14 Nov 2019</td>
+																	<td>Prescription 1</td>
+																	<td>
+																		<h2 class="table-avatar">
+																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
+																			</a>
+																			<a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
+																		</h2>
+																	</td>
+																	<td class="text-end">
+																		<div class="table-action">
+																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+																				<i class="fas fa-print"></i> Print
+																			</a>
+																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> View
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+																
+															</tbody>	
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Prescription Tab -->
+
+										<!-- Medical Records Tab -->
+										<div class="tab-pane fade" id="medical">
+											<div class="text-end">		
+												<a href="#" class="add-new-btn" data-bs-toggle="modal" data-bs-target="#add_medical_records">Add Medical Records</a>
+											</div>
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>ID</th>
+																	<th>Date </th>
+																	<th>Description</th>
+																	<th>Attachment</th>
+																	<th>Created</th>
+																	<th></th>
+																</tr>     
+															</thead>
+															<tbody>
+																<tr>
+																	<td><a href="javascript:void(0);">#MR-0010</a></td>
+																	<td>14 Nov 2019</td>
+																	<td>Dental Filling</td>
+																	<td><a href="#">dental-test.pdf</a></td>
+																	<td>
+																		<h2 class="table-avatar">
+																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
+																			</a>
+																			<a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
+																		</h2>
+																	</td>
+																	<td class="text-end">
+																		<div class="table-action">
+																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+																				<i class="fas fa-print"></i> Print
+																			</a>
+																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> View
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+															
+																
+															</tbody>  	
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Medical Records Tab -->
+
+										<!-- Billing Tab -->
+										<div class="tab-pane" id="billing">
+											<div class="text-end">
+												<a class="add-new-btn" href="add-billing.html">Add Billing</a>
+											</div>
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>Invoice No</th>
+																	<th>Doctor</th>
+																	<th>Amount</th>
+																	<th>Paid On</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>
+																		<a href="invoice-view.html">#INV-0010</a>
+																	</td>
+																	<td>
+																		<h2 class="table-avatar">
+																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
+																			</a>
+																			<a href="doctor-profile.html">Ruby Perrin <span>Dental</span></a>
+																		</h2>
+																	</td>
+																	<td>$450</td>
+																	<td>14 Nov 2019</td>
+																	<td class="text-end">
+																		<div class="table-action">
+																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+																				<i class="fas fa-print"></i> Print
+																			</a>
+																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> View
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+																
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Billing Tab -->
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+
+			<!-- Footer -->
+		<footer class="footer footer-one">
+			<div class="footer-top aos" data-aos="fade-up">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-4">
+							<div class="footer-widget footer-about">
+								<div class="footer-logo">
+									<img src="~/Images/websiteLogo.png" alt="logo">
+								</div>
+								<div class="footer-about-content">
+									<p>Don't waste your time, join MedApp family now and make your life easier.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-4">
+							<div class="footer-widget footer-menu">
+								<h2 class="footer-title">For Patients</h2>
+								<ul>
+									<li><a href="search.html">Search for Doctors</a></li>
+									<li><a href="login.html">Login</a></li>
+									<li><a href="register.html">Register</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-4">
+							<div class="footer-widget footer-menu">
+								<h2 class="footer-title">For Doctors</h2>
+								<ul>
+									<li><a href="appointments.html">Join Us</a></li>
+									<li><a href="login.html">Login</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-5">
+							<div class="footer-widget footer-contact">
+								<h2 class="footer-title">Contact Us</h2>
+								<div class="footer-contact-info">
+
+
+
+									<div class="footer-address">
+										<p><i class="feather-phone-call"></i> +962 79 5697908</p>
+									</div>
+									<div class="footer-address mb-0">
+										<p><i class="feather-mail"></i> medapp@example.com</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-7">
+							<div class="footer-widget">
+								<h2 class="footer-title">Have a problem? let us contact you</h2>
+								<div class="subscribe-form">
+									<form action="#">
+										<input type="email" class="form-control" placeholder="Enter Email">
+										<button type="submit" class="btn">Submit</button>
+									</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<!-- Copyright -->
+					<div class="copyright">
+						<div class="row">
+							<div class="col-md-6 col-lg-6">
+								<div class="copyright-text">
+									<p class="mb-0"> Copyright © 2023  All Rights Reserved</p>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+
+
+
+								<!-- Copyright Menu -->
+								<div class="copyright-menu">
+									<ul class="policy-menu">
+										<li><a href="privacy-policy.html">Privacy Policy</a></li>
+										<li><a href="terms-condition.html">Terms and Conditions</a></li>
+									</ul>
+								</div>
+								<!-- /Copyright Menu -->
+
+
+
+							</div>
+						</div>
+					</div>
+					<!-- /Copyright -->
+				</div>
+			</div>
+		</footer>
+			<!-- /Footer -->
+
+		</div>
+		<!-- /Main Wrapper -->
+
+		<!-- Add Medical Records Modal -->
+		<div class="modal fade custom-modal" id="add_medical_records">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Medical Records</h3>
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<form>					
+						<div class="modal-body">
+							<div class="form-group">
+								<label>Date</label>
+								<input type="text" class="form-control datetimepicker" value="31-10-2019">
+							</div>
+							<div class="form-group">
+								<label>Description ( Optional )</label>
+								<textarea class="form-control"></textarea>
+							</div>
+							<div class="form-group">
+								<label>Upload File</label> 
+								<input type="file" class="form-control">
+							</div>	
+							<div class="submit-section text-center">
+								<button type="submit" class="btn btn-primary submit-btn">Submit</button>
+								<button type="button" class="btn btn-secondary submit-btn" data-bs-dismiss="modal">Cancel</button>							
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- /Add Medical Records Modal -->
+
+		<!-- jQuery -->
+		<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+		<!-- Bootstrap Core JS -->
+		<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+		<!-- Datetimepicker JS -->
+		<script src="~/assets/js/moment.min.js"></script>
+		<script src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
+
+		<!-- Sticky Sidebar JS -->
+		<script src="~/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+		<script src="~/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+		<!-- Custom JS -->
+	<script src="~/assets/js/script.js"></script>
+
+	</body>
+</html>

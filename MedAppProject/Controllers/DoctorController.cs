@@ -16,9 +16,29 @@ namespace MedAppProject.Controllers
         {
             return View();
         }
+		public ActionResult MyPatients()
+		{
+			return View();
+		}
+		public ActionResult Appointments()
+		{
+			return View();
+		}
+		public ActionResult AddAvailableTimes()
+		{
+			return View();
+		}
+		public ActionResult PatientProfile()
+		{
+			return View();
+		}
+		public ActionResult AddPrescription()
+		{
+			return View();
+		}
 
-        // GET: DoctorController/Create
-        public ActionResult Create()
+		// GET: DoctorController/Create
+		public ActionResult Create()
         {
             return View();
         }
