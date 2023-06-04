@@ -1,4 +1,5 @@
-﻿@{
+﻿@model MedAppProject.ViewModels.PatientProfileForDoc;
+@{
 	Layout = null;
 }
 <!DOCTYPE html> 
@@ -190,19 +191,19 @@
 												<img src="~/Images/patient.png" alt="User Image">
 											</a>
 											<div class="profile-det-info">
-												<h3>Richard Wilson</h3>
+												<h3>@Model.Patient.FirstName</h3>
 
 												<div class="patient-details">
-													<h5><b>Patient ID :</b> PT0016</h5>
-													<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, United States</h5>
+													<h5><b>Patient ID :</b> @Model.Patient.Id</h5>
+													<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i>@Model.Patient.PatientLocation</h5>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="patient-info">
 										<ul>
-											<li>Phone <span>+1 952 001 8563</span></li>
-											<li>Age <span>38 Years, Male</span></li>
+											<li>Phone <span>@Model.Patient.PhoneNumber</span></li>
+											<li>Age <span>30</span></li>
 											<li>Blood Group <span>AB+</span></li>
 										</ul>
 									</div>
@@ -274,18 +275,22 @@
 																</tr>
 															</thead>
 															<tbody>
+																@foreach(var x in @Model.Patient.DoctorAppointments)
+																{
+																
+															
 																<tr>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">Dr. Darren Elder <span>Dental</span></a>
+																			<a href="doctor-profile.html">Dr.@x.Doctor.FirstName @x.Doctor.LastName <span>Dental</span></a>
 																		</h2>
 																	</td>
 																	<td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
-																	<td>12 Nov 2019</td>
-																	<td>$160</td>
+																	<td>@x.bookTime.ToString()</td>
+																	<td>@Model.Doctor.Fees.ToString()</td>
 																	<td>16 Nov 2019</td>
 																	<td><span class="badge rounded-pill bg-success-light">Confirm</span></td>
 																	<td class="text-end">
@@ -296,7 +301,7 @@
 																		</div>
 																	</td>
 																</tr>
-																
+																}
 																
 															</tbody>
 														</table>
@@ -309,7 +314,7 @@
 										<!-- Prescription Tab -->
 										<div class="tab-pane fade" id="pres">
 											<div class="text-end">
-												<a asp-action="AddPrescription" asp-controller="Doctor" class="add-new-btn">Add Prescription</a>
+												<a asp-action="AddPrescription" asp-controller="Doctor" asp-route-patId="@Model.Patient.Id" class="add-new-btn">Add Prescription</a>
 											</div>
 											<div class="card card-table mb-0">
 												<div class="card-body">
@@ -324,15 +329,19 @@
 																</tr>     
 															</thead>
 															<tbody>
+																@foreach(var a in @Model.Patient.Prescription)
+																{	
+																
+															
 																<tr>
 																	<td>14 Nov 2019</td>
-																	<td>Prescription 1</td>
+																	<td>@a.MedName</td>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
+																			<a href="doctor-profile.html">Dr. @a.Doctor.FirstName @a.Doctor.LastName <span></span></a>
 																		</h2>
 																	</td>
 																	<td class="text-end">
@@ -346,7 +355,7 @@
 																		</div>
 																	</td>
 																</tr>
-																
+																}
 															</tbody>	
 														</table>
 													</div>

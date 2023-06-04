@@ -27,6 +27,15 @@ builder.Services.AddAuthentication(
         option.LoginPath = "/Access/Login";
         option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     });
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    // Set the session timeout value (optional)
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 //builder.Services.AddScoped<IMedAppRepository<VMLogin>, VMLoginRepository>();
 builder.Services.AddScoped<IMedAppRepository<Doctor>, DoctorRepository>();
 builder.Services.AddScoped<IMedAppRepository<Patient>, PatientRepository>();
@@ -51,7 +60,7 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
-
+app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Access}/{action=Login}/{id?}");

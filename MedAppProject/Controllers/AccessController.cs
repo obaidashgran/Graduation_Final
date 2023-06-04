@@ -104,7 +104,8 @@ namespace MedAppProject.Controllers
                 else if (isValid.RoleId == Role.Doctor)
                 {
                     var doc = _doctor.GetById(isValid.userId);
-                    return View("~/Views/Doctor/Index.cshtml", doc);
+                    return RedirectToAction("AddDataToSession", "Doctor", doc);
+                    //return View("~/Views/Doctor/Index.cshtml", doc);
                 }
                 else if (isValid.RoleId == Role.Pharmacy)
                 {

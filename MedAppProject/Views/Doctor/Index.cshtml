@@ -11,21 +11,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 	<title>@ViewData["Title"] - MedAppProject</title>
 	<!-- Favicons -->
-	<link href="assets/img/favicon.png" rel="icon">
+	<link href="/assets/img/favicon.png" rel="icon">
 	<link href="~/assets/img/favicon.png" rel="icon" />
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-	<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
 
 	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="assets/css/feather.css">
+	<link rel="stylesheet" href="/assets/css/feather.css">
 
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/custom.css">
+	<link rel="stylesheet" href="/assets/css/custom.css">
 
 </head>
 <body>
@@ -185,7 +185,11 @@
 										<img src="~/Images/drImage.png" alt="User Image">
 									</a>
 									<div class="profile-det-info">
-										<h3>Dr.@Model.FirstName @Model.LastName</h3>
+										<h3>Dr.@if(Model.FirstName!=null && Model.LastName!=null){
+											@Model.FirstName @Model.LastName
+											}
+
+										</h3>
 
 										@*<div class="patient-details">
 											<h5 class="mb-0">@Model.DoctorSpecialization.Name</h5>
@@ -301,7 +305,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a asp-action="PatientProfile" asp-controller="Doctor" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image"></a>
-																					<a asp-action="PatientProfile" asp-controller="Doctor">@x.patient.FirstName @x.patient.LastName ></a>
+																				<a asp-route-paId="@x.patient.Id" asp-action="PatientProfile" asp-controller="Doctor">@x.patient.FirstName @x.patient.LastName</a>
 																		</h2>
 																	</td>
 																	<td>@x.bookTime.ToString()</td>
