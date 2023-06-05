@@ -30,9 +30,9 @@ namespace MedAppProject.Repositories
             return user;
         }
 
-        public void Delete(int id)
+        public void Delete(TEntity entity)
         {
-            var entit = _entity.Find(id);
+            var entit = _entity.Find(entity);
             if (entit != null)
             {
                 
@@ -41,6 +41,7 @@ namespace MedAppProject.Repositories
             }
             
         }
+        
 
         public IEnumerable<TEntity> GetAll()
         {

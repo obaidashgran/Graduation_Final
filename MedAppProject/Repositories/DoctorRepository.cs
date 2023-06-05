@@ -24,7 +24,7 @@ namespace MedAppProject.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(Doctor entity)
         {
             //var a = db.Find(id);
             throw new NotImplementedException();

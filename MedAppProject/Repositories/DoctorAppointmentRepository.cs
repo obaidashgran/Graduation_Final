@@ -6,6 +6,7 @@ namespace MedAppProject.Repositories
 {
     public class DoctorAppointmentRepository : IMedAppRepository<DoctorAppointment>
     {
+        
         ApplicationDbContext _db;
 
         public DoctorAppointmentRepository(ApplicationDbContext db)
@@ -23,9 +24,14 @@ namespace MedAppProject.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(DoctorAppointment entity)
         {
-            throw new NotImplementedException();
+            if (entity != null)
+            {
+
+                _db.Remove(entity);
+                _db.SaveChanges();
+            }
         }
 
         public IEnumerable<DoctorAppointment> GetAll()

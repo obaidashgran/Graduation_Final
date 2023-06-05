@@ -5,7 +5,7 @@ namespace MedAppProject.Repositories
     {
         Task<VMLogin> CheckCredentialsAsync(string email, string password);
         void Add(TEntity entity);
-        void Delete(int id);
+        void Delete(TEntity entity);
         void Update(TEntity entity);
         IEnumerable<TEntity> GetAll();
         TEntity GetById(int id);

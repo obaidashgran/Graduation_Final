@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using MedAppProject.Models;
 using Microsoft.AspNetCore.Identity;
+using MedAppProject.AutoRunningClasses;
 
 var builder = WebApplication.CreateBuilder(args);
 //ttttttttttt
@@ -36,12 +37,17 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+
+
 //builder.Services.AddScoped<IMedAppRepository<VMLogin>, VMLoginRepository>();
 builder.Services.AddScoped<IMedAppRepository<Doctor>, DoctorRepository>();
 builder.Services.AddScoped<IMedAppRepository<Patient>, PatientRepository>();
+//builder.Services.AddScoped<IMedAppRepository<DoctorAppointment>, DoctorAppointmentRepository>();
 //builder.Services.AddScoped<IMedAppRepository<DoctorAvailableTimes>, DoctorAvailableTimesRepository>();
 builder.Services.AddScoped(typeof(IMedAppRepository<>), typeof(MedAppRepository<>));
+
 //builder.Services.AddSingleton<VMLoginRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -23,7 +23,7 @@ namespace MedAppProject.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(Patient entity)
         {
             throw new NotImplementedException();
         }

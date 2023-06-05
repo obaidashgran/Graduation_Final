@@ -304,8 +304,8 @@
 																	
 																	<td>
 																		<h2 class="table-avatar">
-																			<a asp-action="PatientProfile" asp-controller="Doctor" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image"></a>
-																				<a asp-route-paId="@x.patient.Id" asp-action="PatientProfile" asp-controller="Doctor">@x.patient.FirstName @x.patient.LastName</a>
+																			<a asp-route-paId="@x.patient.Id" asp-action="PatientProfile" asp-controller="Doctor" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image">@x.patient.FirstName @x.patient.LastName</a>
+																				
 																		</h2>
 																	</td>
 																	<td>@x.bookTime.ToString()</td>

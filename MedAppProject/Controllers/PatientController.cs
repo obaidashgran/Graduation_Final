@@ -104,7 +104,8 @@ namespace MedAppProject.Controllers
 
 
                 //remove from available time
-                _docAvilableTime.Delete(int.Parse(appointment));
+                var dv = _docAvilableTime.GetById(int.Parse(appointment));
+                _docAvilableTime.Delete(dv);
                 //add to docApp
                 _docAppointment.Add(doctopApp);
             }
