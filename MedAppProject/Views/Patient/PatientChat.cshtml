@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+@{
+	Layout = null;
+}
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+	<!-- Favicons -->
+	
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="~/assets/css/feather.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/assets/css/custom.css">
+
+</head>
+<body class="chat-page">
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		<header class="header header-fixed header-one">
+			<div class="container">
+				<nav class="navbar navbar-expand-lg header-nav">
+					<div class="navbar-header">
+						<a id="mobile_btn" href="javascript:void(0);">
+							<span class="bar-icon">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</a>
+						<a href="index.html" class="navbar-brand logo">
+							<img src="~/Images/websiteLogo.png" class="img-fluid" alt="Logo" width="201px" height="100px">
+						</a>
+					</div>
+					<div class="main-menu-wrapper">
+						<div class="menu-header">
+							<a href="index.html" class="menu-logo">
+								<img src="~/Images/websiteLogo.png" class="img-fluid" alt="Logo">
+							</a>
+							<a id="menu_close" class="menu-close" href="javascript:void(0);">
+								<i class="fas fa-times"></i>
+							</a>
+						</div>
+						<ul class="main-nav">
+							<li class="has-submenu ">
+								<a href="">Home <i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="index.html">Home</a></li>
+								</ul>
+							</li>
+							<li class="has-submenu">
+								<a href="javascript:void(0);">Reservations<i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="">Doctor reservation</a></li>
+									<li><a href="">Lab reservations</a></li>
+								</ul>
+							</li>
+							<li class="has-submenu">
+								<a href="javascript:void(0);">Search<i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="">Search doctor </a></li>
+									<li><a href="">Search Lab </a></li>
+								</ul>
+							</li>
+							<li class="has-submenu">
+								<a href="javascript:void(0);">Patient<i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="">Profile</a></li>
+									<li><a href="">Edit profile</a></li>
+								</ul>
+							</li>
+
+
+
+							<li class="has-submenu">
+								<a href="javascript:void(0);">Pages <i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="about-us.html">About Us</a></li>
+									<li><a href="contact-us.html">Contact Us</a></li>
+								</ul>
+							</li>
+							</ul>
+					</div>
+					<ul class="nav header-navbar-rht">
+
+						<!-- Cart -->
+						<!-- /Cart -->
+						<!-- Notifications -->
+						<li class="nav-item dropdown noti-nav me-3 pe-0">
+							<a href="#" class="dropdown-toggle nav-link p-0" data-bs-toggle="dropdown">
+								<i class="fa-solid fa-bell"></i> <span class="badge">0</span>
+							</a>
+							<div class="dropdown-menu notifications dropdown-menu-end ">
+								<div class="topnav-dropdown-header">
+									<span class="notification-title">Notifications</span>
+								</div>
+								<div class="noti-content">
+									<ul class="notification-list">
+										<li class="notification-message">
+											<a href="#">
+												<div class="media d-flex">
+													<span class="avatar">
+														<i class="fa-solid fa-bell fa-fade fa-2xl" style="color: #6f9deb;"></i>
+													</span>
+													<div class="media-body">
+														<h6>Travis Tremble <span class="notification-time">Time and Date</span></h6>
+														<p class="noti-details">No notification yet.<span class="noti-title"></span></p>
+													</div>
+												</div>
+											</a>
+										</li>
+
+									</ul>
+								</div>
+							</div>
+						</li>
+						<!-- /Notifications -->
+						<!-- User Menu -->
+						<li class="nav-item dropdown has-arrow logged-item">
+							<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+								<span class="user-img">
+									<i class="fa-solid fa-user fa-beat-fade fa-xl" style="color: #5189ec;"></i>
+								</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<div class="user-header">
+									<div class="avatar avatar-sm">
+										<i class="fa-solid fa-user fa-lg" style="color: #5189ec;"></i>
+									</div>
+									<div class="user-text">
+										<!--Fill here-->	<h6>Patient Name</h6>
+									</div>
+								</div>
+								<a class="dropdown-item" href="doctor-dashboard.html">Profile</a>
+								<a class="dropdown-item" href="profile-settings.html">Profile Settings</a>
+								<a class="dropdown-item" href="login.html">Logout</a>
+							</div>
+						</li>
+						<!-- /User Menu -->
+
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<!-- /Header -->
+		<!-- Page Content -->
+		<div class="content top-space">
+			<div class="container-fluid px-0">
+				<div class="row">
+					<div class="col-xl-12">
+						<div class="chat-window">
+
+							<!-- Chat Left -->
+							<div class="chat-cont-left" style="margin-top:-213px">
+								<div class="chat-header">
+									<span>Chats</span>
+									<a href="javascript:void(0)" class="chat-compose">
+										<i class="material-icons"></i>
+									</a>
+								</div>
+								<form class="chat-search">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<i class="fas fa-search"></i>
+										</div>
+										<input type="text" class="form-control rounded-pill" placeholder="Search">
+									</div>
+								</form>
+								<div class="chat-users-list">
+									<div class="chat-scroll">
+										<a href="javascript:void(0);" class="media read-chat d-flex">
+											<div class="media-img-wrap flex-shrink-0">
+												<div class="avatar avatar-away">
+													<i class="fa-solid fa-message" style="color: #669af4;"></i>
+												</div>
+											</div>
+											<div class="media-body flex-grow-1">
+												<div>
+													<div class="user-name">MedApp</div>
+													<div class="user-last-chat">Welcome to MedApp</div>
+												</div>
+												<div>
+													<div class="last-chat-time block"><!--fill here-->Date,time</div>
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- /Chat Left -->
+							<!-- Chat Right -->
+							<div class="chat-cont-right">
+								<div class="chat-header">
+
+									<div class="media d-flex">
+										<div class="media-img-wrap flex-shrink-0">
+											<div class="avatar ">
+												<i class="fa-regular fa-user fa-2xl" style="color: #5c92f0; margin-top:25px"></i>
+											</div>
+										</div>
+										<div class="media-body flex-grow-1">
+											<div class="user-name">MedApp</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="chat-body">
+									<div class="chat-scroll">
+										<ul class="list-unstyled">
+											<li class="media sent d-flex">
+												<div class="media-body flex-grow-1">
+													<div class="msg-box">
+														<div>
+															<p>Welcome to MedApp</p>
+															<ul class="chat-msg-info">
+																<li>
+																	<div class="chat-time">
+																		<span>time</span>
+																	</div>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="chat-footer">
+									<div class="input-group">
+
+										<input type="text" class="input-msg-send form-control rounded-pill" placeholder="Type something">
+										<button type="button" class="btn msg-send-btn rounded-pill ms-2"><i class="fab fa-telegram-plane"></i></button>
+									</div>
+								</div>
+							</div>
+							<!-- /Chat Right -->
+
+						</div>
+					</div>
+				</div>
+				<!-- /Row -->
+
+			</div>
+
+		</div>
+		<!-- /Page Content -->
+
+
+
+	</div>
+	<!-- /Main Wrapper -->
+	<!-- jQuery -->
+	<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Custom JS -->
+	<script src="~/assets/js/script.js"></script>
+
+</body>
+</html>

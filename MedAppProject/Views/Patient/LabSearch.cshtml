@@ -1,0 +1,431 @@
+﻿@model MedAppProject.ViewMoels.PatientDashboardViewModel
+<!DOCTYPE html>
+@{
+	Layout = null;
+}
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - MedAppProject</title>
+
+	<!-- Favicon -->
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="/assets/css/feather.css">
+
+	<!-- Datepicker CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap-datetimepicker.min.css">
+
+	<!-- Owl Carousel CSS -->
+	<link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+
+	<!-- Animation CSS -->
+	<link rel="stylesheet" href="~/assets/css/aos.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/assets/css/custom.css">
+
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		<header class="header header-fixed header-one">
+			<div class="container">
+				<nav class="navbar navbar-expand-lg header-nav">
+					<div class="navbar-header">
+						<a id="mobile_btn" href="javascript:void(0);">
+							<span class="bar-icon">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</a>
+						<a href="index.html" class="navbar-brand logo">
+							<img src="~/assets/img/websiteLogo.png" class="img-fluid" alt="Logo" width="201px" height="100px">
+						</a>
+					</div>
+					<div class="main-menu-wrapper">
+						<div class="menu-header">
+							<a href="index.html" class="menu-logo">
+								<img src="~/assets/img/websiteLogo.png" class="img-fluid" alt="Logo">
+							</a>
+							<a id="menu_close" class="menu-close" href="javascript:void(0);">
+								<i class="fas fa-times"></i>
+							</a>
+						</div>
+						<ul class="main-nav">
+							<li class="has-submenu ">
+								<a href="">Home <i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="index.html">Home</a></li>
+								</ul>
+							</li>
+							<li class="has-submenu">
+								<a href="javascript:void(0);">Reservations<i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="">Doctor reservation</a></li>
+									<li><a href="">Lab reservations</a></li>
+								</ul>
+							</li>
+							<li class="has-submenu">
+								<a href="javascript:void(0);">Search<i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="">Search doctor </a></li>
+									<li><a href="">Search Lab </a></li>
+								</ul>
+							</li>
+							<li class="has-submenu">
+								<a href="javascript:void(0);">Patient<i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="">Profile</a></li>
+									<li><a href="">Edit profile</a></li>
+								</ul>
+							</li>
+
+
+
+							<li class="has-submenu">
+								<a href="javascript:void(0);">Pages <i class="fas fa-chevron-down"></i></a>
+								<ul class="submenu">
+									<li><a href="about-us.html">About Us</a></li>
+									<li><a href="contact-us.html">Contact Us</a></li>
+								</ul>
+							</li>
+					</div>
+					<ul class="nav header-navbar-rht">
+
+						<!-- Cart -->
+						<!-- /Cart -->
+						<!-- Notifications -->
+						<li class="nav-item dropdown noti-nav me-3 pe-0">
+							<a href="#" class="dropdown-toggle nav-link p-0" data-bs-toggle="dropdown">
+								<i class="fa-solid fa-bell"></i> <span class="badge">0</span>
+							</a>
+							<div class="dropdown-menu notifications dropdown-menu-end ">
+								<div class="topnav-dropdown-header">
+									<span class="notification-title">Notifications</span>
+								</div>
+								<div class="noti-content">
+									<ul class="notification-list">
+										<li class="notification-message">
+											<a href="#">
+												<div class="media d-flex">
+													<span class="avatar">
+                                                        <i class="fa-solid fa-bell fa-fade fa-2xl" style="color: #6f9deb;"></i>
+                                                   </span>
+													<div class="media-body">
+														<h6>Travis Tremble <span class="notification-time">Time and Date</span></h6>
+														<p class="noti-details">No notification yet.<span class="noti-title"></span></p>
+													</div>
+												</div>
+											</a>
+										</li>
+
+									</ul>
+								</div>
+							</div>
+						</li>
+						<!-- /Notifications -->
+						<!-- User Menu -->
+						<li class="nav-item dropdown has-arrow logged-item">
+							<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+								<span class="user-img">
+									<i class="fa-solid fa-user fa-beat-fade fa-xl" style="color: #5189ec;"></i>
+								</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<div class="user-header">
+									<div class="avatar avatar-sm">
+										<i class="fa-solid fa-user fa-lg" style="color: #5189ec;"></i>
+									</div>
+									<div class="user-text">
+										<!--Fill here-->	<h6>Patient Name</h6>
+									</div>
+								</div>
+								<a class="dropdown-item" href="doctor-dashboard.html">Profile</a>
+								<a class="dropdown-item" href="profile-settings.html">Profile Settings</a>
+								<a class="dropdown-item" href="login.html">Logout</a>
+							</div>
+						</li>
+						<!-- /User Menu -->
+
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<!-- Header -->
+		<!-- /Header -->
+		<!-- Home Banner -->
+		<section class="banner-section">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-lg-6">
+						<div class="banner-content aos" data-aos="fade-up">
+							<h1>Find <span>Complete Your Examination</span> With MedApp.</h1>
+							<img src="~/assets/img/icons/header-icon.svg" class="header-icon" alt="header-icon" style="right:55px;top:0">
+							<p>Book An Appointment Now</p>
+							<a href="booking.html" class="btn">Search Now</a>
+							<div class="banner-arrow-img">
+								<img src="~/assets/img/down-arrow-img.png" class="img-fluid" alt="">
+							</div>
+						</div>
+						<div class="search-box-one aos" data-aos="fade-up" style="min-width:650px">
+							<!--Obaidah edit here please-->
+							<form asp-controller="Patient" asp-action="SearchForDoctors" class="form-inline" method="post" style="display: flex; align-items: center">							
+								<div class="search-input search-map-line">
+									<div class="form-group mb-0">
+										<select class="form-control" style="border:none;color:#6c757d;opacity:1">
+											<option disabled selected value="">City</option>
+											<option>Amman</option>
+											<option>Irbid</option>
+											<option>ramtha</option>
+											<option>Aqaba</option>
+											<option>Zarqa</option>
+										</select>
+									</div>
+								</div>
+								<div class="search-input search-calendar-line" style="width:200px">
+									<i class="feather-calendar"></i>
+									<div class="form-group mb-0">
+										<input type="text" class="form-control datetimepicker" placeholder="Date">
+									</div>
+								</div>
+								<div class="search-input search-map-line search-line">
+									<div class="form-group mb-0">
+										<select name="sort" class="form-control" style="border:none;color:#6c757d;opacity:1">
+
+											<option>Rate</option>
+											<option>Price</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-search-btn" style="width:100px;margin-left:15px">
+									<button class="btn" type="submit">Search</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="banner-img aos" data-aos="fade-up">
+							<img src="/assets/img/Laboratory technician.jpg" class="img-fluid" alt="">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- /Home Banner -->
+		
+		
+		<!-- Work Section -->
+		<section class="work-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-md-12 work-img-info aos" data-aos="fade-up">
+						<div class="work-img">
+							<img src="~/assets/img/labsearchbg.png" class="img-fluid" alt="">
+						</div>
+					</div>
+					<div class="col-lg-8 col-md-12 work-details">
+						<div class="section-header-one aos" data-aos="fade-up">
+							<h5>How it Works</h5>
+							<h2 class="section-title">4 easy steps to book your appointment</h2>
+						</div>
+						<div class="row">
+							<div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+								<div class="work-info">
+									<div class="work-icon">
+										<span><img src="~/assets/img/icons/work-01.svg" alt=""></span>
+									</div>
+									<div class="work-content">
+										<h5>Search Laboratory</h5>
+										<p>Go to search box and find the right lab for you.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+								<div class="work-info">
+									<div class="work-icon">
+										<span><img src="~/assets/img/icons/work-02.svg" alt=""></span>
+									</div>
+									<div class="work-content">
+										<h5>Check lab Profile</h5>
+										<p>Click on lab name and check lab.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+								<div class="work-info">
+									<div class="work-icon">
+										<span><img src="~/assets/img/icons/work-03.svg" alt=""></span>
+									</div>
+									<div class="work-content">
+										<h5>Schedule Appointment</h5>
+										<p>Choose a date convenient for you.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+								<div class="work-info">
+									<div class="work-icon">
+										<span><img src="~/assets/img/icons/work-04.svg" alt=""></span>
+									</div>
+									<div class="work-content">
+										<h5>Get Your appointment</h5>
+										<p>Confirm your appointment.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- /Work Section -->
+		<!-- FAQ Section -->
+		<section class="faq-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="section-header-one text-center aos" data-aos="fade-up" style="margin-top:25px;">
+							<h5>Get Your Answer</h5>
+							<h2 class="section-title">Frequently Asked Questions</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row align-items-center">
+					<div class="col-lg-6 col-md-12 aos" data-aos="fade-up">
+						<div class="faq-img">
+							<img src="~/assets/img/faq-img.png" class="img-fluid" alt="img">
+							<div class="faq-patients-count">
+								<div class="faq-smile-img">
+									<img src="~/assets/img/icons/smiling-icon.svg" alt="icon">
+								</div>
+								<div class="faq-patients-content">
+
+									<p>Happy Patients</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-12">
+						<div class="faq-info aos" data-aos="fade-up">
+							<div class="accordion" id="faq-details">
+
+								<!-- FAQ Item -->
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingOne">
+										<a href="javascript:void(0);" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+											Can I make an Appointment Online with MedApp?
+										</a>
+									</h2>
+									<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faq-details">
+										<div class="accordion-body">
+											<div class="accordion-content">
+												<p>Sure, just login to our website and make your appointment.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /FAQ Item -->
+								<!-- FAQ Item -->
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingTwo">
+										<a href="javascript:void(0);" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+											Is this website safe?
+										</a>
+									</h2>
+									<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faq-details">
+										<div class="accordion-body">
+											<div class="accordion-content">
+												<p>Be sure that our site is completely secure and keeps your information confidential.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /FAQ Item -->
+								<!-- FAQ Item -->
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingThree">
+										<a href="javascript:void(0);" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+											Can I pay online?
+										</a>
+									</h2>
+									<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faq-details">
+										<div class="accordion-body">
+											<div class="accordion-content">
+												<p>The online payment service is exhaling.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- /FAQ Section -->
+		<!-- Partners Section -->
+		@Html.Partial("/Views/Patient/Footer.cshtml")
+		<!-- /Footer -->
+		<!-- Cursor -->
+		<div class="mouse-cursor cursor-outer"></div>
+		<div class="mouse-cursor cursor-inner"></div>
+		<!-- /Cursor -->
+
+	</div>
+	<!-- /Main Wrapper -->
+	<!-- ScrollToTop -->
+	<div class="progress-wrap active-progress">
+		<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+			<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919px, 307.919px; stroke-dashoffset: 228.265px;"></path>
+		</svg>
+	</div>
+	<!-- /ScrollToTop -->
+	<!-- jQuery -->
+	<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+	<!-- Bootstrap Bundle JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Feather Icon JS -->
+	<script src="~/assets/js/feather.min.js"></script>
+
+	<!-- Datepicker JS -->
+	<script src="~/assets/js/moment.min.js"></script>
+	<script src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
+
+	<!-- Owl Carousel JS -->
+	<script src="~/assets/js/owl.carousel.min.js"></script>
+
+	<!-- Slick JS -->
+	<script src="~/assets/js/slick.js"></script>
+
+	<!-- Animation JS -->
+	<script src="~/assets/js/aos.js"></script>
+
+	<!-- Counter JS -->
+	<script src="~/assets/js/counter.js"></script>
+
+	<!-- BacktoTop JS -->
+	<script src="~/assets/js/backToTop.js"></script>
+
+	<!-- Custom JS -->
+	<script src="~/assets/js/script.js"></script>
+
+</body>
+</html>
