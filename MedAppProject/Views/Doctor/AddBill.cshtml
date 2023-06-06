@@ -1,11 +1,218 @@
 ﻿@model MedAppProject.ViewModels.PatientProfileForDoc;
+
+
+<!DOCTYPE html>
 @{
 	Layout = null;
 }
-<form asp-action="AddBill" asp-controller="Doctor" method="post">
-    <input value="@Model.Patient.Id" name="paId" hidden/>
-    <input name="amount" type="number" />
-    <button type="submit">Add Bill</button>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
+	<!-- Favicons -->
+	
 
-</form>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="~/assets/css/feather.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/assets/css/custom.css">
+
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		@Html.Partial("~/Views/Doctor/NavBar.cshtml" , @Model.Doctor)
+		<!-- /Header -->
+		<!-- Breadcrumb -->
+		<div class="breadcrumb-bar-two">
+			<div class="container">
+				<div class="row align-items-center inner-banner">
+					<div class="col-md-12 col-12 text-center">
+						<h2 class="breadcrumb-title">Add Billing</h2>
+						<nav aria-label="breadcrumb" class="page-breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Doctor">Home</a></li>
+								<li class="breadcrumb-item" aria-current="page">Add Billing</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Breadcrumb -->
+		<!-- Page Content -->
+		<div class="content">
+			<div class="container">
+
+				<div class="row">
+					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+
+						<!-- Profile Widget -->
+						<div class="card widget-profile pat-widget-profile">
+							<div class="card-body">
+								<div class="pro-widget-content">
+									<div class="profile-info-widget">
+										<a href="#" class="booking-doc-img">
+											<img src="~/Images/patient.png" alt="User Image">
+										</a>
+										<div class="profile-det-info">
+											<h3><a href="patient-profile.html">@Model.Patient.FirstName @Model.Patient.LastName</a></h3>
+											<div class="patient-details">
+												<h5><b>Patient ID :</b> @Model.Patient.Id</h5>
+												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> @Model.Patient.PatientLocation</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="patient-info">
+									<ul>
+										<li>Phone <span>@Model.Patient.PhoneNumber</span></li>
+										<li>Age <span>38 Years, Male</span></li>
+										<li>Blood Group <span>AB+</span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- /Profile Widget -->
+
+					</div>
+
+					<div class="col-md-7 col-lg-8 col-xl-9">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title mb-0">Add Billing</h4>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="biller-info">
+											<h4 class="d-block">@Model.Doctor.FirstName @Model.Doctor.LastName</h4>
+											<span class="d-block text-sm text-muted">Dentist</span>
+											<span class="d-block text-sm text-muted">@Model.Doctor.ClincLocation</span>
+										</div>
+									</div>
+									<div class="col-sm-6 text-sm-end">
+										<div class="billing-info">
+											<h4 class="d-block">1 November 2019</h4>
+											<span class="d-block text-muted">#INV0001</span>
+										</div>
+									</div>
+								</div>
+
+								<!-- Add Item -->
+								<div class="add-more-item text-end">
+									<a href="javascript:void(0);"><i class="fas fa-plus-circle"></i> Add Item</a>
+								</div>
+								<!-- /Add Item -->
+								<!-- Billing Item -->
+								<form asp-action="AddBill" asp-controller="Doctor" method="post">
+								<div class="card card-table">
+									
+									<div class="card-body">
+									<div class="table-responsive">
+										
+											<table class="table table-hover table-center">
+												<thead>
+													<tr>
+														<th style="min-width:200px;">Title</th>
+														<th style="min-width:200px;">Amount</th>
+														<th style="width:80px;"></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														
+														<td>
+															<input type="text" class="form-control" >
+														</td>
+														<td>
+															<input type="number" class="form-control" name="amount">
+															</td>
+															<td>
+														<input value="@Model.Patient.Id" name="paId" hidden />
+															</td>
+														<td>
+															<a href="#" class="btn bg-danger-light trash"><i class="far fa-trash-alt"></i></a>
+														</td>
+													</tr>
+													
+												</tbody>
+											</table>
+										   
+										</div>
+										
+									</div>
+									
+								</div>
+								<!-- /Billing Item -->
+								<!-- Signature -->
+								<div class="row">
+									<div class="col-md-12 text-end">
+										<div class="signature-wrap">
+											<div class="signature">
+												Click here to sign
+											</div>
+											<div class="sign-name">
+												<p class="mb-0">( Dr. Darren Elder )</p>
+												<span class="text-muted">Signature</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /Signature -->
+								<!-- Submit Section -->
+								<div class="row">
+									<div class="col-md-12">
+										<div class="submit-section">
+											<button type="submit" class="btn btn-primary submit-btn">Add Bill</button>
+											<button type="reset" class="btn btn-secondary submit-btn">Clear</button>
+										</div>
+									</div>
+								</div>
+							</form>
+								
+								<!-- /Submit Section -->
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- /Page Content -->
+		<!-- Footer -->
+	@Html.Partial("/Views/Doctor/Footer.cshtml" )
+		<!-- /Footer -->
+
+	</div>
+	<!-- /Main Wrapper -->
+	<!-- jQuery -->
+	<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Sticky Sidebar JS -->
+	<script src="~/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+	<script src="~/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+	<!-- Custom JS -->
+	<script src="~/assets/js/script.js"></script>
+
+</body>
+</html>
