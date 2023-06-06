@@ -1,0 +1,11 @@
+﻿@model MedAppProject.ViewModels.PatientProfileForDoc;
+@{
+	Layout = null;
+}
+<form asp-action="AddBill" asp-controller="Doctor" method="post">
+    <input value="@Model.Patient.Id" name="paId" hidden/>
+    <input name="amount" type="number" />
+    <button type="submit">Add Bill</button>
+
+
+</form>

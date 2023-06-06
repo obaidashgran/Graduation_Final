@@ -12,19 +12,21 @@ namespace MedAppProject.Controllers
         private readonly IMedAppRepository<DoctorAvailableTimes> _doctorAvailableTimes;
         private readonly IMedAppRepository<Patient> _patient;
         private readonly IMedAppRepository<Prescription> _prescription;
+        private readonly IMedAppRepository<Bill> _bill;
 
-		public DoctorController(IMedAppRepository<Doctor> doctor, IMedAppRepository<DoctorAvailableTimes> doctorAvailableTimes, IMedAppRepository<Patient> patient, IMedAppRepository<Prescription> prescription)
-		{
-			_doctor = doctor;
-			_doctorAvailableTimes = doctorAvailableTimes;
-			_patient = patient;
-			_prescription = prescription;
-		}
+        public DoctorController(IMedAppRepository<Doctor> doctor, IMedAppRepository<DoctorAvailableTimes> doctorAvailableTimes, IMedAppRepository<Patient> patient, IMedAppRepository<Prescription> prescription, IMedAppRepository<Bill> bill)
+        {
+            _doctor = doctor;
+            _doctorAvailableTimes = doctorAvailableTimes;
+            _patient = patient;
+            _prescription = prescription;
+            _bill = bill;
+        }
 
 
 
-		// GET: DoctorController
-		public ActionResult Index()
+        // GET: DoctorController
+        public ActionResult Index()
         {
             int getId = HttpContext.Session.GetInt32("Id")??0;
             Doctor doc = _doctor.GetById(getId);
@@ -124,10 +126,21 @@ namespace MedAppProject.Controllers
             return View(pado);
         }
         [HttpPost]
-        //public ActionResult AddBill()
-        //{
-
-        //}
+        public ActionResult AddBill([FromForm] string paId , [FromForm] string amount)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var doc = _doctor.GetById(getId);
+            var pa = _patient.GetById(int.Parse(paId));
+            Bill bill = new Bill
+            {
+                Doctor=doc,
+                Patient = pa,
+                PaidOn = DateTime.Now.Date,
+                Amount = double.Parse(amount)
+            };
+            _bill.Add(bill);
+            return RedirectToAction("PatientProfile", new { paId = int.Parse(paId) });
+        }
         // GET: DoctorController/Create
         public ActionResult Create()
         {
