@@ -195,7 +195,7 @@
 												</div>
 												<div class="doc-info-cont">
 													<h4 class="doc-name">
-														<a asp-controller="Patient" asp-action="DoctorProfile">Dr. @x.FirstName @x.LastName</a>
+														<a asp-controller="Patient" asp-action="DoctorProfile" asp-route-docId="@x.Id">Dr. @x.FirstName @x.LastName</a>
 														<i class="fas fa-circle-check"></i>
 													</h4>
 													<p class="doc-speciality">@x.DoctorSpecialization.Name.ToString()</p>

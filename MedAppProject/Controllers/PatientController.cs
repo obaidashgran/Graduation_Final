@@ -72,13 +72,15 @@ namespace MedAppProject.Controllers
         {
             return View(lab);
         }
-		public ActionResult BookAppointment()
+		public ActionResult BookAppointment(int docId)
 		{
-			return View();
+            var doc = _doctor.GetById(docId);
+            return View(doc);
 		}
-		public ActionResult DoctorProfile()
+		public ActionResult DoctorProfile(int docId)
         {
-            return View();
+            var doc = _doctor.GetById(docId);
+            return View(doc);
         }
         [HttpPost]
         public ActionResult SearchForDoctors(PatientDashboardViewModel model , [FromForm] string? searchBox ,
