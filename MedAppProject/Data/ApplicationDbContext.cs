@@ -55,5 +55,6 @@ namespace MedAppProject.Data
         public DbSet<TestInfo> testLabInfos { get; set; }
         public DbSet<VMLogin> VMLogins { get; set; }
         public DbSet<Bill> Bills { get; set; }
+        public DbSet<MedicalRecord> MedicalRecords { get; set; }
     }
 }
