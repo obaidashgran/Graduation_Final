@@ -51,7 +51,7 @@
 								<span></span>
 							</span>
 						</a>
-						<a href="index.html" class="navbar-brand logo">
+						<a asp-action="Index" asp-controller="Patient" class="navbar-brand logo">
 							<img src="~/Images/websiteLogo.png" class="img-fluid" alt="Logo" width="201px" height="100px">
 						</a>
 					</div>
@@ -150,7 +150,7 @@
 										<i class="fa-solid fa-user fa-lg" style="color: #5189ec;"></i>
 									</div>
 									<div class="user-text">
-										<!--Fill here-->	<h6>Patient Name</h6>
+										<!--Fill here-->	<h6>@Model.PatientInfo.FirstName</h6>
 									</div>
 								</div>
 								<a class="dropdown-item" href="doctor-dashboard.html">Profile</a>

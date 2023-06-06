@@ -89,17 +89,19 @@ namespace MedAppProject.Controllers
                 }
                 else if (isValid.RoleId == Role.Patient)
                 {
-                    Patient pa = patient.GetById(isValid.userId);
-                    var viewModel = new PatientDashboardViewModel
-                    {
-                        
-                        PatientInfo = pa,
-                        
-                        Doctors = Enumerable.Empty<Doctor>(),
-                        Specializations = _specialization.GetAll().ToList()
-                    };
+                    var pa = patient.GetById(isValid.userId);
 
-                    return View("~/Views/Patient/Index.cshtml", viewModel);
+                    //Patient pa = patient.GetById(isValid.userId);
+                    //var viewModel = new PatientDashboardViewModel
+                    //{
+                        
+                    //    PatientInfo = pa,
+                        
+                    //    Doctors = Enumerable.Empty<Doctor>(),
+                    //    Specializations = _specialization.GetAll().ToList()
+                    //};
+
+                    return RedirectToAction("AddDataToSession", "Patient" ,pa);
                 }
                 else if (isValid.RoleId == Role.Doctor)
                 {

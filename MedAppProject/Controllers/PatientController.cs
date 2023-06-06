@@ -28,9 +28,23 @@ namespace MedAppProject.Controllers
         }
 
         // GET: PatientController
+        public IActionResult AddDataToSession(Patient patient)
+        {
+            HttpContext.Session.SetInt32("Id", patient.Id);
+            // Redirect to another action or return a view
+            return RedirectToAction("Index");
+        }
         public ActionResult Index()
         {
-            return View();
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            PatientDashboardViewModel pd = new PatientDashboardViewModel
+            {
+                PatientInfo = pa,
+                Specializations = _specialization.GetAll().ToList(),
+
+            };
+            return View(pd);
         }
         public ActionResult DoctorProfile()
         {
