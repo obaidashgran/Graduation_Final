@@ -36,11 +36,16 @@ namespace MedAppProject.Controllers
 		{
 			return View();
 		}
+
 		public ActionResult DoctorProfile()
         {
             return View();
         }
-        [HttpPost]
+		public ActionResult PatientProfile()
+		{
+			return View();
+		}
+		[HttpPost]
         public ActionResult SearchForDoctors(PatientDashboardViewModel model , [FromForm] string? searchBox ,
             [FromForm] string? city, [FromForm] string sort, [FromForm] string? date)
 

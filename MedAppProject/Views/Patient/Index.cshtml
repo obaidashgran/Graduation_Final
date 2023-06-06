@@ -88,7 +88,7 @@
 							<li class="has-submenu">
 								<a href="javascript:void(0);">Patient<i class="fas fa-chevron-down"></i></a>
 								<ul class="submenu">
-									<li><a href="">Profile</a></li>
+									<li><a asp-action="PatientProfile" asp-controller="Patient">Profile</a></li>
 									<li><a href="">Edit profile</a></li>
 								</ul>
 							</li>
@@ -102,6 +102,7 @@
 									<li><a href="contact-us.html">Contact Us</a></li>
 								</ul>
 							</li>
+						</ul>
 					</div>
 					<ul class="nav header-navbar-rht">
 
@@ -153,7 +154,7 @@
 										<!--Fill here-->	<h6>Patient Name</h6>
 									</div>
 								</div>
-								<a class="dropdown-item" href="doctor-dashboard.html">Profile</a>
+								<a class="dropdown-item" asp-action="PatientProfile" asp-controller="Patient">Profile</a>
 								<a class="dropdown-item" href="profile-settings.html">Profile Settings</a>
 								<a class="dropdown-item" href="login.html">Logout</a>
 							</div>
