@@ -263,17 +263,21 @@
 																</tr>     
 															</thead>
 															<tbody>
-																<tr>
+																@foreach(var r in @Model.Patient.MedicalRecords)
+															{
+																
+															
+															<tr>
 																	<td><a href="javascript:void(0);">#MR-0010</a></td>
-																	<td>14 Nov 2019</td>
-																	<td>Dental Filling</td>
+																	<td>@r.Date.ToString("d MMMM yyyy")</td>
+																	<td>@r.Descreption.ToString()</td>
 																	<td><a href="#">dental-test.pdf</a></td>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
+																			<a href="doctor-profile.html">Dr. @r.Doctor.FirstName @r.Doctor.LastName <span>@r.Doctor.DoctorSpecialization.Name.ToString()</span></a>
 																		</h2>
 																	</td>
 																	<td class="text-end">
@@ -288,7 +292,7 @@
 																	</td>
 																</tr>
 															
-																
+															}
 															</tbody>  	
 														</table>
 													</div>
@@ -381,9 +385,10 @@
 						<h3 class="modal-title">Medical Records</h3>
 						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					</div>
-					<form>					
+					<form asp-action="addMedicalRecords" asp-controller="Doctor" method="post">					
 						<div class="modal-body">
 							<div class="form-group">
+								<input value="@Model.Patient.Id" name="paId" hidden />
 								<label>Date</label>
 								<input type="text" class="form-control datetimepicker" value="@DateTime.Today" name="date">
 							</div>

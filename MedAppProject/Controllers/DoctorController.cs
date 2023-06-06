@@ -13,14 +13,16 @@ namespace MedAppProject.Controllers
         private readonly IMedAppRepository<Patient> _patient;
         private readonly IMedAppRepository<Prescription> _prescription;
         private readonly IMedAppRepository<Bill> _bill;
+        private readonly IMedAppRepository<MedicalRecord> _record;
 
-        public DoctorController(IMedAppRepository<Doctor> doctor, IMedAppRepository<DoctorAvailableTimes> doctorAvailableTimes, IMedAppRepository<Patient> patient, IMedAppRepository<Prescription> prescription, IMedAppRepository<Bill> bill)
+        public DoctorController(IMedAppRepository<Doctor> doctor, IMedAppRepository<DoctorAvailableTimes> doctorAvailableTimes, IMedAppRepository<Patient> patient, IMedAppRepository<Prescription> prescription, IMedAppRepository<Bill> bill, IMedAppRepository<MedicalRecord> record)
         {
             _doctor = doctor;
             _doctorAvailableTimes = doctorAvailableTimes;
             _patient = patient;
             _prescription = prescription;
             _bill = bill;
+            _record = record;
         }
 
 
@@ -139,6 +141,22 @@ namespace MedAppProject.Controllers
                 Amount = double.Parse(amount)
             };
             _bill.Add(bill);
+            return RedirectToAction("PatientProfile", new { paId = int.Parse(paId) });
+        }
+        [HttpPost]
+        public ActionResult AddMedicalRecords([FromForm] string descreption , [FromForm] string date , [FromForm] string paId)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var doc = _doctor.GetById(getId);
+            var pa = _patient.GetById(int.Parse(paId));
+            MedicalRecord record = new MedicalRecord
+            {
+                Descreption = descreption,
+                Date = DateTime.Parse(date),
+                Doctor = doc,
+                Patient = pa
+            };
+            _record.Add(record);
             return RedirectToAction("PatientProfile", new { paId = int.Parse(paId) });
         }
         // GET: DoctorController/Create
