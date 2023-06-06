@@ -72,7 +72,11 @@ namespace MedAppProject.Controllers
         {
             return View(lab);
         }
-        public ActionResult DoctorProfile()
+		public ActionResult BookAppointment()
+		{
+			return View();
+		}
+		public ActionResult DoctorProfile()
         {
             return View();
         }
