@@ -145,10 +145,10 @@
 															<thead>
 																<tr>
 																	<th>Doctor</th>
-																	<th>Appt Date</th>
+																	
 																	<th>Booking Date</th>
 																	<th>Amount</th>
-																	<th>Follow Up</th>
+																	
 																	<th>Status</th>
 																	<th></th>
 																</tr>
@@ -167,10 +167,10 @@
 																			<a href="doctor-profile.html">Dr.@x.Doctor.FirstName @x.Doctor.LastName <span>Dental</span></a>
 																		</h2>
 																	</td>
-																	<td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
-																	<td>@x.bookTime.ToString()</td>
+																	
+																	<td>@x.bookTime.ToString("d MMMM yyyy hh:mm")</td>
 																	<td>@Model.Doctor.Fees.ToString()</td>
-																	<td>16 Nov 2019</td>
+																	
 																	<td><span class="badge rounded-pill bg-success-light">Confirm</span></td>
 																	<td class="text-end">
 																		<div class="table-action">
@@ -334,7 +334,7 @@
 																		</h2>
 																	</td>
 																	<td>$@b.Amount.ToString()</td>
-																	<td>@b.PaidOn.Date.ToString()</td>
+																	<td>@b.PaidOn.Date.ToString("d MMMM yyyy")</td>
 																	<td class="text-end">
 																		<div class="table-action">
 																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
@@ -385,11 +385,11 @@
 						<div class="modal-body">
 							<div class="form-group">
 								<label>Date</label>
-								<input type="text" class="form-control datetimepicker" value="31-10-2019">
+								<input type="text" class="form-control datetimepicker" value="@DateTime.Today" name="date">
 							</div>
 							<div class="form-group">
 								<label>Description ( Optional )</label>
-								<textarea class="form-control"></textarea>
+								<textarea class="form-control" name="descreption"></textarea>
 							</div>
 							<div class="form-group">
 								<label>Upload File</label> 

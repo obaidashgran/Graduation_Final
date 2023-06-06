@@ -188,17 +188,17 @@
 											<img src="~/Images/patient.png" alt="User Image">
 										</a>
 										<div class="profile-det-info">
-											<h3><a href="patient-profile.html">Dr.@Model.Patient.FirstName @Model.Patient.LastName</a></h3>
+											<h3><a href="patient-profile.html">@Model.Patient.FirstName @Model.Patient.LastName</a></h3>
 											<div class="patient-details">
-												<h5><b>Patient ID :</b></h5>
-												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA</h5>
+												<h5><b>Patient ID : @Model.Patient.Id</b></h5>
+												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i>@Model.Patient.PatientLocation.ToString()</h5>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="patient-info">
 									<ul>
-										<li>Phone <span>+1 952 001 8563</span></li>
+										<li>Phone <span>@Model.Patient.PhoneNumber</span></li>
 										<li>Age <span>38 Years, Male</span></li>
 										<li>Blood Group <span>AB+</span></li>
 									</ul>
@@ -218,14 +218,14 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<div class="biller-info">
-											<h4 class="d-block">Dr. Darren Elder</h4>
-											<span class="d-block text-sm text-muted">Dentist</span>
-											<span class="d-block text-sm text-muted">Newyork, United States</span>
+											<h4 class="d-block">Dr. @Model.Doctor.FirstName @Model.Doctor.LastName</h4>
+											<span class="d-block text-sm text-muted">@Model.Doctor.DoctorSpecialization.Name.ToString()</span>
+											<span class="d-block text-sm text-muted">@Model.Doctor.ClincLocation.ToString()</span>
 										</div>
 									</div>
 									<div class="col-sm-6 text-sm-end">
 										<div class="billing-info">
-											<h4 class="d-block">1 November 2019</h4>
+											<h4 class="d-block">@DateTime.Today.ToString("d MMMM yyyy")</h4>
 											<span class="d-block text-muted">#INV0001</span>
 										</div>
 									</div>
