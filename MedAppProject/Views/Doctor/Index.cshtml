@@ -14,17 +14,17 @@
 	
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-	<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
 
 	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="assets/css/feather.css">
+	<link rel="stylesheet" href="/assets/css/feather.css">
 
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/custom.css">
+	<link rel="stylesheet" href="/assets/css/custom.css">
 
 </head>
 <body>
@@ -60,7 +60,7 @@
 					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 
 						<!-- Profile Sidebar -->
-						@Html.Partial("/Views/Doctor/DoctorSideBar.cshtml")
+						@Html.Partial("/Views/Doctor/DoctorSideBar.cshtml",@Model)
 						<!-- /Profile Sidebar -->
 
 					</div>
@@ -112,8 +112,8 @@
 																	
 																	<td>
 																		<h2 class="table-avatar">
-																			<a asp-action="PatientProfile" asp-controller="Doctor" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image"></a>
-																					<a asp-action="PatientProfile" asp-controller="Doctor">@x.patient.FirstName @x.patient.LastName ></a>
+																			<a asp-route-paId="@x.patient.Id" asp-action="PatientProfile" asp-controller="Doctor" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image"> @x.patient.FirstName @x.patient.LastName </a>
+																		
 																		</h2>
 																	</td>
 																	<td>@x.bookTime.ToString()</td>
@@ -161,17 +161,19 @@
 																</tr>
 															</thead>
 															<tbody>
+																@foreach(var x in Model.Appointments.Where(x=>x.bookTime.Date==DateTime.Today)){
 																<tr>
+																	
 																	<td>
 																		<h2 class="table-avatar">
-																			<a asp-action="PatientProfile" asp-controller="Doctor" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image"></a>
-																				<a asp-action="PatientProfile" asp-controller="Doctor">Elsie Gilley <span>#PT0006</span></a>
+																			<a asp-route-paId="@x.patient.Id" asp-action="PatientProfile" asp-controller="Doctor" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image"> @x.patient.FirstName @x.patient.LastName </a>
+																		
 																		</h2>
 																	</td>
-																	<td>14 Nov 2019 <span class="d-block text-info">6.00 PM</span></td>
-																	<td>Fever</td>
-																	<td>Old Patient</td>
-																	<td class="text-center">$300</td>
+																	<td>@x.bookTime.ToString()</td>
+																	<td>General</td>
+																	<td>New Patient</td>
+																	<td class="text-center">@Model.Fees</td>
 																	<td class="text-end">
 																		<div class="table-action">
 																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
@@ -187,6 +189,7 @@
 																		</div>
 																	</td>
 																</tr>
+																}
 																
 															</tbody>
 														</table>
@@ -214,20 +217,20 @@
 	</div>
 	<!-- /Main Wrapper -->
 	<!-- jQuery -->
-	<script src="assets/js/jquery-3.6.4.min.js"></script>
+	<script src="/assets/js/jquery-3.6.4.min.js"></script>
 
 	<!-- Bootstrap Core JS -->
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Sticky Sidebar JS -->
-	<script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-	<script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+	<script src="/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+	<script src="/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
 	<!-- Circle Progress JS -->
-	<script src="assets/js/circle-progress.min.js"></script>
+	<script src="/assets/js/circle-progress.min.js"></script>
 
 	<!-- Custom JS -->
-	<script src="assets/js/script.js"></script>
+	<script src="/assets/js/script.js"></script>
 
 </body>
 </html>

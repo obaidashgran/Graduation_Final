@@ -4,6 +4,7 @@ using MedAppProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedAppProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230606123359_addBill")]
+    partial class addBill
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,35 +26,6 @@ namespace MedAppProject.Migrations
 
             modelBuilder.HasSequence<int>("UserIdSequence", "shared")
                 .StartsAt(100L);
-
-            modelBuilder.Entity("MedAppProject.Models.Bill", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PaidOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("Bills");
-                });
 
             modelBuilder.Entity("MedAppProject.Models.Doctor", b =>
                 {
@@ -429,25 +402,6 @@ namespace MedAppProject.Migrations
                     b.ToTable("VMLogins");
                 });
 
-            modelBuilder.Entity("MedAppProject.Models.Bill", b =>
-                {
-                    b.HasOne("MedAppProject.Models.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MedAppProject.Models.Patient", "Patient")
-                        .WithMany("Bills")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("MedAppProject.Models.Doctor", b =>
                 {
                     b.HasOne("MedAppProject.Models.Specialization", "DoctorSpecialization")
@@ -566,8 +520,6 @@ namespace MedAppProject.Migrations
 
             modelBuilder.Entity("MedAppProject.Models.Patient", b =>
                 {
-                    b.Navigation("Bills");
-
                     b.Navigation("DoctorAppointments");
 
                     b.Navigation("LabAppointments");

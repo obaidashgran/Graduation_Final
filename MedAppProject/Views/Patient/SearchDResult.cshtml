@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model MedAppProject.ViewMoels.PatientDashboardViewModel
+<!DOCTYPE html>
 @{
 	Layout = null;
 }
@@ -165,13 +166,18 @@
 		<div class="doctor-content content">
 			<div class="container">
 
+
 				<!-- Doctor Search List -->
+				
 				<div class="row">
 					<div class="col-xl-12 col-lg-12 map-view">
 						<div class="row">
 							
 							<div class="col-lg-9">
-							
+							@foreach(var x in Model.Doctors)
+							{
+					
+				
 								<div class="card doctor-card" style="margin-top:25px;">
 
 									<div class="card-body">
@@ -189,10 +195,10 @@
 												</div>
 												<div class="doc-info-cont">
 													<h4 class="doc-name">
-														<a href="doctor-profile.html">Doctor Name</a>
+														<a asp-controller="Patient" asp-action="DoctorProfile">Dr. @x.FirstName @x.LastName</a>
 														<i class="fas fa-circle-check"></i>
 													</h4>
-													<p class="doc-speciality">Specialization</p>
+													<p class="doc-speciality">@x.DoctorSpecialization.Name.ToString()</p>
 													<div class="clinic-details">
 														<p class="doc-location">
 															<i class="feather-map-pin"></i>
@@ -204,7 +210,7 @@
 													</div>
 													<div class="reviews-ratings">
 														<p>
-															<span><i class="fas fa-star"></i> 4.5</span>
+															<span><i class="fas fa-star"></i>@x.DoctorRate.ToString()</span>
 														</p>
 													</div>
 												</div>
@@ -212,24 +218,42 @@
 											<div class="doc-info-right">
 												<div class="clini-infos">
 													<ul>
-														<li>
+ 														<li>
 															<i class="feather-clock available-icon"></i>
 															<span class="available-date available-today">Available</span>
 														</li>
 														
-														<li><i class="feather-dollar-sign available-icon"></i>Fees<i class="feather-info available-info-icon"></i></li>
+														<li><i class="feather-dollar-sign available-icon"></i>@x.Fees.ToString()<i class="feather-info available-info-icon"></i></li>
 													</ul>
 												</div>
-												<div class="clinic-booking book-appoint">
+
+													<div>
+														<form asp-controller="Patient" asp-action="MakeAppointment" method="post">
+															
+															@foreach(var a in @x.AvailableTime)
+															{
+																<div>
+																	<input name="id" value="@x.Id" hidden>
+																	<input name="patient" value="@Model.PatientInfo.Id" hidden>
+																	<input type="radio"  name="appointment" value="@a.Id">
+																	<label for="@a.Time">@a.Time</label>
+																</div>
+															}
+															
+															<button type="submit">Book</button>
+														</form>
+														
+													</div>
+												@*<div class="clinic-booking book-appoint">
 													<a class="btn btn-primary" href="booking.html">Book Appointment</a>
 													<a class="btn btn-primary-light" href="booking-2.html">Book Online Consultation</a>
-												</div>
+												</div>*@
 											</div>
 										</div>
 									</div>
 								</div>
-					
-					
+								
+								}
 								
 								<div class="row">
 									<div class="col-sm-12">
@@ -242,7 +266,7 @@
 													<li class="page-item active">
 													</li>
 													<li class="page-item">
-														<a class="page-link" href="#">NEXTt</a>
+														<a class="page-link" href="#">NEXT</a>
 													</li>
 													
 												</ul>
@@ -261,6 +285,7 @@
 
 			</div>
 		</div>
+		
 		<!-- /Page Content -->
 		<!-- Footer -->
 		@Html.Partial("/Views/Patient/Footer.cshtml")

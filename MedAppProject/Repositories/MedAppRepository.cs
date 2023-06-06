@@ -32,11 +32,11 @@ namespace MedAppProject.Repositories
 
         public void Delete(TEntity entity)
         {
-            var entit = _entity.Find(entity);
-            if (entit != null)
+            //var entit = _entity.Find(entity);
+            if (entity != null)
             {
                 
-                _entity.Remove(entit);
+                _entity.Remove(entity);
                 _context.SaveChanges();
             }
             

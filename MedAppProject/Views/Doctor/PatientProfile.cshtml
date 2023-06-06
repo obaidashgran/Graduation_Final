@@ -33,7 +33,7 @@
 		<div class="main-wrapper">
 
 			<!-- Header -->
-		@Html.Partial("/Views/Doctor/NavBar.cshtml");
+		@Html.Partial("/Views/Doctor/NavBar.cshtml",@Model.Doctor);
 			<!-- /Header -->
 
 			<!-- Breadcrumb -->
@@ -300,7 +300,7 @@
 										<!-- Billing Tab -->
 										<div class="tab-pane" id="billing">
 											<div class="text-end">
-												<a class="add-new-btn" href="add-billing.html">Add Billing</a>
+												<a class="add-new-btn"  asp-route-patId="@Model.Patient.Id" asp-action="AddBill" asp-controller="Doctor">Add Billing</a>
 											</div>
 											<div class="card card-table mb-0">
 												<div class="card-body">
@@ -317,20 +317,24 @@
 																</tr>
 															</thead>
 															<tbody>
+																@foreach(var b in @Model.Patient.Bills)
+																{
+
+																
 																<tr>
 																	<td>
-																		<a href="invoice-view.html">#INV-0010</a>
+																		<a href="invoice-view.html">#@b.Id</a>
 																	</td>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">Ruby Perrin <span>Dental</span></a>
+																			<a href="doctor-profile.html">Dr . @b.Doctor.FirstName @b.Doctor.LastName <span>@b.Doctor.DoctorSpecialization.Name.ToString()</span></a>
 																		</h2>
 																	</td>
-																	<td>$450</td>
-																	<td>14 Nov 2019</td>
+																	<td>$@b.Amount.ToString()</td>
+																	<td>@b.PaidOn.Date.ToString()</td>
 																	<td class="text-end">
 																		<div class="table-action">
 																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
@@ -342,7 +346,7 @@
 																		</div>
 																	</td>
 																</tr>
-																
+																}
 															</tbody>
 														</table>
 													</div>

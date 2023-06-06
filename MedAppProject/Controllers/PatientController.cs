@@ -32,6 +32,10 @@ namespace MedAppProject.Controllers
         {
             return View();
         }
+        public ActionResult DoctorProfile()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult SearchForDoctors(PatientDashboardViewModel model , [FromForm] string? searchBox ,
             [FromForm] string? city, [FromForm] string sort, [FromForm] string? date)
@@ -80,9 +84,16 @@ namespace MedAppProject.Controllers
             }
 
 
-            return View("~/Views/Patient/Index.cshtml", modelSort);
+            return View("~/Views/Patient/SearchDResult.cshtml", modelSort);
         }
-
+        [HttpPost]
+        public ActionResult SearchForDoctorsBySpecializations(PatientDashboardViewModel model, [FromForm] string spe)
+        {
+            model.Specializations = _specialization.GetAll().ToList();
+           // model.SelectedSpecialization = new Specialization { Id = 1, Name = "dentistry" };
+            model.Doctors = _doctor.GetAll().Where(x => x.DoctorSpecialization.Id.Equals(int.Parse(spe))).ToList();
+            return View("~/Views/Patient/SearchDResult.cshtml", model);
+        }
         [HttpPost]
         public ActionResult MakeAppointment([FromForm] string patient, [FromForm] string appointment ,
             [FromForm] string id ,PatientDashboardViewModel model)
@@ -118,12 +129,12 @@ namespace MedAppProject.Controllers
             return View("~/Views/Patient/Index.cshtml", model);
 
         }
-        public ActionResult DoctorProfile()
-        {
-            string docId = Request.Query["docId"];
-           var doc =  _doctor.GetById(int.Parse(docId));
-            return View(doc);
-        }
+        //public ActionResult DoctorProfile()
+        //{
+        //    string docId = Request.Query["docId"];
+        //   var doc =  _doctor.GetById(int.Parse(docId));
+        //    return View(doc);
+        //}
 
 
         // GET: PatientController/Details/5

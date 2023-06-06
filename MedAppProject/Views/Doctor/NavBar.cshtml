@@ -1,4 +1,5 @@
-﻿<header class="header header-fixed header-one">
+﻿@model MedAppProject.Models.Doctor;
+<header class="header header-fixed header-one">
 	<div class="container">
 		<nav class="navbar navbar-expand-lg header-nav">
 			<div class="navbar-header">
@@ -35,7 +36,7 @@
 							<li><a asp-action="Index" asp-controller="Doctor">Dashboard</a></li>
 							<li ><a asp-action="Appointments" asp-controller="Doctor">My Appointments</a></li>
 							<li><a asp-action="MyPatients" asp-controller="Doctor">My Patients</a></li>
-							<li><a asp-action="AddAvailableTimes" asp-controller="Doctor">Add available time</a></li>
+							<li><a asp-action="AddAvailableTimes" asp-controller="Doctor" asp-route-id="@Model.Id">Add available time</a></li>
 
 						</ul>
 					</li>

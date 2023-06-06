@@ -4,6 +4,7 @@ using MedAppProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedAppProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230606123554_addBills")]
+    partial class addBills
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -438,7 +440,7 @@ namespace MedAppProject.Migrations
                         .IsRequired();
 
                     b.HasOne("MedAppProject.Models.Patient", "Patient")
-                        .WithMany("Bills")
+                        .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -566,8 +568,6 @@ namespace MedAppProject.Migrations
 
             modelBuilder.Entity("MedAppProject.Models.Patient", b =>
                 {
-                    b.Navigation("Bills");
-
                     b.Navigation("DoctorAppointments");
 
                     b.Navigation("LabAppointments");

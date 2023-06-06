@@ -182,6 +182,7 @@
 						</div>
 						<div class="search-box-one aos" data-aos="fade-up">
 							<form asp-controller="Patient" asp-action="SearchForDoctors" class="form-inline" method="post" style="display: flex; align-items: center;">
+								<input asp-for="PatientInfo.Id" hidden />
 								<input asp-for="SelectedSpecialization" hidden />
 								<div class="search-input search-line">
 									<i class="feather-search bficon"></i>
@@ -245,7 +246,9 @@
 		</section>
 		<!-- /Home Banner -->
 		<!-- Specialities Section -->
-		<section class="specialities-section-one">
+		<form asp-controller="Patient" asp-action="SearchForDoctorsBySpecializations" method="post" class="specialities-section-one">
+			<input asp-for="PatientInfo.Id" hidden />
+			
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 aos" data-aos="fade-up">
@@ -258,7 +261,7 @@
 					</div>
 				</div>
 				<div class="owl-carousel specialities-slider-one owl-theme aos" data-aos="fade-up">
-					<div class="item">
+					<button class="item custom-button" type="submit" name="spe" value="6">
 						<div class="specialities-item">
 							<div class="specialities-img">
 								<span><img src="~/assets/img/specialities/specialities-01.svg" alt=""></span>
@@ -266,51 +269,51 @@
 							<p>Dermatology</p>
 						</div>
 
-					</div>
-					<div class="item">
+					</button>
+					<button class="item" type="submit" name="spe" value="5">
 						<div class="specialities-item">
 							<div class="specialities-img">
 								<span><img src="~/assets/img/specialities/specialities-02.svg" alt=""></span>
 							</div>
 							<p>Gastroenterolo</p>
 						</div>
-					</div>
-					<div class="item">
+					</button>
+					<button class="item" type="submit" name="spe" value="2">
 						<div class="specialities-item">
 							<div class="specialities-img">
 								<span><img src="~/assets/img/specialities/specialities-03.svg" alt=""></span>
 							</div>
 							<p>Urology</p>
 						</div>
-					</div>
-					<div class="item">
+					</button>
+					<button class="item" type="submit" name="spe" value="3">
 						<div class="specialities-item">
 							<div class="specialities-img">
 								<span><img src="~/assets/img/specialities/specialities-04.svg" alt=""></span>
 							</div>
 							<p>Psychiatry</p>
 						</div>
-					</div>
-					<div class="item">
+					</button>
+					<button class="item" type="submit" name="spe" value="1">
 						<div class="specialities-item">
 							<div class="specialities-img">
 								<span><img src="~/assets/img/specialities/specialities-05.svg" alt=""></span>
 							</div>
 							<p>Dentistry</p>
 						</div>
-					</div>
-					<div class="item">
+					</button>
+					<button class="item" type="submit" name="spe" value="4">
 						<div class="specialities-item">
 							<div class="specialities-img">
 								<span><img src="~/assets/img/specialities/specialities-02.svg" alt=""></span>
 							</div>
 							<p>Neurology</p>
 						</div>
-					</div>
+					</button>
 				</div>
 
 			</div>
-		</section>
+		</form>
 		<!-- /Specialities Section -->
 		<!-- Doctors Section -->
 		<section class="doctors-section">

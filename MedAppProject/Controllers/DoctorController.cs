@@ -51,9 +51,10 @@ namespace MedAppProject.Controllers
 			return View();
 		}
         
-		public ActionResult AddAvailableTimes()
+		public ActionResult AddAvailableTimes(int id)
 		{
-			return View();
+            var doctor = _doctor.GetById(id);
+			return View(doctor);
 		}
         [HttpPost]
         public ActionResult AddAvailableTimes([FromForm]string duration , [FromForm]string time)
@@ -110,7 +111,23 @@ namespace MedAppProject.Controllers
             _prescription.Add(pre);
             return RedirectToAction("PatientProfile",new {paId=int.Parse(paId)});
         }
+        public ActionResult AddBill(int patId)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var doc = _doctor.GetById(getId);
+            var pa = _patient.GetById(patId);
+            PatientProfileForDoc pado = new PatientProfileForDoc
+            {
+                Doctor = doc,
+                Patient = pa
+            };
+            return View(pado);
+        }
+        [HttpPost]
+        //public ActionResult AddBill()
+        //{
 
+        //}
         // GET: DoctorController/Create
         public ActionResult Create()
         {
