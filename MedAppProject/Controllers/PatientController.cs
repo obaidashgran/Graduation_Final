@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MedAppProject.ViewMoels;
 using MedAppProject.Repositories;
 using MedAppProject.Models;
+using MedAppProject.ViewModels;
 
 namespace MedAppProject.Controllers
 {
@@ -13,18 +14,20 @@ namespace MedAppProject.Controllers
         private readonly IMedAppRepository<Patient> _patient;
         private readonly IMedAppRepository<DoctorAppointment> _docAppointment;
         private readonly IMedAppRepository<DoctorAvailableTimes> _docAvilableTime;
+        private readonly IMedAppRepository<Lab> _lab;
 
 
 
         public PatientController(IMedAppRepository<Specialization> specialization, IMedAppRepository<Doctor> doctor,
             IMedAppRepository<DoctorAppointment> docAppointment, IMedAppRepository<Patient> patient,
-            IMedAppRepository<DoctorAvailableTimes> docAvilableTime)
+            IMedAppRepository<DoctorAvailableTimes> docAvilableTime, IMedAppRepository<Lab> lab)
         {
             _specialization = specialization;
             _doctor = doctor;
             _docAppointment = docAppointment;
             _patient = patient;
             _docAvilableTime = docAvilableTime;
+            _lab = lab;
         }
 
         // GET: PatientController
@@ -45,6 +48,29 @@ namespace MedAppProject.Controllers
 
             };
             return View(pd);
+        }
+        public ActionResult LabSearch()
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            return View(pa);
+        }
+        //[HttpPost]
+        //public ActionResult SearchForLabs([FromForm] string city)
+        //{
+        //    List<Lab> la = _lab.GetAll();
+        //    int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+        //    LabDashboardViewModel labs = new LabDashboardViewModel
+        //    {
+        //     Labs = la,
+        //     Patient = _patient.GetById(getId)
+                
+        //    };
+        //    return RedirectToAction("SearchLabResult", "Patient", lab);
+        //}
+        public ActionResult SearchLabResult(Lab lab)
+        {
+            return View(lab);
         }
         public ActionResult DoctorProfile()
         {

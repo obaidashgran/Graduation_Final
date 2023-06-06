@@ -1,4 +1,4 @@
-﻿@model MedAppProject.ViewMoels.PatientDashboardViewModel
+﻿@model MedAppProject.Models.Patient
 <!DOCTYPE html>
 @{
 	Layout = null;
@@ -181,8 +181,9 @@
 							</div>
 						</div>
 						<div class="search-box-one aos" data-aos="fade-up" style="min-width:650px">
+							<div><a asp-action="SearchLabResult" asp-controller="Patient">click me</a></div>
 							<!--Obaidah edit here please-->
-							<form asp-controller="Patient" asp-action="SearchForDoctors" class="form-inline" method="post" style="display: flex; align-items: center">							
+							<form asp-controller="Patient" asp-action="SearchForLabs" class="form-inline" method="post" style="display: flex; align-items: center">							
 								<div class="search-input search-map-line">
 									<div class="form-group mb-0">
 										<select class="form-control" style="border:none;color:#6c757d;opacity:1">
