@@ -35,7 +35,8 @@ namespace MedAppProject.Repositories
 
         public Lab GetById(int id)
         {
-            throw new NotImplementedException();
+            var lab = db.Labs.Include(l=>l.LabAppointments).SingleOrDefault(d => d.Id == id);
+            return lab;
         }
 
         public void Update(Lab entity)
