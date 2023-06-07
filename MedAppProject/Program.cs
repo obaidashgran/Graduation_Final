@@ -42,7 +42,8 @@ builder.Services.AddSession(options =>
 //builder.Services.AddScoped<IMedAppRepository<VMLogin>, VMLoginRepository>();
 builder.Services.AddScoped<IMedAppRepository<Doctor>, DoctorRepository>();
 builder.Services.AddScoped<IMedAppRepository<Patient>, PatientRepository>();
-//builder.Services.AddScoped<IMedAppRepository<DoctorAppointment>, DoctorAppointmentRepository>();
+builder.Services.AddScoped<IMedAppRepository<Lab>, LabRepository>();
+builder.Services.AddScoped<IMedAppRepository<DoctorAppointment>, DoctorAppointmentRepository>();
 //builder.Services.AddScoped<IMedAppRepository<DoctorAvailableTimes>, DoctorAvailableTimesRepository>();
 builder.Services.AddScoped(typeof(IMedAppRepository<>), typeof(MedAppRepository<>));
 

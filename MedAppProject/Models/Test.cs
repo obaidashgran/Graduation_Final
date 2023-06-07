@@ -6,5 +6,6 @@
         public TestInfo TestInfo { get; set; }
         public string Result { get; set; }
         public Patient Patient { get; set; }
+        public Lab Lab { get; set; }
     }
 }

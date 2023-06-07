@@ -55,20 +55,20 @@ namespace MedAppProject.Controllers
             var pa = _patient.GetById(getId);
             return View(pa);
         }
-        //[HttpPost]
-        //public ActionResult SearchForLabs([FromForm] string city)
-        //{
-        //    List<Lab> la = _lab.GetAll();
-        //    int getId = HttpContext.Session.GetInt32("Id") ?? 0;
-        //    LabDashboardViewModel labs = new LabDashboardViewModel
-        //    {
-        //     Labs = la,
-        //     Patient = _patient.GetById(getId)
-                
-        //    };
-        //    return RedirectToAction("SearchLabResult", "Patient", lab);
-        //}
-        public ActionResult SearchLabResult(Lab lab)
+        [HttpPost]
+        public ActionResult SearchForLabs([FromForm] string city)
+        {
+            var la = _lab.GetAll().Where(l=>l.LabLocation.Equals(city));
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            LabDashboardViewModel labs = new LabDashboardViewModel
+            {
+                Labs = la,
+                Patient = _patient.GetById(getId)
+
+            };
+            return RedirectToAction("SearchLabResult", "Patient", labs);
+        }
+        public ActionResult SearchLabResult(LabDashboardViewModel lab)
         {
             return View(lab);
         }
@@ -82,7 +82,27 @@ namespace MedAppProject.Controllers
             var doc = _doctor.GetById(docId);
             return View(doc);
         }
-        [HttpPost]
+		public ActionResult PatientProfile()
+		{
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            DateTime today = DateTime.Today;
+
+            pa.DoctorAppointments = pa.DoctorAppointments.OrderBy(x =>
+            {
+                if (x.bookTime.Date >= today)
+                {
+                    return x.bookTime.Date - today;
+                }
+                else
+                {
+                    return today - x.bookTime.Date;
+                }
+            }).ToList();
+
+            return View(pa);
+		}
+		[HttpPost]
         public ActionResult SearchForDoctors(PatientDashboardViewModel model , [FromForm] string? searchBox ,
             [FromForm] string? city, [FromForm] string sort, [FromForm] string? date)
 

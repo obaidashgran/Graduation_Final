@@ -1,4 +1,5 @@
-﻿@{
+﻿@model MedAppProject.Models.Patient
+@{
 	Layout = null;
 }
 <!DOCTYPE html> 
@@ -193,10 +194,10 @@
 											<img src="~/Images/patient.png" alt="User Image">
 										</a>
 										<div class="profile-det-info">
-											<h3>Richard Wilson</h3>
+											<h3>@Model.FirstName @Model.LastName</h3>
 											<div class="patient-details">
 												<h5><i class="fas fa-birthday-cake"></i> 24 Jul 1983, 38 years</h5>
-												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA</h5>
+												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> @Model.PatientLocation</h5>
 											</div>
 										</div>
 									</div>
@@ -312,28 +313,32 @@
 															<thead>
 																<tr>
 																	<th>Doctor</th>
-																	<th>Appt Date</th>
+																	
 																	<th>Booking Date</th>
 																	<th>Amount</th>
-																	<th>Follow Up</th>
+																	
 																	<th>Status</th>
 																	<th></th>
 																</tr>
 															</thead>
 															<tbody>
+																@foreach(var p in @Model.DoctorAppointments)
+																{
+
+																
 																<tr>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a asp-action="DoctorProfile" asp-controller="Patinet" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a asp-action="DoctorProfile" asp-controller="Patient">Dr. Ruby Perrin <span>Dental</span></a>
+																			<a asp-action="DoctorProfile" asp-controller="Patient">Dr. @p.Doctor.FirstName @p.Doctor.LastName <span>@p.Doctor.DoctorSpecialization.Name.ToString()</span></a>
 																		</h2>
 																	</td>
-																	<td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
-																	<td>12 Nov 2019</td>
-																	<td>$160</td>
-																	<td>16 Nov 2019</td>
+																	<td>@p.bookTime.ToString("d MMMM yyyy") <span class="d-block text-info">@p.bookTime.ToString("hh:mm")</span></td>
+																	
+																	<td>$@p.Doctor.Fees.ToString()</td>
+																	
 																	<td><span class="badge rounded-pill bg-success-light">Confirm</span></td>
 																	<td class="text-end">
 																		<div class="table-action">
@@ -346,7 +351,7 @@
 																		</div>
 																	</td>
 																</tr>
-															
+															}
 															</tbody>
 														</table>
 													</div>
@@ -370,15 +375,19 @@
 																</tr>     
 															</thead>
 															<tbody>
-																<tr>
+																@foreach(var x in @Model.Prescription)
+															{
+																
+															
+															<tr>
 																	<td>14 Nov 2019</td>
-																	<td>Prescription 1</td>
+																	<td>@x.MedName</td>
 																	<td>
 																		<h2 class="table-avatar">
 																		<a asp-action="DoctorProfile" asp-controller="Patient" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																		<a asp-action="DoctorProfile" asp-controller="Patient">Dr. Ruby Perrin <span>Dental</span></a>
+																		<a asp-action="DoctorProfile" asp-controller="Patient">Dr. @x.Doctor.FirstName @x.Doctor.LastName <span>@x.Doctor.DoctorSpecialization.Name.ToString()</span></a>
 																		</h2>
 																	</td>
 																	<td class="text-end">
@@ -392,7 +401,7 @@
 																		</div>
 																	</td>
 																</tr>
-																
+															}	
 															</tbody>	
 														</table>
 													</div>
@@ -418,17 +427,21 @@
 																</tr>     
 															</thead>
 															<tbody>
-																<tr>
-																	<td><a href="javascript:void(0);">#MR-0010</a></td>
-																	<td>14 Nov 2019</td>
-																	<td>Dental Filling</td>
+																@foreach(var x in @Model.MedicalRecords)
+															{
+																
+															
+															<tr>
+																	<td><a href="javascript:void(0);">#MR-@x.Id</a></td>
+																	<td>@x.Date.ToString("d MMMM yyyy")</td>
+																	<td>@x.Descreption</td>
 																	<td><a href="#">dental-test.pdf</a></td>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a asp-action="DoctorProfile" asp-controller="Patient" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																		<a asp-action="DoctorProfile" asp-controller="Patient">Dr. Ruby Perrin <span>Dental</span></a>
+																		<a asp-action="DoctorProfile" asp-controller="Patient">Dr. @x.Doctor.FirstName @x.Doctor.LastName <span>@x.Doctor.DoctorSpecialization.Name.ToString()</span></a>
 																		</h2>
 																	</td>
 																	<td class="text-end">
@@ -442,7 +455,7 @@
 																		</div>
 																	</td>
 																</tr>
-																
+															}
 															</tbody>  	
 														</table>
 													</div>
@@ -467,8 +480,12 @@
 																</tr>     
 															</thead>
 															<tbody>
-																<tr>
-																	<td><a href="javascript:void(0);">#MR-0010</a></td>
+																@foreach(var x in @Model.Tests)
+															{
+																
+															
+															<tr>
+																	<td><a href="javascript:void(0);">#MR-@x.Id</a></td>
 																	<td>14 Nov 2019</td>
 																	<td>Dental Filling</td>
 																	<td><a href="#">dental-test.pdf</a></td>
@@ -477,7 +494,7 @@
 																		<a asp-action="DoctorProfile" asp-controller="Patient" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																		<a asp-action="DoctorProfile" asp-controller="Patient">Dr. Ruby Perrin <span>Dental</span></a>
+																		<a asp-action="DoctorProfile" asp-controller="Patient"> Lab Name <span>Dental</span></a>
 																		</h2>
 																	</td>
 																	<td class="text-end">
@@ -491,7 +508,7 @@
 																		</div>
 																	</td>
 																</tr>
-																
+															}
 															</tbody>  	
 														</table>
 													</div>
@@ -515,20 +532,24 @@
 																</tr>
 															</thead>
 															<tbody>
-																<tr>
+																@foreach(var x in @Model.Bills)
+															{
+																
+															
+															<tr>
 																	<td>
-																		<a href="invoice-view.html">#INV-0010</a>
+																		<a href="invoice-view.html">#INV-@x.Id</a>
 																	</td>
 																	<td>
 																		<h2 class="table-avatar">
 																		<a asp-action="DoctorProfile" asp-controller="Patient" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																		<a asp-action="DoctorProfile" asp-controller="Patient">Ruby Perrin <span>Dental</span></a>
+																		<a asp-action="DoctorProfile" asp-controller="Patient">@x.Doctor.FirstName @x.Doctor.LastName <span>@x.Doctor.DoctorSpecialization.Name.ToString()</span></a>
 																		</h2>
 																	</td>
-																	<td>$450</td>
-																	<td>14 Nov 2019</td>
+																	<td>$@x.Amount</td>
+																	<td>@x.PaidOn.ToString("d MMMM yyyy")</td>
 																	<td class="text-end">
 																		<div class="table-action">
 																			<a href="invoice-view.html" class="btn btn-sm bg-info-light">
@@ -540,7 +561,7 @@
 																		</div>
 																	</td>
 																</tr>
-																
+															}	
 															</tbody>
 														</table>
 													</div>

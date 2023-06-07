@@ -189,7 +189,7 @@
 										<img src="~/Images/drImage.png" alt="User Image">
 									</a>
 									<div class="booking-info">
-										<h4><a asp-action="DoctorProfile" asp-controller="Patient">Dr. Darren Elder</a></h4>
+										<h4><a asp-action="DoctorProfile" asp-controller="Patient">Dr. @Model.FirstName @Model.LastName</a></h4>
 										<div class="rating">
 											<i class="fas fa-star filled"></i>
 											<i class="fas fa-star filled"></i>
@@ -198,15 +198,15 @@
 											<i class="fas fa-star"></i>
 											
 										</div>
-										<p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA</p>
+										<p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> @Model.ClincLocation</p>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-12 col-sm-4 col-md-6">
-								<h4 class="mb-1">11 November 2019</h4>
-								<p class="text-muted">Monday</p>
+								<h4 class="mb-1">@DateTime.Now.ToString("d MMMM yyyy")</h4>
+								<p class="text-muted">@DateTime.Today.ToString("dddd")</p>
 							</div>
 							<div class="col-12 col-sm-8 col-md-6 text-sm-end">
 								<div class="bookingrange btn btn-white btn-sm mb-3">
@@ -232,11 +232,21 @@
 														<i class="fa fa-chevron-left"></i>
 													</a>
 												</li>
-												<li>
-													<span>Mon</span>
-													<span class="slot-date">11 Nov <small class="slot-year">2019</small></span>
-												</li>
-												<li>
+												@{
+													DateTime Day = DateTime.Today;
+												}
+												@for(int i=0;i<7;i++)
+												{
+													
+
+													<li>
+													<span>@Day.ToString("ddd")</span>
+													<span class="slot-date">@Day.ToString("d MMMM") <small class="slot-year">@Day.ToString("yyyy")</small></span>
+													</li>
+													Day = Day.AddDays(1);
+												}
+												
+												@*<li>
 													<span>Tue</span>
 													<span class="slot-date">12 Nov <small class="slot-year">2019</small></span>
 												</li>
@@ -264,7 +274,7 @@
 													<a href="">
 														<i class="fa fa-chevron-right"></i>
 													</a>
-												</li>
+												</li>*@
 											</ul>
 										</div>
 										<!-- /Day Slot -->
@@ -281,18 +291,34 @@
 										<!-- Time Slot -->
 										<div class="time-slot">
 											<ul class="clearfix">
+												
+												@{
+													DateTime Day2 = DateTime.Today;
+												}
+												@for(int i=0;i<7;i++)
+												{
+													
+												
 												<li>
+													@foreach(var av in @Model.AvailableTime.Where(a=>a.Time.Date==Day2.Date))
+													{
 													<a class="timing" href="#">
-														<span>9:00</span> <span>AM</span>
+														
+														<span>@av.Time.ToString("hh:mm")</span> <span></span>
 													</a>
-													<a class="timing" href="#">
+													}
+													@*<a class="timing" href="#">
 														<span>10:00</span> <span>AM</span>
 													</a>
 													<a class="timing" href="#">
 														<span>11:00</span> <span>AM</span>
-													</a>
+													</a>*@
 												</li>
-												<li>
+
+													Day2 = Day2.AddDays(1);
+												}
+												
+												@*<li>
 													<a class="timing" href="#">
 														<span>9:00</span> <span>AM</span>
 													</a>
@@ -357,7 +383,7 @@
 													<a class="timing" href="#">
 														<span>11:00</span> <span>AM</span>
 													</a>
-												</li>
+												</li>*@
 											</ul>
 										</div>
 										<!-- /Time Slot -->

@@ -16,7 +16,8 @@ namespace MedAppProject.Repositories
 
         public void Add(DoctorAppointment entity)
         {
-            throw new NotImplementedException();
+            _db.Add(entity);
+            _db.SaveChanges();
         }
 
         public Task<VMLogin> CheckCredentialsAsync(string email, string password)
@@ -36,13 +37,13 @@ namespace MedAppProject.Repositories
 
         public IEnumerable<DoctorAppointment> GetAll()
         {
-            var ap = _db.DoctorAppointments.Include(a => a.patient).Include(a => a.Doctor).ToList();
+            var ap = _db.DoctorAppointments.Include(a => a.patient).Include(a => a.Doctor).ThenInclude(d=>d.DoctorSpecialization).ToList();
             return ap;
         }
 
         public DoctorAppointment GetById(int id)
         {
-            var ap = _db.DoctorAppointments.Include(a => a.patient).Include(a => a.Doctor).SingleOrDefault(x => x.Id == id);
+            var ap = _db.DoctorAppointments.Include(a => a.patient).Include(a => a.Doctor).ThenInclude(d=>d.DoctorSpecialization).SingleOrDefault(x => x.Id == id);
             return ap;
         }
 

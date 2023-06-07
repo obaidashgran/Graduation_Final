@@ -1,4 +1,4 @@
-﻿@model MedAppProject.Models.Lab;
+﻿@model MedAppProject.ViewModels.LabDashboardViewModel
 <!DOCTYPE html>
 @{
 	Layout = null;
@@ -171,6 +171,9 @@
 						<div class="row">
 
 							<div class="col-lg-9">
+								@foreach(var x in Model.Labs)
+								{
+									
 								
 								<div class="card doctor-card" style="margin-top:25px;">
 
@@ -189,7 +192,7 @@
 												</div>
 												<div class="doc-info-cont">
 													<h4 class="doc-name">
-														<a href="doctor-profile.html">Lab Name</a>
+														<a href="doctor-profile.html">@x.FirstName</a>
 														<i class="fas fa-circle-check"></i>
 													</h4>
 													<div class="clinic-details">
@@ -225,7 +228,7 @@
 										</div>
 									</div>
 								</div>
-
+								}
 
 
 								<div class="row">
