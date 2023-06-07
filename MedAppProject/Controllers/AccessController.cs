@@ -12,6 +12,8 @@ namespace MedAppProject.Controllers
     {
         private readonly IMedAppRepository<Patient> patient;
         private readonly IMedAppRepository<Doctor> _doctor;
+        private readonly IMedAppRepository<Lab> _lab;
+        private readonly IMedAppRepository<Pharmacist> _pharmacist;
         private readonly IMedAppRepository<Specialization> _specialization;
         private readonly IMedAppRepository<VMLogin> login;
 
@@ -19,13 +21,15 @@ namespace MedAppProject.Controllers
             IMedAppRepository<VMLogin> _login,
             IMedAppRepository<Patient> _patient,
             IMedAppRepository<Doctor> doctor,
-            IMedAppRepository<Specialization> specialization = null
-        )
+            IMedAppRepository<Specialization> specialization
+,
+            IMedAppRepository<Lab> lab)
         {
             this.login = _login;
             this.patient = _patient;
             this._doctor = doctor;
             _specialization = specialization;
+            _lab = lab;
         }
 
         public ActionResult ViewDataResult()
@@ -111,11 +115,13 @@ namespace MedAppProject.Controllers
                 }
                 else if (isValid.RoleId == Role.Pharmacy)
                 {
-                    return RedirectToAction("Index", "Pharmacy");
+                    var pha = _pharmacist.GetById(isValid.userId);
+                    return RedirectToAction("AddDataToSession", "Pharmacist",pha);
                 }
                 else if (isValid.RoleId == Role.Lab)
                 {
-                    return RedirectToAction("Index", "Lab");
+                    var lab = _lab.GetById(isValid.userId);
+                    return RedirectToAction("AddDataToSession", "Lab", lab);
                 }
             }
 
