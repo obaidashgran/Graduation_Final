@@ -192,13 +192,13 @@
 												</div>
 												<div class="doc-info-cont">
 													<h4 class="doc-name">
-														<a href="doctor-profile.html">@x.FirstName</a>
+														<a href="doctor-profile.html">@x.FirstName @x.LastName</a>
 														<i class="fas fa-circle-check"></i>
 													</h4>
 													<div class="clinic-details">
 														<p class="doc-location">
 															<i class="feather-map-pin"></i>
-															<span>City</span><a href="javascript:void(0);">Get Direction</a>
+															<span>City</span><a href="javascript:void(0);">@x.LabLocation</a>
 														</p>
 														<p class="doc-location">
 															<i class="feather-award"></i> <span>20</span> Years of Experience
@@ -206,7 +206,7 @@
 													</div>
 													<div class="reviews-ratings">
 														<p>
-															<span><i class="fas fa-star"></i> 4.5</span>
+															<span><i class="fas fa-star"></i> 4.4</span>
 														</p>
 													</div>
 												</div>
@@ -222,7 +222,7 @@
 													</ul>
 												</div>
 												<div class="clinic-booking book-appoint" style="margin-top:80px">
-													<a class="btn btn-primary" href="booking.html">Book Appointment</a>
+													<a class="btn btn-primary" asp-action="LabInfo" asp-controller="Patient">Book Appointment</a>
 												</div>
 											</div>
 										</div>

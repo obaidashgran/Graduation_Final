@@ -66,11 +66,15 @@ namespace MedAppProject.Controllers
                 Patient = _patient.GetById(getId)
 
             };
-            return RedirectToAction("SearchLabResult", "Patient", labs);
+            return View("Views/Patient/SearchLabResult.cshtml", labs);
         }
         public ActionResult SearchLabResult(LabDashboardViewModel lab)
         {
             return View(lab);
+        }
+        public ActionResult LabInfo()
+        {
+            return View();
         }
 		public ActionResult BookAppointment(int docId)
 		{
