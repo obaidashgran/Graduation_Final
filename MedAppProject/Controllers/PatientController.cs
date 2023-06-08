@@ -53,11 +53,11 @@ namespace MedAppProject.Controllers
             };
             return View(pd);
         }
-        public ActionResult LabProfile(int labId)
-        {
-            var lab = _lab.GetById(labId);
-            return View(lab);
-        }
+        //public ActionResult LabProfile(int labId)
+        //{
+        //    var lab = _lab.GetById(labId);
+        //    return View(lab);
+        //}
         public ActionResult LabSearch()
         {
             int getId = HttpContext.Session.GetInt32("Id") ?? 0;
