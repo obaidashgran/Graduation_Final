@@ -36,7 +36,7 @@ namespace MedAppProject.Repositories
 
         public Patient GetById(int id)
         {
-            var pa = _db.Patients.Include(t=>t.Tests).Include(m=>m.MedicalRecords).Include(b=>b.Bills).Include(p=>p.Prescription).Include(p => p.DoctorAppointments).ThenInclude(d=>d.Doctor).ThenInclude(s=>s.DoctorSpecialization).SingleOrDefault(a=>a.Id==id);
+            var pa = _db.Patients.Include(t=>t.Tests).Include(m=>m.MedicalRecords).Include(b=>b.Bills).Include(p=>p.Prescription).Include(l=>l.LabAppointments).ThenInclude(a=>a.Lab).Include(p => p.DoctorAppointments).ThenInclude(d=>d.Doctor).ThenInclude(s=>s.DoctorSpecialization).SingleOrDefault(a=>a.Id==id);
             return pa;
         
         }

@@ -13,14 +13,16 @@ namespace MedAppProject.Controllers
         private readonly IMedAppRepository<Doctor> _doctor;
         private readonly IMedAppRepository<Patient> _patient;
         private readonly IMedAppRepository<DoctorAppointment> _docAppointment;
+        private readonly IMedAppRepository<LabAppointment> _labAppointment;
         private readonly IMedAppRepository<DoctorAvailableTimes> _docAvilableTime;
+        private readonly IMedAppRepository<LabAvailableTimes> _labAvilableTime;
         private readonly IMedAppRepository<Lab> _lab;
 
 
 
         public PatientController(IMedAppRepository<Specialization> specialization, IMedAppRepository<Doctor> doctor,
             IMedAppRepository<DoctorAppointment> docAppointment, IMedAppRepository<Patient> patient,
-            IMedAppRepository<DoctorAvailableTimes> docAvilableTime, IMedAppRepository<Lab> lab)
+            IMedAppRepository<DoctorAvailableTimes> docAvilableTime, IMedAppRepository<Lab> lab, IMedAppRepository<LabAvailableTimes> labAvilableTime, IMedAppRepository<LabAppointment> labAppointment)
         {
             _specialization = specialization;
             _doctor = doctor;
@@ -28,6 +30,8 @@ namespace MedAppProject.Controllers
             _patient = patient;
             _docAvilableTime = docAvilableTime;
             _lab = lab;
+            _labAvilableTime = labAvilableTime;
+            _labAppointment = labAppointment;
         }
 
         // GET: PatientController
@@ -49,6 +53,11 @@ namespace MedAppProject.Controllers
             };
             return View(pd);
         }
+        //public ActionResult LabProfile(int labId)
+        //{
+        //    var lab = _lab.GetById(labId);
+        //    return View(lab);
+        //}
         public ActionResult LabSearch()
         {
             int getId = HttpContext.Session.GetInt32("Id") ?? 0;
@@ -56,9 +65,14 @@ namespace MedAppProject.Controllers
             return View(pa);
         }
         [HttpPost]
-        public ActionResult SearchForLabs([FromForm] string city)
+        public ActionResult SearchForLabs([FromForm] string city , [FromForm] string? testName)
         {
-            var la = _lab.GetAll().Where(l=>l.LabLocation.Equals(city));
+
+            List<Lab> la = _lab.GetAll().Where(l=>l.LabLocation.Equals(city)).ToList();
+            if (testName != null)
+            {
+                la = la.Where(l => l.TestsInfo.Any(a=>a.Name.Equals(testName))).ToList();
+            }
             int getId = HttpContext.Session.GetInt32("Id") ?? 0;
             LabDashboardViewModel labs = new LabDashboardViewModel
             {
@@ -66,12 +80,13 @@ namespace MedAppProject.Controllers
                 Patient = _patient.GetById(getId)
 
             };
-            return RedirectToAction("SearchLabResult", "Patient", labs);
+            return View("Views/Patient/SearchLabResult.cshtml", labs);
         }
         public ActionResult SearchLabResult(LabDashboardViewModel lab)
         {
             return View(lab);
         }
+        
 		public ActionResult BookAppointment(int docId)
 		{
             var doc = _doctor.GetById(docId);
@@ -148,6 +163,7 @@ namespace MedAppProject.Controllers
                 modelSort.Doctors = modelSort.Doctors.Where(d => d.AvailableTime.Any(a => a.Time.Date>=DateTime.Now.Date)).ToList();
                 
             }
+            
 
 
             return View("~/Views/Patient/SearchDResult.cshtml", modelSort);
@@ -194,6 +210,40 @@ namespace MedAppProject.Controllers
             model.Specializations= _specialization.GetAll().ToList();
             return View("~/Views/Patient/Index.cshtml", model);
 
+        }
+        [HttpPost]
+        public ActionResult MakeLabAppointment([FromForm] string patient, [FromForm] string appointment,
+            [FromForm] string id)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            Patient patientChek = _patient.GetById(getId);
+            DateTime times = _labAvilableTime.GetById(int.Parse(appointment)).Time;
+            var av = patientChek.LabAppointments.SingleOrDefault(a => a.bookTime.Equals(times));
+            ViewData["AppointmentMsg"] = null;
+            if (av == null)
+            {
+                //create LabApp obj to add 
+                LabAppointment labApp = new LabAppointment()
+                {
+                    patient = _patient.GetById(getId),
+                    bookTime = _labAvilableTime.GetById(int.Parse(appointment)).Time,
+                    Lab = _lab.GetById(int.Parse(id))
+
+                };
+
+
+                //remove from available time
+                var dv = _labAvilableTime.GetById(int.Parse(appointment));
+                _labAvilableTime.Delete(dv);
+                //add to docApp
+                _labAppointment.Add(labApp);
+            }
+            else
+            {
+                ViewData["AppointmentMsg"] = "You have an appointment in this time , please try again!";
+            }
+
+            return View("~/Views/Patient/LabSearch.cshtml", patientChek);
         }
         //public ActionResult DoctorProfile()
         //{

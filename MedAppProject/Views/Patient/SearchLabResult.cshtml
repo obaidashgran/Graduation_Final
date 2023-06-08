@@ -192,13 +192,13 @@
 												</div>
 												<div class="doc-info-cont">
 													<h4 class="doc-name">
-														<a href="doctor-profile.html">@x.FirstName</a>
+														<a asp-action="LabProfile" asp-controller="Patient" asp-route-labId="@x.Id">@x.FirstName @x.LastName</a>
 														<i class="fas fa-circle-check"></i>
 													</h4>
 													<div class="clinic-details">
 														<p class="doc-location">
 															<i class="feather-map-pin"></i>
-															<span>City</span><a href="javascript:void(0);">Get Direction</a>
+															<span>City</span><a href="javascript:void(0);">@x.LabLocation</a>
 														</p>
 														<p class="doc-location">
 															<i class="feather-award"></i> <span>20</span> Years of Experience
@@ -206,7 +206,7 @@
 													</div>
 													<div class="reviews-ratings">
 														<p>
-															<span><i class="fas fa-star"></i> 4.5</span>
+															<span><i class="fas fa-star"></i> 4.4</span>
 														</p>
 													</div>
 												</div>
@@ -221,8 +221,25 @@
 
 													</ul>
 												</div>
+												<div>
+													<form asp-controller="Patient" asp-action="MakeLabAppointment" method="post">
+															
+															@foreach(var a in @x.AvailableTimes.Where(a=>a.Time.Date>=DateTime.Now.Date))
+															{
+																<div>
+																	<input name="id" value="@x.Id" hidden>
+																	<input name="patient" value="@Model.Patient.Id" hidden>
+																	<input type="radio"  name="appointment" value="@a.Id">
+																	<label for="@a.Time">@a.Time</label>
+																</div>
+															}
+															
+															<button type="submit">Book</button>
+														</form>
+
+												</div>
 												<div class="clinic-booking book-appoint" style="margin-top:80px">
-													<a class="btn btn-primary" href="booking.html">Book Appointment</a>
+													<a class="btn btn-primary" asp-action="LabInfo" asp-controller="Patient">Book Appointment</a>
 												</div>
 											</div>
 										</div>
