@@ -1,0 +1,41 @@
+﻿@model MedAppProject.Models.Lab
+@{
+    Layout = null;
+}
+<h1>Lab Name: @Model.FirstName @Model.LastName</h1>
+<div>
+    <input type="text" id="testInput" />
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var testsInfo = @Html.Raw(Json.Serialize(Model.TestsInfo));
+
+        $('#testInput').autocomplete({
+            source: function (request, response) {
+                var filteredTests = testsInfo.filter(function (test) {
+                    return test.name.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+                });
+
+                response(filteredTests.map(function (test) {
+                    return {
+                        label: test.name + ' - ' + test.price,
+                        value: test.name
+                    };
+                }));
+            },
+            select: function (event, ui) {
+                var selectedTest = testsInfo.find(function (test) {
+                    return test.name === ui.item.value;
+                });
+
+                // Use the selected test as needed
+                console.log(selectedTest);
+            },
+            minLength: 2 // Minimum characters to trigger autocomplete suggestions
+        });
+    });
+</script>

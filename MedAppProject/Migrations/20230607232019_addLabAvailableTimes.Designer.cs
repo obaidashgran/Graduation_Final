@@ -4,6 +4,7 @@ using MedAppProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedAppProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230607232019_addLabAvailableTimes")]
+    partial class addLabAvailableTimes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -443,9 +445,6 @@ namespace MedAppProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("LabId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -454,8 +453,6 @@ namespace MedAppProject.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LabId");
 
                     b.ToTable("testLabInfos");
                 });
@@ -649,13 +646,6 @@ namespace MedAppProject.Migrations
                     b.Navigation("TestInfo");
                 });
 
-            modelBuilder.Entity("MedAppProject.Models.TestInfo", b =>
-                {
-                    b.HasOne("MedAppProject.Models.Lab", null)
-                        .WithMany("TestsInfo")
-                        .HasForeignKey("LabId");
-                });
-
             modelBuilder.Entity("MedAppProject.Models.Doctor", b =>
                 {
                     b.Navigation("Appointments");
@@ -670,8 +660,6 @@ namespace MedAppProject.Migrations
                     b.Navigation("AvailableTimes");
 
                     b.Navigation("LabAppointments");
-
-                    b.Navigation("TestsInfo");
                 });
 
             modelBuilder.Entity("MedAppProject.Models.Patient", b =>

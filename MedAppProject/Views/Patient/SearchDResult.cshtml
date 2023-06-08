@@ -229,20 +229,25 @@
 
 													<div>
 														<form asp-controller="Patient" asp-action="MakeAppointment" method="post">
-															
-															@foreach(var a in @x.AvailableTime)
+															@{
+																var index = 0;
+															}
+															@foreach(var a in @x.AvailableTime.Where(a=>a.Time.Date>=(DateTime.Now.Date)))
 															{
+																if (index == 5)
+																	break;
 																<div>
 																	<input name="id" value="@x.Id" hidden>
 																	<input name="patient" value="@Model.PatientInfo.Id" hidden>
 																	<input type="radio"  name="appointment" value="@a.Id">
 																	<label for="@a.Time">@a.Time</label>
 																</div>
+																index++;
 															}
 															
-															<button type="submit">Book</button>
+															<button type="submit" class="btn btn-outline-primary">Book</button>
 														</form>
-														
+														<a asp-action="BookAppointment" asp-controller="Patient" asp-route-docId="@x.Id">Show All Available Times</a>
 													</div>
 												@*<div class="clinic-booking book-appoint">
 													<a class="btn btn-primary" href="booking.html">Book Appointment</a>

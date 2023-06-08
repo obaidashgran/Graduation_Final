@@ -29,13 +29,13 @@ namespace MedAppProject.Repositories
 
         public IEnumerable<Lab> GetAll()
         {
-            var lab = db.Labs.Include(l => l.LabAppointments);
+            var lab = db.Labs.Include(t=>t.TestsInfo).Include(a=>a.AvailableTimes).Include(l => l.LabAppointments);
             return lab;
         }
 
         public Lab GetById(int id)
         {
-            var lab = db.Labs.Include(l=>l.LabAppointments).SingleOrDefault(d => d.Id == id);
+            var lab = db.Labs.Include(t=>t.TestsInfo).Include(a=>a.AvailableTimes).Include(l=>l.LabAppointments).SingleOrDefault(d => d.Id == id);
             return lab;
         }
 
