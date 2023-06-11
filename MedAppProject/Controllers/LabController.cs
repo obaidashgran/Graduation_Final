@@ -8,21 +8,23 @@ namespace MedAppProject.Controllers
     public class LabController : Controller
     {
         private readonly IMedAppRepository<Lab> _lab;
+        private readonly IMedAppRepository<LabAvailableTimes> _labAvailableTimes;
         private readonly IMedAppRepository<Patient> _patient;
         private readonly IMedAppRepository<LabBills> _labBill;
         private readonly IMedAppRepository<Test> _test;
         private readonly IMedAppRepository<TestInfo> _testInfo;
 
-		public LabController(IMedAppRepository<Lab> lab, IMedAppRepository<Patient> patient, IMedAppRepository<LabBills> labBill, IMedAppRepository<Test> test, IMedAppRepository<TestInfo> testInfo)
-		{
-			_lab = lab;
-			_patient = patient;
-			_labBill = labBill;
-			_test = test;
-			_testInfo = testInfo;
-		}
+        public LabController(IMedAppRepository<Lab> lab, IMedAppRepository<Patient> patient, IMedAppRepository<LabBills> labBill, IMedAppRepository<Test> test, IMedAppRepository<TestInfo> testInfo, IMedAppRepository<LabAvailableTimes> labAvailableTimes)
+        {
+            _lab = lab;
+            _patient = patient;
+            _labBill = labBill;
+            _test = test;
+            _testInfo = testInfo;
+            _labAvailableTimes = labAvailableTimes;
+        }
 
-		public IActionResult AddDataToSession(Lab lab)
+        public IActionResult AddDataToSession(Lab lab)
         {
             HttpContext.Session.SetInt32("Id", lab.Id);
             // Redirect to another action or return a view
@@ -48,6 +50,33 @@ namespace MedAppProject.Controllers
 				Lab = lab
 			};
 			return View(vm);
+        }
+        public ActionResult AddAvailableTimes()
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var lab = _lab.GetById(getId);
+            return View(lab);
+        }
+        [HttpPost]
+        public ActionResult AddAvailableTimes([FromForm] string duration, [FromForm] string time)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            Lab lab = _lab.GetById(getId);
+            LabAvailableTimes labAv = new LabAvailableTimes { Lab = lab, Time = DateTime.Parse(time)};
+            List<LabAvailableTimes> da = _labAvailableTimes.GetAll().Where(a => a.Time == DateTime.Parse(time)).ToList();
+            if (da.Count == 0)
+            {
+                _labAvailableTimes.Add(labAv);
+            }
+
+            return RedirectToAction("AddAvailableTimes");
+        }
+        public ActionResult DeleteAvailableTimes(int avId)
+        {
+            var av = _labAvailableTimes.GetById(avId);
+            _labAvailableTimes.Delete(av);
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            return RedirectToAction("AddAvailableTimes");
         }
         public ActionResult AddBill(int patId)
         {

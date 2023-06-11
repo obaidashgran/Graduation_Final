@@ -8,5 +8,7 @@
         public bool KeepLoggedIn { get; set; }
         public int userId { get; set; }
         public Role RoleId { get; set; }
+        public bool isVerified { get; set; }
+        public string code { get; set; }
     }
 }

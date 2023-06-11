@@ -37,12 +37,12 @@ namespace MedAppProject.Data
             .Property(u => u.Id)
             .HasDefaultValueSql("NEXT VALUE FOR shared.UserIdSequence");
 
-            modelBuilder.Entity<VMLogin>()
-            .Property(u => u.Password)
-            .HasConversion(
-            hashedPassword => BCrypt.Net.BCrypt.HashPassword(hashedPassword),
-            hashedPassword => hashedPassword
-            );
+            //modelBuilder.Entity<VMLogin>()
+            //.Property(u => u.Password)
+            //.HasConversion(
+            //hashedPassword => BCrypt.Net.BCrypt.HashPassword(hashedPassword),
+            //hashedPassword => hashedPassword
+            //);
 
 
 

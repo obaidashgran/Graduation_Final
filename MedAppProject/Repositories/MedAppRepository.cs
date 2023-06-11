@@ -27,6 +27,11 @@ namespace MedAppProject.Repositories
             var user = await _context.VMLogins.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
 
             // If no user was found with the specified email, return false
+            //if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
+            //{
+            //    return user;
+            //}
+
             return user;
         }
 
