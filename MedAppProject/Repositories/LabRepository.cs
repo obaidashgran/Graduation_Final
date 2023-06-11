@@ -35,7 +35,7 @@ namespace MedAppProject.Repositories
 
         public Lab GetById(int id)
         {
-            var lab = db.Labs.Include(t=>t.TestsInfo).Include(a=>a.AvailableTimes).Include(l=>l.LabAppointments).SingleOrDefault(d => d.Id == id);
+            var lab = db.Labs.Include(t=>t.TestsInfo).Include(a=>a.AvailableTimes).Include(l=>l.LabAppointments).ThenInclude(p=>p.patient).SingleOrDefault(d => d.Id == id);
             return lab;
         }
 

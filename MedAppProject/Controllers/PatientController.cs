@@ -4,6 +4,7 @@ using MedAppProject.ViewMoels;
 using MedAppProject.Repositories;
 using MedAppProject.Models;
 using MedAppProject.ViewModels;
+using MedAppProject.ServicesClasses;
 
 namespace MedAppProject.Controllers
 {
@@ -17,12 +18,14 @@ namespace MedAppProject.Controllers
         private readonly IMedAppRepository<DoctorAvailableTimes> _docAvilableTime;
         private readonly IMedAppRepository<LabAvailableTimes> _labAvilableTime;
         private readonly IMedAppRepository<Lab> _lab;
+        private readonly IMedAppRepository<Test> _test;
+        private readonly IEmailSender _emailSender;
 
 
 
         public PatientController(IMedAppRepository<Specialization> specialization, IMedAppRepository<Doctor> doctor,
             IMedAppRepository<DoctorAppointment> docAppointment, IMedAppRepository<Patient> patient,
-            IMedAppRepository<DoctorAvailableTimes> docAvilableTime, IMedAppRepository<Lab> lab, IMedAppRepository<LabAvailableTimes> labAvilableTime, IMedAppRepository<LabAppointment> labAppointment)
+            IMedAppRepository<DoctorAvailableTimes> docAvilableTime, IMedAppRepository<Lab> lab, IMedAppRepository<LabAvailableTimes> labAvilableTime, IMedAppRepository<LabAppointment> labAppointment, IMedAppRepository<Test> test, IEmailSender emailSender)
         {
             _specialization = specialization;
             _doctor = doctor;
@@ -32,6 +35,20 @@ namespace MedAppProject.Controllers
             _lab = lab;
             _labAvilableTime = labAvilableTime;
             _labAppointment = labAppointment;
+            _test = test;
+            _emailSender = emailSender;
+        }
+        public async Task<IActionResult> SendEmail()
+        {
+            // Create email content
+            var receiver = "smabdullah19@cit.just.edu.jo";
+            var subject = "Hello!";
+            var body = "Hi i'm obaida from MedApp company!";
+
+            // Send the email
+            await _emailSender.SendEmailAsync(receiver, subject, body);
+
+            return View();
         }
 
         // GET: PatientController
@@ -53,11 +70,11 @@ namespace MedAppProject.Controllers
             };
             return View(pd);
         }
-        //public ActionResult LabProfile(int labId)
-        //{
-        //    var lab = _lab.GetById(labId);
-        //    return View(lab);
-        //}
+        public ActionResult LabProfile(int labId)
+        {
+            var lab = _lab.GetById(labId);
+            return View(lab);
+        }
         public ActionResult LabSearch()
         {
             int getId = HttpContext.Session.GetInt32("Id") ?? 0;
@@ -208,6 +225,7 @@ namespace MedAppProject.Controllers
             }
             
             model.Specializations= _specialization.GetAll().ToList();
+            model.PatientInfo = patientChek;
             return View("~/Views/Patient/Index.cshtml", model);
 
         }
@@ -252,7 +270,34 @@ namespace MedAppProject.Controllers
         //    return View(doc);
         //}
 
+        public IActionResult DownloadFile(int id)
+        {
+            var test = _test.GetById(id);
+            if (test == null || test.ResultFile == null)
+            {
+                // Handle case where the test or the file does not exist
+                return NotFound();
+            }
 
+            // Return the file as a FileResult
+            return File(test.ResultFile, "application/octet-stream");
+        }
+        public IActionResult DeleteAppointment(int apId,int docId)
+		{
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+
+            var ap = _docAppointment.GetById(apId);
+            var doc = _doctor.GetById(docId);
+
+            var av = new DoctorAvailableTimes
+            {
+                Doctor = doc,
+                Time = ap.bookTime
+            };
+            _docAppointment.Delete(ap);
+            _docAvilableTime.Add(av);
+            return RedirectToAction("PatientProfile", "Patient");
+		}
         // GET: PatientController/Details/5
         public ActionResult Details(int id)
         {

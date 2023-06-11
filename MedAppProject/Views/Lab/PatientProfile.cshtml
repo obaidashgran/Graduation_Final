@@ -1,4 +1,4 @@
-﻿
+﻿@model MedAppProject.ViewModels.PatientProfileForLabViewModel
 @{
 	Layout = null;
 }
@@ -130,6 +130,9 @@
 
 									<!-- Appointment Tab -->
 									<div id="pat_appointments" class="tab-pane fade show active">
+										<div class="text-end">		
+												<a href="#" class="add-new-btn" data-bs-toggle="modal" data-bs-target="#add_test_Result">Add Tests Result</a>
+										</div>
 										<div class="card card-table mb-0">
 											<div class="card-body">
 												<div class="table-responsive">
@@ -146,18 +149,21 @@
 															</tr>
 														</thead>
 														<tbody>
+															@foreach(var x in @Model.Patient.LabAppointments)
+															{
+																
 															
-																<tr>
+															<tr>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">X Lab <span>Lab</span></a>
+																			<a href="doctor-profile.html">@x.Lab.FirstName @x.Lab.LastName<span></span></a>
 																		</h2>
 																	</td>
 
-																<td>11 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
+																<td>@x.bookTime.ToString("d MMMM yyyy")<span class="d-block text-info">@x.bookTime.ToString("HH:MM")</span></td>
 																	<td>50$</td>
 
 																	<td><span class="badge rounded-pill bg-success-light">Confirm</span></td>
@@ -192,28 +198,31 @@
 														<thead>
 															<tr>
 																<th>Invoice No</th>
-																<th>Doctor</th>
+																<th>Lab</th>
 																<th>Amount</th>
 																<th>Paid On</th>
 																<th></th>
 															</tr>
 														</thead>
 														<tbody>
+															@foreach(var b in @Model.Patient.LabBills)
+															{
+
 															
 																<tr>
 																	<td>
-																		<a href="invoice-view.html">#15</a>
+																		<a href="invoice-view.html">#INV-@b.Id</a>
 																	</td>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/LabImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">X Lab <span>Lab</span></a>
+																			<a href="doctor-profile.html">@Model.Lab.FirstName @Model.Lab.LastName<span>Lab</span></a>
 																		</h2>
 																	</td>
-																	<td>$50</td>
-																<td>11 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
+																	<td>$@b.Amount.ToString()</td>
+																<td>@b.PaidOn.ToString("d MMMM yyyy") <span class="d-block text-info"></span></td>
 																	<td class="text-end">
 																		<div class="table-action">
 																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
@@ -249,6 +258,38 @@
 		<!-- /Footer -->
 
 	</div>
+	<!--Add TestLabs Result-->
+	<div class="modal fade custom-modal" id="add_test_Result">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Tests Result</h3>
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<form asp-action="AddTestResult" asp-controller="Lab" method="post" enctype="multipart/form-data">					
+						<div class="modal-body">
+							<div class="form-group">
+								<input value="@Model.Patient.Id" name="paId" hidden />
+								<label>Date</label>
+								<input type="text" class="form-control datetimepicker" value="@DateTime.Today" name="date">
+							</div>
+							<div class="form-group">
+								<label>Description ( Optional )</label>
+								<textarea class="form-control" name="descreption"></textarea>
+							</div>
+							<div class="form-group">
+								<label>Upload File</label> 
+								<input type="file" class="form-control" name="file">
+							</div>	
+							<div class="submit-section text-center">
+								<button type="submit" class="btn btn-primary submit-btn">Submit</button>
+								<button type="button" class="btn btn-secondary submit-btn" data-bs-dismiss="modal">Cancel</button>							
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	<!-- /Main Wrapper -->
 	
 	<!-- jQuery -->
