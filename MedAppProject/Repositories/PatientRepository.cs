@@ -30,13 +30,13 @@ namespace MedAppProject.Repositories
 
         public IEnumerable<Patient> GetAll()
         {
-            var pa = _db.Patients.Include(p => p.DoctorAppointments).ThenInclude(d => d.Doctor).ToList();
+            var pa = _db.Patients.Include(l =>l.LabAppointments).ThenInclude(l=>l.Lab).Include(p => p.DoctorAppointments).ThenInclude(d => d.Doctor).ToList();
             return pa;
         }
 
         public Patient GetById(int id)
         {
-            var pa = _db.Patients.Include(t=>t.Tests).Include(m=>m.MedicalRecords).Include(b=>b.Bills).Include(p=>p.Prescription).Include(l=>l.LabAppointments).ThenInclude(a=>a.Lab).Include(p => p.DoctorAppointments).ThenInclude(d=>d.Doctor).ThenInclude(s=>s.DoctorSpecialization).SingleOrDefault(a=>a.Id==id);
+            var pa = _db.Patients.Include(t=>t.Tests).Include(m=>m.MedicalRecords).Include(b=>b.Bills).Include(lb=>lb.LabBills).Include(p=>p.Prescription).Include(l=>l.LabAppointments).ThenInclude(a=>a.Lab).Include(p => p.DoctorAppointments).ThenInclude(d=>d.Doctor).ThenInclude(s=>s.DoctorSpecialization).SingleOrDefault(a=>a.Id==id);
             return pa;
         
         }

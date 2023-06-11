@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using MedAppProject.Models;
 using MedAppProject.ViewMoels;
 using MedAppProject.Repositories;
+//using MedAppProject.ServicesClasses;
 
 namespace MedAppProject.Controllers
 {
@@ -16,6 +17,7 @@ namespace MedAppProject.Controllers
         private readonly IMedAppRepository<Pharmacist> _pharmacist;
         private readonly IMedAppRepository<Specialization> _specialization;
         private readonly IMedAppRepository<VMLogin> login;
+        //private readonly EmailService _emailService;
 
         public AccessController(
             IMedAppRepository<VMLogin> _login,
@@ -23,14 +25,31 @@ namespace MedAppProject.Controllers
             IMedAppRepository<Doctor> doctor,
             IMedAppRepository<Specialization> specialization
 ,
-            IMedAppRepository<Lab> lab)
+            IMedAppRepository<Lab> lab,
+            IMedAppRepository<Pharmacist> pharmacist
+           // EmailService emailService
+            )
         {
             this.login = _login;
             this.patient = _patient;
             this._doctor = doctor;
             _specialization = specialization;
             _lab = lab;
+            _pharmacist = pharmacist;
+            //_emailService = emailService;
         }
+        //public IActionResult SendEmail()
+        //{
+        //    // Create email content
+        //    var recipient = "obaida.shgran09@gmail.com";
+        //    var subject = "Hello!";
+        //    var body = "Hi i'm obaida from MedApp company!";
+
+        //    // Send the email
+        //    _emailService.SendEmail(recipient, subject, body);
+
+        //    return View();
+        //}
 
         public ActionResult ViewDataResult()
         {
@@ -127,6 +146,11 @@ namespace MedAppProject.Controllers
 
             ViewData["ValidateMessage"] = "user not found";
             return View();
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Access");
         }
     }
 }

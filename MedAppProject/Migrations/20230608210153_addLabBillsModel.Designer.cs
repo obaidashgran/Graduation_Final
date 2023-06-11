@@ -4,6 +4,7 @@ using MedAppProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedAppProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230608210153_addLabBillsModel")]
+    partial class addLabBillsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,35 +243,6 @@ namespace MedAppProject.Migrations
                     b.ToTable("LabAvailableTimes");
                 });
 
-            modelBuilder.Entity("MedAppProject.Models.LabBills", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<int>("LabId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PaidOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LabId");
-
-                    b.HasIndex("PatientId");
-
-                    b.ToTable("LabBills");
-                });
-
             modelBuilder.Entity("MedAppProject.Models.MedicalRecord", b =>
                 {
                     b.Property<int>("Id")
@@ -440,12 +413,6 @@ namespace MedAppProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("LabId")
                         .HasColumnType("int");
 
@@ -453,17 +420,19 @@ namespace MedAppProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Result")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("ResultFile")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                    b.Property<int>("TestInfoId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LabId");
 
                     b.HasIndex("PatientId");
+
+                    b.HasIndex("TestInfoId");
 
                     b.ToTable("Tests");
                 });
@@ -613,25 +582,6 @@ namespace MedAppProject.Migrations
                     b.Navigation("Lab");
                 });
 
-            modelBuilder.Entity("MedAppProject.Models.LabBills", b =>
-                {
-                    b.HasOne("MedAppProject.Models.Lab", "Lab")
-                        .WithMany()
-                        .HasForeignKey("LabId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MedAppProject.Models.Patient", "Patient")
-                        .WithMany("LabBills")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lab");
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("MedAppProject.Models.MedicalRecord", b =>
                 {
                     b.HasOne("MedAppProject.Models.Doctor", "Doctor")
@@ -688,9 +638,17 @@ namespace MedAppProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MedAppProject.Models.TestInfo", "TestInfo")
+                        .WithMany()
+                        .HasForeignKey("TestInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Lab");
 
                     b.Navigation("Patient");
+
+                    b.Navigation("TestInfo");
                 });
 
             modelBuilder.Entity("MedAppProject.Models.TestInfo", b =>
@@ -725,8 +683,6 @@ namespace MedAppProject.Migrations
                     b.Navigation("DoctorAppointments");
 
                     b.Navigation("LabAppointments");
-
-                    b.Navigation("LabBills");
 
                     b.Navigation("MedicalRecords");
 

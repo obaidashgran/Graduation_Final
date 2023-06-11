@@ -4,6 +4,7 @@ using MedAppProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedAppProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230609000523_addResultFile")]
+    partial class addResultFile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -459,11 +461,16 @@ namespace MedAppProject.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<int>("TestInfoId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LabId");
 
                     b.HasIndex("PatientId");
+
+                    b.HasIndex("TestInfoId");
 
                     b.ToTable("Tests");
                 });
@@ -688,9 +695,17 @@ namespace MedAppProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MedAppProject.Models.TestInfo", "TestInfo")
+                        .WithMany()
+                        .HasForeignKey("TestInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Lab");
 
                     b.Navigation("Patient");
+
+                    b.Navigation("TestInfo");
                 });
 
             modelBuilder.Entity("MedAppProject.Models.TestInfo", b =>

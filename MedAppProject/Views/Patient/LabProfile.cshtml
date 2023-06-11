@@ -1,4 +1,4 @@
-﻿
+﻿@model MedAppProject.Models.Lab
 @{
 	Layout = null;
 }
@@ -189,7 +189,7 @@
 										<img src="~/Images/LabImage.png" alt="User Image">
 									</a>
 									<div class="booking-info">
-										<h4><a asp-action="DoctorProfile" asp-controller="Patient">XX Lab</a></h4>
+										<h4><a asp-action="DoctorProfile" asp-controller="Patient">@Model.FirstName @Model.LastName</a></h4>
 										<div class="rating">
 											<i class="fas fa-star filled"></i>
 											<i class="fas fa-star filled"></i>
@@ -198,9 +198,12 @@
 											<i class="fas fa-star"></i>
 
 										</div>
-										<p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> AlTaybeh</p>
+										<p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> @Model.LabLocation</p>
 									</div>
 								</div>
+							</div>
+							<div class="float-right">
+								<input type="text" id="testInput" />
 							</div>
 						</div>
 						<div class="row">
@@ -236,11 +239,16 @@
 													DateTime Day = DateTime.Today;
 												}
 											
-													<li>
-														<span>@Day.ToString("ddd")</span>
-														<span class="slot-date">@Day.ToString("d MMMM") <small class="slot-year">@Day.ToString("yyyy")</small></span>
-													</li>
+												@for(int i=0;i<7;i++)
+												{
 													
+
+													<li>
+													<span>@Day.ToString("ddd")</span>
+													<span class="slot-date">@Day.ToString("d MMMM") <small class="slot-year">@Day.ToString("yyyy")</small></span>
+													</li>
+													Day = Day.AddDays(1);
+												}
 												
 											</ul>
 										</div>
@@ -258,14 +266,38 @@
 										<!-- Time Slot -->
 										<div class="time-slot">
 											<ul class="clearfix">
-
+												@{
+													DateTime Day2 = DateTime.Today;
+												}
+												@for(int i=0;i<7;i++)
+												{
+													
 												
-													<li>
+												<li>
+													@foreach(var av in @Model.AvailableTimes.Where(a=>a.Time.Date==Day2.Date))
+													{
+													<a class="timing" href="#">
+														
+														<span>@av.Time.ToString("hh:mm")</span> <span></span>
+													</a>
+													}
+													@*<a class="timing" href="#">
+														<span>10:00</span> <span>AM</span>
+													</a>
+													<a class="timing" href="#">
+														<span>11:00</span> <span>AM</span>
+													</a>*@
+												</li>
+
+													Day2 = Day2.AddDays(1);
+												}
+												
+													@*<li>
 															<a class="timing" href="#">
 
 																<span>9:00</span> <span></span>
 														  </a>
-												</li>
+												</li>*@
 											</ul>
 										</div>
 										<!-- /Time Slot -->
@@ -307,6 +339,46 @@
 
 	<!-- Custom JS -->
 	<script src="~/assets/js/script.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+ 
+
+<script>
+    $(document).ready(function () {
+        var testsInfo = @Html.Raw(Json.Serialize(Model.TestsInfo));
+
+ 
+
+        $('#testInput').autocomplete({
+            source: function (request, response) {
+                var filteredTests = testsInfo.filter(function (test) {
+                    return test.name.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+                });
+
+ 
+
+                response(filteredTests.map(function (test) {
+                    return {
+                        label: test.name + ' - ' + test.price,
+                        value: test.name
+                    };
+                }));
+            },
+            select: function (event, ui) {
+                var selectedTest = testsInfo.find(function (test) {
+                    return test.name === ui.item.value;
+                });
+
+ 
+
+                // Use the selected test as needed
+                console.log(selectedTest);
+            },
+            minLength: 2 // Minimum characters to trigger autocomplete suggestions
+        });
+    });
+</script>
 
 </body>
 </html>

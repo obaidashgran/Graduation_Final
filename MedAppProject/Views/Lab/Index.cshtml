@@ -1,4 +1,4 @@
-﻿
+﻿@model MedAppProject.Models.Lab
 @{
 	Layout = null;
 }
@@ -104,19 +104,22 @@
 																	</tr>
 																</thead>
 																<tbody>
+																	@foreach(var x in @Model.LabAppointments)
+																	{																
 																		<tr>
 
 																			<td>
 																				<h2 class="table-avatar">
-																					<a  class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image"> Abood  </a>
+																					<a  class="avatar avatar-sm me-2" asp-action="PatientProfile" asp-controller="Lab" asp-route-paId="@x.patient.Id">
+																						<img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image">@x.patient.FirstName @x.patient.LastName</a>
 
 																				</h2>
 																			</td>
 																			
-																		<td>11 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
+																		<td>@x.bookTime.ToString("d MMMM yyyy")<span class="d-block text-info">@x.bookTime.ToString("hh:mm")</span></td>
 																			
 
-																			<td class="text-center">50$</td>
+																			<td class="text-center">$$$$</td>
 																			<td class="text-end">
 																				<div class="table-action">
 																					<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
@@ -133,7 +136,7 @@
 																			</td>
 																		</tr>
 																	
-
+																	}
 																</tbody>
 															</table>
 														</div>
@@ -158,19 +161,23 @@
 																	</tr>
 																</thead>
 																<tbody>
+																	@foreach(var x in @Model.LabAppointments.Where(x=>x.bookTime.Date==DateTime.Today))
+																	{
+
 																	
 																		<tr>
 
 																			<td>
 																				<h2 class="table-avatar">
-																					<a  class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image"> Abood </a>
+																					<a  class="avatar avatar-sm me-2" asp-action="PatientProfile" asp-controller="Lab" asp-route-paId="@x.patient.Id">
+																						<img class="avatar-img rounded-circle" src="~/Images/patient.png" alt="User Image">@x.patient.FirstName @x.patient.LastName</a>
 
 																				</h2>
 																			</td>
-																		<td>11 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
+																		<td>@x.bookTime.ToString("d MMMM yyyy")<span class="d-block text-info">@x.bookTime.ToString("hh:mm")</span></td>
 
 
-																			<td class="text-center">hi</td>
+																			<td class="text-center">20$</td>
 																			<td class="text-end">
 																				<div class="table-action">
 																					<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
@@ -187,7 +194,7 @@
 																			</td>
 																		</tr>
 																	
-
+																	}
 																</tbody>
 															</table>
 														</div>
