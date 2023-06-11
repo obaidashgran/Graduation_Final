@@ -1,4 +1,4 @@
-﻿@model MedAppProject.Models.Doctor;
+﻿@model MedAppProject.Models.Lab;
 @{
 	Layout = null;
 }
@@ -36,7 +36,7 @@
 	<div class="main-wrapper">
 
 		<!-- Header -->
-		@Html.Partial("/Views/Doctor/NavBar.cshtml",@Model)
+		@Html.Partial("/Views/Lab/NavBar.cshtml",@Model)
 		<!-- /Header -->
 		<!-- Breadcrumb -->
 		<div class="breadcrumb-bar-two">
@@ -46,7 +46,7 @@
 						<h2 class="breadcrumb-title">Schedule Timings</h2>
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Doctor"> Home</a></li>
+								<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Lab"> Home</a></li>
 								<li class="breadcrumb-item" aria-current="page">Schedule Timings</li>
 							</ol>
 						</nav>
@@ -63,7 +63,7 @@
 					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 
 						<!-- Profile Sidebar -->
-						@Html.Partial("/Views/Doctor/DoctorSideBar.cshtml",Model)
+						@Html.Partial("/Views/Lab/LabSideBar.cshtml",Model)
 						<!-- /Profile Sidebar -->
 
 					</div>
@@ -81,7 +81,7 @@
 												<div class="col-lg-4">
 													<div class="form-group">
 														<label>Timing Slot Duration</label>
-														<form asp-controller="Doctor" asp-action="AddAvailableTimes" method="post">
+														<form asp-controller="Lab" asp-action="AddAvailableTimes" method="post">
 														<select class="form-select form-control" name="duration">
 															<option>-</option>
 															<option>15 mins</option>
@@ -154,9 +154,9 @@
 													
 												
 																		<li>
-																			@foreach(var av in @Model.AvailableTime.Where(a=>a.Time.Date==Day2.Date))
+																			@foreach(var av in @Model.AvailableTimes.Where(a=>a.Time.Date==Day2.Date))
 																			{
-																			<a class="timing" asp-action="DeleteAvailableTimes" asp-controller="Doctor" asp-route-avId="@av.Id">
+																			<a class="timing" asp-action="DeleteAvailableTimes" asp-controller="Lab" asp-route-avId="@av.Id">
 														
 																				<span>@av.Time.ToString("hh:mm")</span> <span></span>
 																			</a>
@@ -247,7 +247,7 @@
 		</div>
 		<!-- /Page Content -->
 		<!-- Footer -->
-		@Html.Partial("/Views/Doctor/Footer.cshtml")
+		@Html.Partial("/Views/Lab/Footer.cshtml")
 		<!-- /Footer -->
 
 	</div>

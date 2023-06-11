@@ -60,22 +60,23 @@
 						  <div class="tab-content">
 									<!--Patient Register-->
 									<div class="tab-pane show active" id="Patient_Reg">
+							
 									<!-- Register Form -->
-									<form action="patient-register-step1.html">
+									<form asp-action="PatientRegister" asp-controller="Access">
 										<div class="form-group form-focus">
-											<input type="text" class="form-control floating">
+											<input type="text" class="form-control floating" name="firstName">
 											<label class="focus-label">First Name</label>
 										</div>
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="text" class="form-control floating" name="lastName">
 												<label class="focus-label">Last Name</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="email" class="form-control floating" name="mail">
 												<label class="focus-label">Email</label>
 											</div>
 												<div class="form-group form-focus">
-													<input type="number" class="form-control floating">
+													<input type="number" class="form-control floating" name="phone">
 													<label class="focus-label">Mobile Number</label>
 												</div>
 											<div class="form-group form-focus">
@@ -95,7 +96,7 @@
 											</div>
 											<br />
 										<div class="form-group form-focus">
-											<input type="password" class="form-control floating">
+											<input type="password" class="form-control floating" name="pass">
 											<label class="focus-label">Create Password</label>
 										</div>
 										<div class="text-end">
@@ -113,19 +114,19 @@
 										<!-- Register Form -->
 										<form action="patient-register-step1.html">
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="text" class="form-control floating" name="firstName">
 												<label class="focus-label">First Name</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="text" class="form-control floating" name="lastName">
 												<label class="focus-label">Last Name</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="text" class="form-control floating" name="mail">
 												<label class="focus-label">Email</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="number" class="form-control floating">
+												<input type="number" class="form-control floating" name="phone">
 												<label class="focus-label">Mobile Number</label>
 											</div>
 											<div class="form-group form-focus">
@@ -151,12 +152,12 @@
 												</div>
 												<br />
 												<div class="form-group form-focus">
-													<input type="text" class="form-control floating">
+													<input type="text" class="form-control floating" name="location">
 													<label class="focus-label">Clinic Location</label>
 												</div>
 
 											<div class="form-group form-focus">
-												<input type="password" class="form-control floating">
+												<input type="password" class="form-control floating" name="pass">
 												<label class="focus-label">Create Password</label>
 											</div>
 											<div class="text-end">
@@ -175,16 +176,16 @@
 										<!-- Register Form -->
 										<form action="patient-register-step1.html">
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="text" class="form-control floating" name="labName">
 												<label class="focus-label">Lab Name</label>
 											</div>
 											
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="text" class="form-control floating" name="mail">
 												<label class="focus-label">Email</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="number" class="form-control floating">
+												<input type="number" class="form-control floating" name="phone">
 												<label class="focus-label">Mobile Number</label>
 											</div>
 											
@@ -196,12 +197,12 @@
 											</div>
 											<br />
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="text" class="form-control floating" name="location">
 												<label class="focus-label">Lab Location</label>
 											</div>
 
 											<div class="form-group form-focus">
-												<input type="password" class="form-control floating">
+												<input type="password" class="form-control floating" name="pass">
 												<label class="focus-label">Create Password</label>
 											</div>
 											<div class="text-end">
@@ -219,16 +220,16 @@
 										<!-- Register Form -->
 										<form action="patient-register-step1.html">
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="text" class="form-control floating" name="Name">
 												<label class="focus-label">Pharmacy Name</label>
 											</div>
 											
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="text" class="form-control floating" name="mail">
 												<label class="focus-label">Email</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="number" class="form-control floating">
+												<input type="number" class="form-control floating" name="phone">
 												<label class="focus-label">Mobile Number</label>
 											</div>
 											
@@ -240,12 +241,12 @@
 											</div>
 											<br />
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating">
+												<input type="text" class="form-control floating" name="location">
 												<label class="focus-label">Pharmacy Location</label>
 											</div>
 
 											<div class="form-group form-focus">
-												<input type="password" class="form-control floating">
+												<input type="password" class="form-control floating" name="pass">
 												<label class="focus-label">Create Password</label>
 											</div>
 											<div class="text-end">

@@ -66,8 +66,20 @@ namespace MedAppProject.Controllers
             int getId = HttpContext.Session.GetInt32("Id") ?? 0;
             Doctor doc = _doctor.GetById(getId);
             DoctorAvailableTimes docAv = new DoctorAvailableTimes { Doctor = doc, Time = DateTime.Parse(time) };
-            _doctorAvailableTimes.Add(docAv);
+            List<DoctorAvailableTimes> da = _doctorAvailableTimes.GetAll().Where(a => a.Time == DateTime.Parse(time)).ToList();
+            if (da.Count==0)
+            {
+                _doctorAvailableTimes.Add(docAv);
+            }
+            
             return RedirectToAction("AddAvailableTimes");
+        }
+        public ActionResult DeleteAvailableTimes(int avId)
+        {
+            var av = _doctorAvailableTimes.GetById(avId);
+            _doctorAvailableTimes.Delete(av);
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            return RedirectToAction("AddAvailableTimes",new {id = getId});
         }
         public ActionResult PatientProfile(int paId)
 		{

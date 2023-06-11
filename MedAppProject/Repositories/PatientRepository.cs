@@ -15,7 +15,8 @@ namespace MedAppProject.Repositories
 
         public void Add(Patient entity)
         {
-            throw new NotImplementedException();
+            _db.Add(entity);
+            _db.SaveChanges();
         }
 
         public Task<VMLogin> CheckCredentialsAsync(string email, string password)
