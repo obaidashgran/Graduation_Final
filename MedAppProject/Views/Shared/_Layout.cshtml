@@ -5,28 +5,19 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - MedAppProject</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/MedAppProject.styles.css" asp-append-version="true" />
-
-	<link rel="stylesheet" href="~/css/owl.carousel.min.css" />
-	<link rel="stylesheet" href="~/fonts/style.css" />
-	<link rel="stylesheet" href="~/css/site.css" />
-	<link rel="stylesheet" href="~/css/SearchDoctor.css">
-	<link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
-
+	
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
 
-	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-	<link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
 
-	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="assets/css/feather.css">
+		<!-- Feathericon CSS -->
+		<link rel="stylesheet" href="~/assets/css/feather.css">
 
-	<!-- Main CSS -->
-	<link rel="stylesheet" href="assets/css/custom.css">
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="~/assets/css/custom.css">
 
 </head>
 <body>
@@ -74,7 +65,7 @@
 
 						<li class="login-link"><a href="login.html">Login / Signup</a></li>
 						<li class="register-btn">
-							<a href="register.html" class="btn reg-btn"><i class="feather-user"></i>Register</a>
+							<a asp-action="SignUp" asp-controller="Access" class="btn reg-btn"><i class="feather-user"></i>Register</a>
 						</li>
 						<li class="register-btn">
 							<a href="login.html" class="btn btn-primary log-btn"><i class="feather-lock"></i>Login</a>
