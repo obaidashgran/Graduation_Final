@@ -193,6 +193,64 @@ namespace MedAppProject.Controllers
             model.Doctors = _doctor.GetAll().Where(x => x.DoctorSpecialization.Id.Equals(int.Parse(spe))).ToList();
             return View("~/Views/Patient/SearchDResult.cshtml", model);
         }
+        
+        public ActionResult bookDoctor(int docId , DateTime time , int avId)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            var doc = _doctor.GetById(docId);
+            var pa2 = pa.DoctorAppointments.SingleOrDefault(a => a.bookTime == time);
+            var pa3 = pa.LabAppointments.SingleOrDefault(a => a.bookTime == time);
+            
+            
+            if (pa2 == null && pa3==null)
+            {
+                DoctorAppointment docApp = new DoctorAppointment
+                {
+                    patient = pa,
+                    Doctor = doc,
+                    bookTime = time
+                };
+                _docAppointment.Add(docApp);
+                var av = _docAvilableTime.GetById(avId);
+                _docAvilableTime.Delete(av);
+            }
+            PatientDashboardViewModel model= new PatientDashboardViewModel();
+
+            model.Specializations = _specialization.GetAll().ToList();
+            model.PatientInfo = pa;
+            return View("~/Views/Patient/Index.cshtml", model);
+        }
+
+        public ActionResult bookLab(int labId, DateTime time, int avId)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            var lab = _lab.GetById(labId);
+            var pa2 = pa.DoctorAppointments.SingleOrDefault(a => a.bookTime == time);
+            var pa3 = pa.LabAppointments.SingleOrDefault(a => a.bookTime == time);
+
+
+            if (pa2 == null && pa3 == null)
+            {
+                LabAppointment labApp = new LabAppointment
+                {
+                    patient = pa,
+                    Lab = lab,
+                    bookTime = time
+                };
+                _labAppointment.Add(labApp);
+                var av = _labAvilableTime.GetById(avId);
+                _labAvilableTime.Delete(av);
+            }
+            PatientDashboardViewModel model = new PatientDashboardViewModel();
+
+            model.Specializations = _specialization.GetAll().ToList();
+            model.PatientInfo = pa;
+            return View("~/Views/Patient/Index.cshtml", model);
+        }
+
+
         [HttpPost]
         public ActionResult MakeAppointment([FromForm] string patient, [FromForm] string appointment ,
             [FromForm] string id ,PatientDashboardViewModel model)
@@ -263,12 +321,7 @@ namespace MedAppProject.Controllers
 
             return View("~/Views/Patient/LabSearch.cshtml", patientChek);
         }
-        //public ActionResult DoctorProfile()
-        //{
-        //    string docId = Request.Query["docId"];
-        //   var doc =  _doctor.GetById(int.Parse(docId));
-        //    return View(doc);
-        //}
+        
 
         public IActionResult DownloadFile(int id)
         {

@@ -40,7 +40,7 @@
 	<div class="main-wrapper">
 
 		<!-- Header -->
-		@Html.Partial("/Views/Patient/NavBar.cshtml")
+		@Html.Partial("/Views/Patient/NavBar.cshtml",@Model.PatientInfo)
 		<!-- Header -->
 		<!-- /Header -->
 		<!-- Home Banner -->
@@ -64,7 +64,7 @@
 								<div class="search-input search-line">
 									<i class="feather-search bficon"></i>
 									<div class="form-group mb-0">
-										<input type="text" class="form-control" placeholder="Search doctors">
+										<input type="text" class="form-control" placeholder="Search doctors" name="searchBox">
 									</div>
 								</div>
 								<div class="search-input search-line">
@@ -72,16 +72,13 @@
 
 										<select class="form-control" asp-items="@(new SelectList(Model.Specializations,"Id", "Name"))" asp-for="SelectedSpecialization.Id"
 												required>
-
-
-
 											<option>Select</option>
 										</select>
 									</div>
 								</div>
 								<div class="search-input search-map-line">
 									<div class="form-group mb-0">
-										<select class="form-control" style="border:none;color:#6c757d;opacity:1">
+										<select class="form-control" style="border:none;color:#6c757d;opacity:1" name="city">
 											<option disabled selected value="">City</option>
 											<option>Amman</option>
 											<option>Irbid</option>
@@ -94,7 +91,7 @@
 								<div class="search-input search-calendar-line" style="width:300px">
 									<i class="feather-calendar"></i>
 									<div class="form-group mb-0">
-										<input type="text" class="form-control datetimepicker" placeholder="Date">
+										<input type="text" class="form-control datetimepicker" placeholder="Date" name="date">
 									</div>
 								</div>
 								<div class="search-input search-map-line search-line">

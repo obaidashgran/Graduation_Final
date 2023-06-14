@@ -153,7 +153,7 @@
 												<li>
 													@foreach(var av in @Model.AvailableTimes.Where(a=>a.Time.Date==Day2.Date))
 													{
-													<a class="timing" href="#">
+													<a class="timing" asp-action="bookLab" asp-controller="Patient" asp-route-labId="@Model.Id" asp-route-time="@av.Time" asp-route-avId="@av.Id">
 														
 														<span>@av.Time.ToString("hh:mm")</span> <span></span>
 													</a>
