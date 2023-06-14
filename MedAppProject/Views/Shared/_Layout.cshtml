@@ -40,7 +40,7 @@
 				<div class="main-menu-wrapper">
 					<div class="menu-header">
 						<a href="index.html" class="menu-logo">
-							<img src="assets/img/websiteLogo.png" class="img-fluid" alt="Logo">
+							<img src="~/Images/websiteLogo.png" class="img-fluid" alt="Logo">
 						</a>
 						<a id="menu_close" class="menu-close" href="javascript:void(0);">
 							<i class="fas fa-times"></i>
@@ -56,19 +56,19 @@
 						<li class="has-submenu">
 							<a href="javascript:void(0);">Pages <i class="fas fa-chevron-down"></i></a>
 							<ul class="submenu">
-								<li><a href="about-us.html">About Us</a></li>
-								<li><a href="contact-us.html">Contact Us</a></li>
+								<li><a asp-action="AboutUS" >About Us</a></li>
+								<li><a asp-action="ContactUs" >Contact Us</a></li>
 							</ul>
 						</li>
 
 
 
-						<li class="login-link"><a href="login.html">Login / Signup</a></li>
+						<li class="login-link"><a asp-action="Login" asp-controller="Access">Login / Signup</a></li>
 						<li class="register-btn">
 							<a asp-action="SignUp" asp-controller="Access" class="btn reg-btn"><i class="feather-user"></i>Register</a>
 						</li>
 						<li class="register-btn">
-							<a href="login.html" class="btn btn-primary log-btn"><i class="feather-lock"></i>Login</a>
+							<a asp-action="Login" asp-controller="Access" class="btn btn-primary log-btn"><i class="feather-lock"></i>Login</a>
 						</li>
 					</ul>
 				</div>
@@ -81,6 +81,97 @@
 				@RenderBody()
 			</main>
 		</div>
+		<!-- Footer -->
+		<footer class="footer footer-one">
+			<div class="footer-top aos" data-aos="fade-up">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-4">
+							<div class="footer-widget footer-about">
+								<div class="footer-logo">
+									<img src="~/Images/websiteLogo.png" alt="logo">
+								</div>
+								<div class="footer-about-content">
+									<p>Don't waste your time, join MedApp family now and make your life easier.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-4">
+							<div class="footer-widget footer-menu">
+								<h2 class="footer-title">For Patients</h2>
+								<ul>
+									<li><a href="search.html">Search for Doctors</a></li>
+									<li><a asp-action="Login" asp-controller="Access">Login</a></li>
+									<li><a asp-action="SignUp" asp-controller="Access">Register</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-4">
+							<div class="footer-widget footer-menu">
+								<h2 class="footer-title">For Doctors</h2>
+								<ul>
+									<li><a href="appointments.html">Join Us</a></li>
+									<li><a asp-action="Login" asp-controller="Access">Login</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-5">
+							<div class="footer-widget footer-contact">
+								<h2 class="footer-title">Contact Us</h2>
+								<div class="footer-contact-info">
+
+									<div class="footer-address">
+										<p><i class="feather-phone-call"></i> +962 79 5697908</p>
+									</div>
+									<div class="footer-address mb-0">
+										<p><i class="feather-mail"></i> medapp@example.com</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-7">
+							<div class="footer-widget">
+								<h2 class="footer-title">Have a problem? let us contact you</h2>
+								<div class="subscribe-form">
+									<form action="#">
+										<input type="email" class="form-control" placeholder="Enter Email">
+										<button type="submit" class="btn">Submit</button>
+									</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<!-- Copyright -->
+					<div class="copyright">
+						<div class="row">
+							<div class="col-md-6 col-lg-6">
+								<div class="copyright-text">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+
+								<!-- Copyright Menu -->
+								<div class="copyright-menu">
+									<ul class="policy-menu">
+										<li><a href="privacy-policy.html">Privacy Policy</a></li>
+										<li><a href="terms-condition.html">Terms and Conditions</a></li>
+									</ul>
+								</div>
+								<!-- /Copyright Menu -->
+
+							</div>
+						</div>
+					</div>
+					<!-- /Copyright -->
+				</div>
+			</div>
+		</footer>
+		<!-- /Footer -->
 	</div>
 
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>

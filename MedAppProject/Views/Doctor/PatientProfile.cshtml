@@ -161,10 +161,10 @@
 																<tr>
 																	<td>
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+																			<a asp-action="Index" asp-controller="Doctor" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">Dr.@x.Doctor.FirstName @x.Doctor.LastName <span>Dental</span></a>
+																			<a asp-action="Index" asp-controller="Doctor">Dr.@x.Doctor.FirstName @x.Doctor.LastName <span>Dental</span></a>
 																		</h2>
 																	</td>
 																	
@@ -217,10 +217,10 @@
 																	<td>@a.MedName</td>
 																	<td>
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+																			<a asp-action="Index" asp-controller="Doctor" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">Dr. @a.Doctor.FirstName @a.Doctor.LastName <span></span></a>
+																			<a asp-action="Index" asp-controller="Doctor">Dr. @a.Doctor.FirstName @a.Doctor.LastName <span></span></a>
 																		</h2>
 																	</td>
 																	<td class="text-end">
@@ -274,10 +274,10 @@
 																	<td><a href="#">dental-test.pdf</a></td>
 																	<td>
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+																			<a asp-action="Index" asp-controller="Doctor" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">Dr. @r.Doctor.FirstName @r.Doctor.LastName <span>@r.Doctor.DoctorSpecialization.Name.ToString()</span></a>
+																			<a asp-action="Index" asp-controller="Doctor">Dr. @r.Doctor.FirstName @r.Doctor.LastName <span>@r.Doctor.DoctorSpecialization.Name.ToString()</span></a>
 																		</h2>
 																	</td>
 																	<td class="text-end">
@@ -331,10 +331,10 @@
 																	</td>
 																	<td>
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+																			<a asp-action="Index" asp-controller="Doctor" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">Dr . @b.Doctor.FirstName @b.Doctor.LastName <span>@b.Doctor.DoctorSpecialization.Name.ToString()</span></a>
+																			<a asp-action="Index" asp-controller="Doctor">Dr . @b.Doctor.FirstName @b.Doctor.LastName <span>@b.Doctor.DoctorSpecialization.Name.ToString()</span></a>
 																		</h2>
 																	</td>
 																	<td>$@b.Amount.ToString()</td>

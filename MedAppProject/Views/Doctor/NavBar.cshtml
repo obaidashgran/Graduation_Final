@@ -16,7 +16,7 @@
 			</div>
 			<div class="main-menu-wrapper">
 				<div class="menu-header">
-					<a href="index.html" class="menu-logo">
+					<a asp-action="Index" asp-controller="Doctor" class="menu-logo">
 						<img src="~/Images/websiteLogo.png" class="img-fluid" alt="Logo">
 					</a>
 					<a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -106,7 +106,7 @@
 								<p class="text-muted mb-0">Doctor</p>
 							</div>
 						</div>
-						<a class="dropdown-item" href="doctor-dashboard.html">Profile</a>
+						<a class="dropdown-item" asp-action="Index" asp-controller="Doctor">Profile</a>
 						<a class="dropdown-item" href="doctor-profile-settings.html">Profile Settings</a>
 						<a class="dropdown-item" asp-action="Logout" asp-controller="Access">Sign out</a>
 					</div>

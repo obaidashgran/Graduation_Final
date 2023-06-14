@@ -156,10 +156,10 @@
 															<tr>
 																	<td>
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+																			<a asp-action="Index" asp-controller="lab" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">@x.Lab.FirstName @x.Lab.LastName<span></span></a>
+																			<a asp-action="Index" asp-controller="Lab">@x.Lab.FirstName @x.Lab.LastName<span></span></a>
 																		</h2>
 																	</td>
 
@@ -215,10 +215,10 @@
 																	</td>
 																	<td>
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+																			<a asp-action="Index" asp-controller="Lab" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/LabImage.png" alt="User Image">
 																			</a>
-																			<a href="doctor-profile.html">@Model.Lab.FirstName @Model.Lab.LastName<span>Lab</span></a>
+																			<a asp-action="Index" asp-controller="Lab">@Model.Lab.FirstName @Model.Lab.LastName<span>Lab</span></a>
 																		</h2>
 																	</td>
 																	<td>$@b.Amount.ToString()</td>
