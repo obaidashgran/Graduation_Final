@@ -28,7 +28,12 @@
 
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="~/assets/css/custom.css">
+	<style>
+		.fa-trash:hover {
+			color: red;
+		}
 
+	</style>
 </head>
 <body>
 
@@ -89,8 +94,8 @@
 															<option>45 mins</option>
 															<option>1 Hour</option>
 														</select>
-														<input type="datetime-local" name="time"/>
-															<button type="submit">Add</button>
+															<input type="datetime-local" name="time" class="form-control datetimepicker" />
+															<button type="submit" class="btn btn-primary submit-btn">Add</button>
 														</form>
 													</div>
 												</div>
@@ -156,10 +161,15 @@
 																		<li>
 																			@foreach(var av in @Model.AvailableTimes.Where(a=>a.Time.Date==Day2.Date))
 																			{
-																			<a class="timing" asp-action="DeleteAvailableTimes" asp-controller="Lab" asp-route-avId="@av.Id">
-														
-																				<span>@av.Time.ToString("hh:mm")</span> <span></span>
-																			</a>
+																						<div class="timing">
+
+																							<span>@av.Time.ToString("hh:mm")</span> <span></span>
+
+																							<a asp-action="DeleteAvailableTimes" asp-controller="Lab" asp-route-avId="@av.Id">
+
+																								<i class="fa-solid fa-trash"></i>
+																							</a>
+																						</div>
 																			}
 																			
 																		</li>

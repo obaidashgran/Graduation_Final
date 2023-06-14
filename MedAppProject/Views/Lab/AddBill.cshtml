@@ -69,7 +69,7 @@
 											<img src="~/Images/patient.png" alt="User Image">
 										</a>
 										<div class="profile-det-info">
-											<h3><a href="patient-profile.html">@Model.Patient.FirstName @Model.Patient.LastName</a></h3>
+											<h3><a asp-action="PatientProfile" asp-controller="Lab">@Model.Patient.FirstName @Model.Patient.LastName</a></h3>
 											<div class="patient-details">
 												<h5><b>Patient ID :</b> @Model.Patient.Id</h5>
 												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> @Model.Patient.PatientLocation</h5>

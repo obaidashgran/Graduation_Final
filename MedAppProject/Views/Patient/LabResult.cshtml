@@ -12,20 +12,20 @@
 	
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
 
 	<!-- Fontawesome CSS -->
-	<link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
-	<link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
 
 	<!-- Feathericon CSS -->
-	<link rel="stylesheet" href="/assets/css/feather.css">
+	<link rel="stylesheet" href="~/assets/css/feather.css">
 
 	<!-- Apex Css -->
-	<link rel="stylesheet" href="/assets/plugins/apex/apexcharts.css">
+	<link rel="stylesheet" href="~/assets/plugins/apex/apexcharts.css">
 
 	<!-- Main CSS -->
-	<link rel="stylesheet" href="/assets/css/custom.css">
+	<link rel="stylesheet" href="~/assets/css/custom.css">
 
 </head>
 <body>
@@ -74,7 +74,7 @@
 							<nav class="dashboard-menu">
 								<ul>
 									<li class="active">
-										<a href="patient-dashboard.html">
+										<a asp-action="Index" asp-controller="Patient">
 											<i class="fas fa-columns"></i>
 											<span>Dashboard</span>
 										</a>
@@ -168,10 +168,10 @@
 														<tr>
 															<td>
 																<h2 class="table-avatar">
-																	<a href="doctor-profile.html" class="avatar avatar-sm me-2" style="margin-top:10px">
+																	<a asp-action="LabProfile" asp-controller="Patient" class="avatar avatar-sm me-2" style="margin-top:10px">
 																		<i class="fa-solid fa-vial-virus fa-flip fa-2xl" style="color:dodgerblue;"></i>
 																	</a>
-																	<a href="doctor-profile.html">Lab Name </a>
+																	<a asp-action="LabProfile" asp-controller="Patient">Lab Name </a>
 																</h2>
 															</td>
 															<td>#01</td>

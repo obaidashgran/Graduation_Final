@@ -28,7 +28,31 @@
 
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="~/assets/css/custom.css">
+	<style>
+		input[type="radio"] {
+			display: none;
+		}
 
+			input[type="radio"] + label {
+				cursor: pointer;
+			}
+
+			input[type="radio"]:checked + label {
+				background-color: #007bff;
+				color: #fff;
+			}
+	</style>
+
+	<script>
+		function hideRadioButtons(radio) {
+			var labels = radio.parentNode.parentNode.getElementsByTagName('label');
+			for (var i = 0; i < labels.length; i++) {
+				labels[i].classList.remove('active');
+			}
+			radio.parentNode.classList.add('active');
+		}
+	</script>
+	
 </head>
 <body>
 
@@ -61,7 +85,7 @@
 										<div class="doctor-widget-one">
 											<div class="doc-info-left">
 												<div class="doctor-img">
-													<a href="doctor-profile.html">
+														<a asp-action="DoctorProfile" asp-controller="Patient">
 														<img src="~/assets/img/My project.jpg" class="img-fluid" alt="">
 													</a>
 													<div class="favourite-btn">
@@ -109,19 +133,21 @@
 															@{
 																var index = 0;
 															}
-															@foreach(var a in @x.AvailableTime.Where(a=>a.Time.Date>=(DateTime.Now.Date)))
+															@foreach (var a in @x.AvailableTime.Where(a => a.Time.Date >= (DateTime.Now.Date)))
 															{
 																if (index == 5)
 																	break;
-																<div>
+																<div class="btn-group btn-group-toggle" data-toggle="buttons">
 																	<input name="id" value="@x.Id" hidden>
 																	<input name="patient" value="@Model.PatientInfo.Id" hidden>
-																	<input type="radio"  name="appointment" value="@a.Id">
-																	<label for="@a.Time">@a.Time</label>
+																	<label class="btn btn-outline-primary" for="appointment@(index)" onclick="selectAppointment(@(index))">
+																		<input type="radio" name="appointment" value="@a.Id" autocomplete="off" id="appointment@(index)" onchange="hideRadioButtons(this)">
+																		@a.Time
+																	</label>
 																</div>
 																index++;
 															}
-															
+
 															<button type="submit" class="btn btn-outline-primary">Book</button>
 														</form>
 														<a asp-action="BookAppointment" asp-controller="Patient" asp-route-docId="@x.Id">Show All Available Times</a>

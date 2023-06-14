@@ -17,8 +17,8 @@
 						<h2 class="footer-title">For Patients</h2>
 						<ul>
 							<li><a href="search.html">Search for Doctors</a></li>
-							<li><a href="login.html">Login</a></li>
-							<li><a href="register.html">Register</a></li>
+							<li><a asp-action="Login" asp-controller="Access">Login</a></li>
+							<li><a asp-action="SignUp" asp-controller="Access">Register</a></li>
 						</ul>
 					</div>
 				</div>
@@ -27,7 +27,7 @@
 						<h2 class="footer-title">For Doctors</h2>
 						<ul>
 							<li><a href="appointments.html">Join Us</a></li>
-							<li><a href="login.html">Login</a></li>
+							<li><a asp-action="Login" asp-controller="Access">Login</a></li>
 						</ul>
 					</div>
 				</div>
