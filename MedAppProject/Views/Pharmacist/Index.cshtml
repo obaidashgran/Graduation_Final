@@ -129,7 +129,7 @@
 									</div>
 									<div class="user-text">
 										<h6>Roro</h6>
-										<p class="text-muted mb-0">Pharmacist</p>
+										<p class="text-muted mb-0">@Model.FirstName</p>
 									</div>
 								</div>
 								<a class="dropdown-item" href="doctor-dashboard.html">Profile</a>
@@ -175,16 +175,21 @@
 										<th>Price</th>
 										<th class="text-center">Quantity</th>
 										<th class="text-center">Total</th>
-										<th></th>
+										
 									</tr>
 								</thead>
 								<tbody>
+									
+									@foreach(var x in Model.Prescriptions)
+									{
+										
+									
 									<tr>
 										<td>
 											<h2 class="table-avatar">
 												<a href="product-description.html" class="avatar avatar-sm me-2"><img class="avatar-img" src="~/assets/img/products/product.jpg" alt="User Image"></a>
 											</h2>
-											<a href="product-description.html">Benzaxapine Croplex</a>
+											<a href="product-description.html">@x.MedName</a>
 										</td>
 										<td>26565</td>
 										<td>$19</td>
@@ -218,7 +223,7 @@
 											</div>
 										</td>
 									</tr>
-									
+									}
 								</tbody>
 							</table>
 						</div>

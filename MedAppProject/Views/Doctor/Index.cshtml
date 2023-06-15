@@ -33,7 +33,7 @@
 	<div class="main-wrapper">
 
 		<!-- Header -->
-		@Html.Partial("/Views/Doctor/NavBar.cshtml")
+		@Html.Partial("/Views/Doctor/NavBar.cshtml",@Model)
 		<!-- /Header -->
 		<!-- Breadcrumb -->
 		<div class="breadcrumb-bar-two">
@@ -107,7 +107,7 @@
 																</tr>
 															</thead>
 															<tbody>
-																@foreach(var x in Model.Appointments){
+																@foreach(var x in Model.Appointments.Where(a=>a.bookTime>=DateTime.Now)){
 																<tr>
 																	
 																	<td>

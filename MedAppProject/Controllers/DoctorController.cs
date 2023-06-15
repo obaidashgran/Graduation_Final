@@ -55,10 +55,11 @@ namespace MedAppProject.Controllers
 			return View();
 		}
         
-		public ActionResult AddAvailableTimes(int id)
+		public ActionResult AddAvailableTimes()
 		{
-            var doctor = _doctor.GetById(id);
-			return View(doctor);
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            Doctor doc = _doctor.GetById(getId);
+            return View(doc);
 		}
         [HttpPost]
         public ActionResult AddAvailableTimes([FromForm]string duration , [FromForm]string time)

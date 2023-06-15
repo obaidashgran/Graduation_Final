@@ -9,5 +9,6 @@
 
         public Patient Patient { get; set; }
         public string Location { get; set; }
+        public Pharmacist Pharmacist { get; set; }
     }
 }

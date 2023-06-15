@@ -104,7 +104,7 @@
 																	</tr>
 																</thead>
 																<tbody>
-																	@foreach(var x in @Model.LabAppointments)
+																	@foreach(var x in @Model.LabAppointments.Where(a=>a.bookTime>=DateTime.Now))
 																	{																
 																		<tr>
 

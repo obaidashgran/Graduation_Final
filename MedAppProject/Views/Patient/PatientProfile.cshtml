@@ -160,7 +160,10 @@
 									<nav class="user-tabs mb-4">
 										<ul class="nav nav-tabs nav-tabs-bottom nav-justified">
 											<li class="nav-item">
-												<a class="nav-link active" href="#pat_appointments" data-bs-toggle="tab">Appointments</a>
+												<a class="nav-link active" href="#pat_appointments" data-bs-toggle="tab">DoctorAppt</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#pat_labappointments" data-bs-toggle="tab">LabAppt</a>
 											</li>
 											<li class="nav-item">
 												<a class="nav-link" href="#pat_prescriptions" data-bs-toggle="tab">Prescriptions</a>
@@ -206,10 +209,10 @@
 																<tr>
 																	<td>
 																		<h2 class="table-avatar">
-																			<a asp-action="DoctorProfile" asp-controller="Patinet" class="avatar avatar-sm me-2">
+																			<a asp-action="DoctorProfile" asp-controller="Patinet" asp-route-docId="@p.Doctor.Id" class="avatar avatar-sm me-2">
 																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
 																			</a>
-																			<a asp-action="DoctorProfile" asp-controller="Patient">Dr. @p.Doctor.FirstName @p.Doctor.LastName <span>@p.Doctor.DoctorSpecialization.Name.ToString()</span></a>
+																			<a asp-action="DoctorProfile" asp-controller="Patient" asp-route-docId="@p.Doctor.Id">Dr. @p.Doctor.FirstName @p.Doctor.LastName <span>@p.Doctor.DoctorSpecialization.Name.ToString()</span></a>
 																		</h2>
 																	</td>
 																	<td>@p.bookTime.ToString("d MMMM yyyy") <span class="d-block text-info">@p.bookTime.ToString("hh:mm")</span></td>
@@ -239,6 +242,65 @@
 											</div>
 										</div>
 										<!-- /Appointment Tab -->
+
+										<!-- Lab Appointment Tab -->
+										<div id="pat_labappointments" class="tab-pane fade">
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>Lab</th>
+																	
+																	<th>Booking Date</th>
+																	<th>Amount</th>
+																	
+																	<th>Status</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+																@foreach(var p in @Model.LabAppointments)
+																{
+
+																
+																<tr>
+																	<td>
+																		<h2 class="table-avatar">
+																			<a asp-action="LabProfile" asp-controller="Patinet" asp-route-labId="@p.Lab.Id" class="avatar avatar-sm me-2">
+																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
+																			</a>
+																			<a asp-action="LabProfile" asp-controller="Patient" asp-route-labId="@p.Lab.Id">@p.Lab.FirstName @p.Lab.LastName<span></span></a>
+																		</h2>
+																	</td>
+																	<td>@p.bookTime.ToString("d MMMM yyyy") <span class="d-block text-info">@p.bookTime.ToString("hh:mm")</span></td>
+																	
+																	<td>$20</td>
+																	
+																	<td><span class="badge rounded-pill bg-success-light">Confirm</span></td>
+																	<td class="text-end">
+																		<div class="table-action">
+																			<a class="btn btn-sm bg-danger-light" asp-action="DeleteLabAppointment" asp-controller="Patient" asp-route-apId="@p.Id" asp-route-labId="@p.Lab.Id">
+																				<i class="fas fa-delete"></i> Delete
+																			</a>
+																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+																				<i class="fas fa-print"></i> Print
+																			</a>
+																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> View
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+															}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Lab Appointment Tab -->
 										
 										<!-- Prescription Tab -->
 										<div class="tab-pane fade" id="pat_prescriptions">
@@ -260,7 +322,7 @@
 																
 															
 															<tr>
-																	<td>14 Nov 2019</td>
+																	<td>25 Jun 2023</td>
 																	<td>@x.MedName</td>
 																	<td>
 																		<h2 class="table-avatar">
@@ -272,9 +334,11 @@
 																	</td>
 																	<td class="text-end">
 																		<div class="table-action">
-																		<button id="select-location-button">Show Map</button>
+																
 
-
+																			<a asp-action="Delivery" asp-controller="Patient" asp-route-med="@x.MedName" asp-route-loc="@x.Location" asp-route-docId="@x.Doctor.Id" class="btn btn-sm bg-primary-light">
+																				<i class="fas fa-shipping-fast"></i> Deliver
+																			</a>
 																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
 																				<i class="fas fa-print"></i> Print
 																			</a>

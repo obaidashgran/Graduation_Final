@@ -33,7 +33,7 @@
 	<div class="main-wrapper">
 
 		<!-- Header -->
-		@Html.Partial("/Views/Patient/NavBar.cshtml")
+		@Html.Partial("/Views/Patient/NavBar.cshtml",((Patient)ViewBag.Patient))
 		<!-- /Header -->
 		<!-- Breadcrumb -->
 		<div class="breadcrumb-bar-two">
@@ -62,11 +62,11 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="booking-doc-info">
-									<a asp-action="DoctorProfile" asp-controller="Patient" class="booking-doc-img">
+									<a asp-action="LabProfile" asp-controller="Patient" class="booking-doc-img">
 										<img src="~/Images/LabImage.png" alt="User Image">
 									</a>
 									<div class="booking-info">
-										<h4><a asp-action="DoctorProfile" asp-controller="Patient">@Model.FirstName @Model.LastName</a></h4>
+										<h4><a asp-action="LabProfile" asp-controller="Patient" asp-routelabId="@Model.Id">@Model.FirstName @Model.LastName</a></h4>
 										<div class="rating">
 											<i class="fas fa-star filled"></i>
 											<i class="fas fa-star filled"></i>

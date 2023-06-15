@@ -5,6 +5,7 @@ using MedAppProject.Repositories;
 using MedAppProject.Models;
 using MedAppProject.ViewModels;
 using MedAppProject.ServicesClasses;
+using System.Globalization;
 
 namespace MedAppProject.Controllers
 {
@@ -13,6 +14,7 @@ namespace MedAppProject.Controllers
         private readonly IMedAppRepository<Specialization> _specialization;
         private readonly IMedAppRepository<Doctor> _doctor;
         private readonly IMedAppRepository<Patient> _patient;
+        private readonly IMedAppRepository<Pharmacist> _pharmacist;
         private readonly IMedAppRepository<DoctorAppointment> _docAppointment;
         private readonly IMedAppRepository<LabAppointment> _labAppointment;
         private readonly IMedAppRepository<DoctorAvailableTimes> _docAvilableTime;
@@ -23,22 +25,23 @@ namespace MedAppProject.Controllers
 
 
 
-        public PatientController(IMedAppRepository<Specialization> specialization, IMedAppRepository<Doctor> doctor,
-            IMedAppRepository<DoctorAppointment> docAppointment, IMedAppRepository<Patient> patient,
-            IMedAppRepository<DoctorAvailableTimes> docAvilableTime, IMedAppRepository<Lab> lab, IMedAppRepository<LabAvailableTimes> labAvilableTime, IMedAppRepository<LabAppointment> labAppointment, IMedAppRepository<Test> test, IEmailSender emailSender)
-        {
-            _specialization = specialization;
-            _doctor = doctor;
-            _docAppointment = docAppointment;
-            _patient = patient;
-            _docAvilableTime = docAvilableTime;
-            _lab = lab;
-            _labAvilableTime = labAvilableTime;
-            _labAppointment = labAppointment;
-            _test = test;
-            _emailSender = emailSender;
-        }
-        public async Task<IActionResult> SendEmail()
+		public PatientController(IMedAppRepository<Specialization> specialization, IMedAppRepository<Doctor> doctor,
+			IMedAppRepository<DoctorAppointment> docAppointment, IMedAppRepository<Patient> patient,
+			IMedAppRepository<DoctorAvailableTimes> docAvilableTime, IMedAppRepository<Lab> lab, IMedAppRepository<LabAvailableTimes> labAvilableTime, IMedAppRepository<LabAppointment> labAppointment, IMedAppRepository<Test> test, IEmailSender emailSender, IMedAppRepository<Pharmacist> pharmacist)
+		{
+			_specialization = specialization;
+			_doctor = doctor;
+			_docAppointment = docAppointment;
+			_patient = patient;
+			_docAvilableTime = docAvilableTime;
+			_lab = lab;
+			_labAvilableTime = labAvilableTime;
+			_labAppointment = labAppointment;
+			_test = test;
+			_emailSender = emailSender;
+			_pharmacist = pharmacist;
+		}
+		public async Task<IActionResult> SendEmail()
         {
             // Create email content
             var receiver = "smabdullah19@cit.just.edu.jo";
@@ -72,6 +75,9 @@ namespace MedAppProject.Controllers
         }
         public ActionResult LabProfile(int labId)
         {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            ViewBag.Patient = pa;
             var lab = _lab.GetById(labId);
             return View(lab);
         }
@@ -106,11 +112,17 @@ namespace MedAppProject.Controllers
         
 		public ActionResult BookAppointment(int docId)
 		{
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            ViewBag.Patient = pa;
             var doc = _doctor.GetById(docId);
             return View(doc);
 		}
 		public ActionResult DoctorProfile(int docId)
         {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            ViewBag.Patient = pa;
             var doc = _doctor.GetById(docId);
             return View(doc);
         }
@@ -131,6 +143,17 @@ namespace MedAppProject.Controllers
                     return today - x.bookTime.Date;
                 }
             }).ToList();
+            pa.LabAppointments = pa.LabAppointments.OrderBy(x =>
+            {
+                if (x.bookTime.Date >= today)
+                {
+                    return x.bookTime.Date - today;
+                }
+                else
+                {
+                    return today - x.bookTime.Date;
+                }
+            }).ToList();
 
             return View(pa);
 		}
@@ -139,6 +162,7 @@ namespace MedAppProject.Controllers
             [FromForm] string? city, [FromForm] string sort, [FromForm] string? date)
 
         {
+  
             var modelSort = model;
             modelSort.Specializations = _specialization.GetAll().ToList();
             if (searchBox != null)
@@ -171,17 +195,23 @@ namespace MedAppProject.Controllers
             }
             ViewBag.selectedDate = DateTime.Now.Date;
             if(date!=null)
-            {   
-                modelSort.Doctors = modelSort.Doctors.Where(d => d.AvailableTime.Any(a => a.Time.Date.Equals(DateTime.Parse(date).Date))).ToList();
-                ViewBag.selectedDate = date;
+            {
+                DateTime parsedDate;
+                string dateFormat = "dd/MM/yyyy";
+                if (DateTime.TryParseExact(date, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+                {
+                    modelSort.Doctors = modelSort.Doctors.Where(d => d.AvailableTime.Any(a => a.Time.Date.Equals(parsedDate.Date))).ToList();
+                    ViewBag.selectedDate = parsedDate.ToString(dateFormat).ToUpper(); // Convert the date to uppercase
+                }
             }
             else
             {
                 modelSort.Doctors = modelSort.Doctors.Where(d => d.AvailableTime.Any(a => a.Time.Date>=DateTime.Now.Date)).ToList();
                 
             }
-            
-
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            modelSort.PatientInfo = pa;
 
             return View("~/Views/Patient/SearchDResult.cshtml", modelSort);
         }
@@ -191,6 +221,9 @@ namespace MedAppProject.Controllers
             model.Specializations = _specialization.GetAll().ToList();
            // model.SelectedSpecialization = new Specialization { Id = 1, Name = "dentistry" };
             model.Doctors = _doctor.GetAll().Where(x => x.DoctorSpecialization.Id.Equals(int.Parse(spe))).ToList();
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            model.PatientInfo = pa;
             return View("~/Views/Patient/SearchDResult.cshtml", model);
         }
         
@@ -351,6 +384,53 @@ namespace MedAppProject.Controllers
             _docAvilableTime.Add(av);
             return RedirectToAction("PatientProfile", "Patient");
 		}
+
+        //delete lab appt 
+        public IActionResult DeleteLabAppointment(int apId, int labId)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+
+            var ap = _labAppointment.GetById(apId);
+            var lab = _lab.GetById(labId);
+
+            var av = new LabAvailableTimes
+            {
+                Lab = lab,
+                Time = ap.bookTime
+            };
+            _labAppointment.Delete(ap);
+            _labAvilableTime.Add(av);
+            return RedirectToAction("PatientProfile", "Patient");
+        }
+
+        // deliver prescription
+        public IActionResult Delivery(string med , string loc,int docId)
+		{
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            var doc = _doctor.GetById(docId);
+            var pha = _pharmacist.GetAll().FirstOrDefault(a => a.Location.Equals(loc));
+            Prescription pre = new Prescription
+            {
+                Location = loc,
+                MedName = med,
+                Patient = pa,
+                Doctor = doc,
+                Pharmacist = pha
+                
+            };
+            if(pha!=null)
+			{
+                if (pha.Prescriptions == null)
+                {
+                    pha.Prescriptions = new List<Prescription>();
+                }
+                pha.Prescriptions.Add(pre);
+            }
+            _pharmacist.Update(pha);
+            return RedirectToAction("PatientProfile", "Patient");
+		}
+
         // GET: PatientController/Details/5
         public ActionResult Details(int id)
         {

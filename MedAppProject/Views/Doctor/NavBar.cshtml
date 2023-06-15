@@ -36,7 +36,7 @@
 							<li><a asp-action="Index" asp-controller="Doctor">Dashboard</a></li>
 							<li ><a asp-action="Appointments" asp-controller="Doctor">My Appointments</a></li>
 							<li><a asp-action="MyPatients" asp-controller="Doctor">My Patients</a></li>
-							<li><a asp-action="AddAvailableTimes" asp-controller="Doctor" asp-route-id="@Model.Id">Add available time</a></li>
+							<li><a asp-action="AddAvailableTimes" asp-controller="Doctor">Add available time</a></li>
 
 						</ul>
 					</li>
@@ -102,7 +102,7 @@
 								<i class="fa-solid fa-user-doctor"></i>
 							</div>
 							<div class="user-text">
-								<h6>Darren Elder</h6>
+								<h6>Dr .@Model.FirstName</h6>
 								<p class="text-muted mb-0">Doctor</p>
 							</div>
 						</div>
