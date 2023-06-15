@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+@{
+	Layout = null;
+}
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+	
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="~/assets/css/feather.css">
+
+	<!-- Apex Css -->
+	<link rel="stylesheet" href="~/assets/plugins/apex/apexcharts.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/assets/css/custom.css">
+
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		@Html.Partial("/Views/Patient/NavBar.cshtml")
+		<!-- /Header -->
+		<!-- Breadcrumb -->
+		<div class="breadcrumb-bar-two" style="justify-content:center;align-content:center;display:flex">
+
+			<nav aria-label="breadcrumb" class="page-breadcrumb" style="margin-top:55px">
+				<img src="~/assets/img/photo1.jpg" alt="User Image" width="300px" height="300px">
+				<img src="~/assets/img/photo2.jpg" alt="User Image" width="300px" height="300px">
+				<img src="~/assets/img/onlinepharmacy.png" alt="User Image" width="250px" height="300px">
+				<img src="~/assets/img/Laboratory technician.jpg" alt="User Image" width="250px" height="300px">
+
+			</nav>
+
+		</div>
+	</div>
+	<!-- /Breadcrumb -->
+	<!-- Page Content -->
+	<div class="content">
+		<div class="container">
+
+			<div class="row">
+
+				<!-- Profile Sidebar -->
+				<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+					<div class="profile-sidebar">
+						<div class="widget-profile pro-widget-content">
+							<div class="profile-info-widget">
+								<a href="#" class="booking-doc-img">
+									<i class="fa-solid fa-circle-info fa-beat-fade fa-2xl" style="color: #6f9dec;"></i>
+								</a>
+								<div class="profile-det-info">
+									<h3>Patient name</h3>
+
+								</div>
+							</div>
+						</div>
+						<div class="dashboard-widget">
+							<nav class="dashboard-menu">
+								<ul>
+									<li class="active">
+										<a asp-action="PatientProfile" asp-controller="Patient">
+											<i class="fas fa-columns"></i>
+											<span>Dashboard</span>
+										</a>
+									</li>
+
+
+									<li>
+										<a href="chat.html">
+											<i class="fas fa-comments"></i>
+											<span>Message</span>
+											<small class="unread-msg">0</small>
+										</a>
+									</li>
+
+									<li>
+										<a href="orders-list.html">
+											<i class="fas fa-list-alt"></i>
+											<span>Orders</span>
+											<small class="unread-msg">0</small>
+										</a>
+									</li>
+
+
+
+									<li>
+										<a href="">
+											<i class="fa-solid fa-capsules" style="color: #7c797b;"></i>
+											<span>Prescriptions</span>
+										</a>
+									</li>
+
+									<li>
+										<a href="">
+											<i class="fa-solid fa-file-medical" style="color: #626364;"></i>
+											<span>Lab result</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<i class="fa-solid fa-vial-virus" style="color: #818283;"></i>
+											<span>Lab reservaion</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<i class="fa-solid fa-clock-rotate-left" style="color: #6e6e6e;"></i>
+											<span>History</span>
+										</a>
+									</li>
+									<li>
+										<a href="index.html">
+											<i class="fas fa-sign-out-alt"></i>
+											<span>Logout</span>
+										</a>
+									</li>
+
+								</ul>
+							</nav>
+						</div>
+
+					</div>
+				</div>
+				<!-- / Profile Sidebar -->
+
+				<div class="col-md-7 col-lg-8 col-xl-9">
+
+					<div class="card">
+						<div class="card-body pt-0">
+
+							<!-- Tab Menu -->
+							<nav class="user-tabs mb-4">
+								<ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+									<li class="nav-item">
+										<a class="nav-link active" href="#pat_appointments" data-bs-toggle="tab">Appointments</a>
+									</li>
+
+								</ul>
+							</nav>
+							<!-- /Tab Menu -->
+							<!-- Tab Content -->
+							<div class="tab-content pt-0">
+
+								<!-- Appointment Tab -->
+								<div id="pat_appointments" class="tab-pane fade show active">
+									<div class="card card-table mb-0">
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table table-hover table-center mb-0">
+													<thead>
+														<tr>
+															<th>Doctor</th>
+															<th>Date</th>
+															<th>Amount</th>
+															<th>Status</th>
+															<th></th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>
+																<h2 class="table-avatar">
+																	<a href="doctor-profile.html" class="avatar avatar-sm me-2" style="margin-top:10px">
+																		<i class="fa-solid fa-user-doctor fa-flip fa-2xl" style="color: #86aef4;"></i>
+																	</a>
+																	<a href="doctor-profile.html">Doctor Name </a>
+																</h2>
+															</td>
+															<!--fill here-->
+															<td>Date<span class="d-block text-info">Time</span></td>
+
+															<!--fill here-->
+															<td>price</td>
+															<td><span class="badge rounded-pill bg-success-light">Confirm<!--fill here:"confirm or cancelled or pending"--></span></td>
+															<td class="text-end">
+																<div class="table-action">
+																	<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+																		<i class="fa-solid fa-triangle-exclamation" style="color: #4d81db;"></i> Have a problem?
+																	</a>
+
+																</div>
+															</td>
+														</tr>
+														<!--complete loop-->
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /Appointment Tab -->
+
+
+
+							</div>
+							<!-- Tab Content -->
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<!-- /Page Content -->
+	<!-- Footer -->
+	@Html.Partial("/Views/Patient/Footer.cshtml")
+	<!-- /Footer -->
+	<!-- jQuery -->
+	<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Sticky Sidebar JS -->
+	<script src="~/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+	<script src="~/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+	<!-- Apex JS -->
+	<script src="~/assets/plugins/apex/apexcharts.min.js"></script>
+
+	<!-- Custom JS -->
+	<script src="~/assets/js/script.js"></script>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
-﻿body {
-  background-color:white;
+﻿﻿body {
+    background-color: white;
 }
 
 
@@ -18,27 +18,24 @@
     }
 /*for background*/
 .bg {
-   
-}
-.booking {
-    font-family: 'Poppins', sans-serif;
-   
-    
 }
 
-    #booking::before {
-        content: '';
-        position:center;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        background-color:white;
-       
-    }
+.booking {
+    font-family: 'Poppins', sans-serif;
+}
+
+#booking::before {
+    content: '';
+    position: center;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: white;
+}
 /*for form background*/
 .booking-form {
-    background-color:dodgerblue;
+    background-color: dodgerblue;
     border-radius: 2px;
 }
 
@@ -60,7 +57,7 @@
 
         .booking-form .form-group:after {
             content: '';
-            background:none;
+            background: none;
             position: absolute;
             top: 25px;
             bottom: 0;
@@ -109,7 +106,6 @@
         border-block: none;
         border: none;
         color: white;
-        
         background: transparent;
     }
 
@@ -133,14 +129,13 @@
                 transform: rotate(90deg);
             }
 
-     .booking-form input[type=search]
-     {
-         border-block:none;
-         border:none;
-         color:black;
-         background:transparent;
-     }
-  
+    .booking-form input[type=search] {
+        border-block: none;
+        border: none;
+        color: black;
+        background: transparent;
+    }
+
     .booking-form .form-label {
         color: white;
         display: block;
@@ -148,25 +143,26 @@
         height: 25px;
         line-height: 25px;
         font-size: 23px;
-        font-weight:bold;
+        font-weight: bold;
     }
 
     .booking-form .form-btn {
         padding: 25px;
     }
-    option{
-        background-color:gray;
-    }
 
-    .booking-form .submit-btn {
-        background: #ff0063;
-        border: none;
-        text-transform: capitalize;
-        display: block;
-        border-radius: 2px;
-        width: 100%;
-        height: 75px;
-        font-size: 30px;
-        font-weight: 400;
-        color: #fff;
-    }
+option {
+    background-color: gray;
+}
+
+.booking-form .submit-btn {
+    background: #ff0063;
+    border: none;
+    text-transform: capitalize;
+    display: block;
+    border-radius: 2px;
+    width: 100%;
+    height: 75px;
+    font-size: 30px;
+    font-weight: 400;
+    color: #fff;
+}

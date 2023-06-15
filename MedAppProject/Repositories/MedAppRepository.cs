@@ -27,20 +27,26 @@ namespace MedAppProject.Repositories
             var user = await _context.VMLogins.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
 
             // If no user was found with the specified email, return false
+            //if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
+            //{
+            //    return user;
+            //}
+
             return user;
         }
 
-        public void Delete(int id)
+        public void Delete(TEntity entity)
         {
-            var entit = _entity.Find(id);
-            if (entit != null)
+            //var entit = _entity.Find(entity);
+            if (entity != null)
             {
                 
-                _entity.Remove(entit);
+                _entity.Remove(entity);
                 _context.SaveChanges();
             }
             
         }
+        
 
         public IEnumerable<TEntity> GetAll()
         {

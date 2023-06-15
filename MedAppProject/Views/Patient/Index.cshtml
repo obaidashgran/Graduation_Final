@@ -1,206 +1,554 @@
 ﻿@model MedAppProject.ViewMoels.PatientDashboardViewModel
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<!DOCTYPE html>
+@{
+	Layout = null;
+}
+<html lang="en">
+<head>
 
-<title>Booking Form HTML Template</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - MedAppProject</title>
 
-<!-- Google font -->
-<link href="https://fonts.googleapis.com/css?family=Poppins:400" rel="stylesheet">
+	<!-- Favicon -->
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
 
-<!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
 
-<!-- Custom stlylesheet -->
-<link type="text/css" rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="~/css/SearchDoctor.css" asp-append-version="true" />
-<link rel="stylesheet" href="~/css/SearchDoctorResult.css" asp-append-version="true">
-     
-		 
-	<div id="booking" class="section">
-		
-		<div class="section-center">
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="~/assets/css/feather.css">
+
+	<!-- Datepicker CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap-datetimepicker.min.css">
+
+	<!-- Owl Carousel CSS -->
+	<link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+
+	<!-- Animation CSS -->
+	<link rel="stylesheet" href="~/assets/css/aos.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/assets/css/custom.css">
+	<style>
+		.item {
+			background-color: white;
+			border: none;
+			padding: 0;
+			cursor: pointer;
+		}
+
+		.specialities-item {
+			border: none;
+		}
+
+	</style>
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		@Html.Partial("/Views/Patient/NavBar.cshtml",@Model.PatientInfo)
+		<!-- Header -->
+		<!-- /Header -->
+		<!-- Home Banner -->
+		<section class="banner-section">
 			<div class="container">
-				<div class="row">
-					<div class="booking-form">
-						
-						<form asp-controller="Patient" asp-action="SearchForDoctors" method="post" style="height:100px;width:1200px;margin-top:-350px;margin-right:250px
-;background-color:#1e88e5">
-						<input asp-for="Doctors" hidden/> 
-						<input asp-for="PatientInfo" hidden/>
-						<input asp-for="doctorAvailableTimes" hidden/>
-						<input asp-for="Specializations" hidden/>
-						<input asp-for="SelectedSpecialization" hidden/>
-
-						<input asp-for="PatientInfo.Id" value="@Model.PatientInfo.Id" hidden> 
-						<div class="row no-margin">
-							<div class="col-md-3" style="width:250px">
-								<div class="form-group">
-									<span class="form-label">Doctor Name</span>
-									<input style="color:white" class="form-control" type="search" placeholder="Write Doctor name" name="searchBox">
-								</div>
+				<div class="row align-items-center">
+					<div class="col-lg-6">
+						<div class="banner-content aos" data-aos="fade-up">
+							<h1>Find <span>Best Doctors</span> With MedApp.</h1>
+							<img src="~/assets/img/icons/header-icon.svg" class="header-icon" alt="header-icon">
+							<p>Book An Appointment Now</p>
+							<a href="booking.html" class="btn">Search Now</a>
+							<div class="banner-arrow-img">
+								<img src="~/assets/img/down-arrow-img.png" class="img-fluid" alt="">
 							</div>
-							<div class="col-md-6">
-								<div class="row no-margin">
-									<div class="col-md-5" style="width:200px;margin-left:-25px">
-										<div class="form-group">
-											<span class="form-label">Specialization</span>
-												<select class="form-control" asp-items="@(new SelectList(Model.Specializations,"Id", "Name"))" asp-for="SelectedSpecialization.Id"
-													required>
+						</div>
+						<div class="search-box-one aos" data-aos="fade-up">
+							<form asp-controller="Patient" asp-action="SearchForDoctors" class="form-inline" method="post" style="display: flex; align-items: center;">
+								<input asp-for="PatientInfo.Id" hidden />
+								<input asp-for="SelectedSpecialization" hidden />
+								<div class="search-input search-line">
+									<i class="feather-search bficon"></i>
+									<div class="form-group mb-0">
+										<input type="text" class="form-control" placeholder="Search doctors" name="searchBox">
+									</div>
+								</div>
+								<div class="search-input search-line">
+									<div class="form-group mb-0">
 
-												<option style="background-:grey">Select</option>
+										<select class="form-control" asp-items="@(new SelectList(Model.Specializations,"Id", "Name"))" asp-for="SelectedSpecialization.Id"
+												required>
+											<option>Select</option>
 										</select>
-										</div>
-									</div>
-									<div class="col-md-5" style="width:150px;margin-left:-50px">
-										<div class="form-group">
-											<span class="form-label">City</span>
-											<select class="form-control" name="city">
-												<option style="background-color:grey" value="">Select City</option>
-												<option style="background-color:grey">ramtha</option>
-												<option style="background-color:grey">amman</option>
-												<option style="background-color:grey">Irbid</option>
-												<option style="background-color:grey">Zarqa</option>
-												<option style="background-color:grey">Aqaba</option>
-												<option style="background-color:grey">Al-Taybeh</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-5" style="width:250px;margin-top:-135px;margin-left:350px">
-										<div class="form-group">
-											<span class="form-label">Date</span>
-											<input class="form-control" type="date" name="date">
-										</div>
-									</div>
-									<div class="col-md-2" style="width:100px;margin-top:-135px;margin-left:600px">
-										<div class="form-group">
-											<span class="form-label">Filter</span>
-											<select class="form-control" name="sort">
-												<option style="background-color:grey">View</option>
-												<option style="background-color:grey">Rate</option>
-												<option style="background-color:grey">Price</option>
-											</select>
-											
-											<span class="select-arrow"></span>
-										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-3" style="margin-top:-158px;margin-left:980px">
-								<div class="form-btn">
-									<button class="submit-btn" id="Search" name="Search" style="width:253px;height:100px" type="submit">Search</button>
+								<div class="search-input search-map-line">
+									<div class="form-group mb-0">
+										<select class="form-control" style="border:none;color:#6c757d;opacity:1" name="city">
+											<option disabled selected value="">City</option>
+											<option>Amman</option>
+											<option>Irbid</option>
+											<option>ramtha</option>
+											<option>Aqaba</option>
+											<option>Zarqa</option>
+										</select>
+									</div>
 								</div>
-							</div>
-					    </div>
-						</form>
-						@if(ViewData["AppointmentMsg"]!=null)
-							{
-								<div class="alert alert-danger">
-								@ViewData["AppointmentMsg"].ToString()
+								<div class="search-input search-calendar-line" style="width:300px">
+									<i class="feather-calendar"></i>
+									<div class="form-group mb-0">
+										<input type="text" class="form-control datetimepicker" placeholder="Date" name="date">
+									</div>
 								</div>
-							}
+								<div class="search-input search-map-line search-line">
+									<div class="form-group mb-0">
+										<select name="sort" class="form-control" style="border:none;color:#6c757d;opacity:1">
+
+											<option>Rate</option>
+											<option>Price</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-search-btn" style="width:100px;margin-left:15px">
+									<button class="btn" type="submit">Search</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="banner-img aos" data-aos="fade-up">
+							<img src="~/assets/img/banner-img.png" class="img-fluid" alt="">
+
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-<section class="ftco-section" style="margin-top:-650px">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="table-wrap">
-
-					<form asp-controller="Patient" asp-action="MakeAppointment" method="post">
-						<input asp-for="Doctors" hidden/> 
-						<input asp-for="PatientInfo.Id" hidden/>
-						<input asp-for="doctorAvailableTimes" hidden/>
-						<input asp-for="Specializations" hidden/>
-						<input asp-for="SelectedSpecialization" hidden/>
-						<input name="patient" value="@Model.PatientInfo.Id.ToString()" hidden>
-					@foreach (var c in "A")
-					{
-						<table class="table" style="width:1000px">
-							<thead class="thead-primary">
-								<tr>
-									<th>Rate</th>
-									<th>Contact</th><!--to let it empty-->
-									<th>Doctor</th>
-									<th>Fees</th>
-									<th>Available Time</th>
-									<th>City</th>
-									<th>&nbsp;</th>
-								</tr>
-							</thead>
-					
-					@foreach(var i in Model.Doctors)
-					{
-	
+		</section>
+		<!-- /Home Banner -->
+		<!-- Specialities Section -->
+		<form asp-controller="Patient" asp-action="SearchForDoctorsBySpecializations" method="post" class="specialities-section-one">
+			<input asp-for="PatientInfo.Id" hidden />
+			
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 aos" data-aos="fade-up">
+						<div class="section-header-one section-header-slider">
+							<h2 class="section-title">Specialities</h2>
+						</div>
+					</div>
+					<div class="col-md-6 aos" data-aos="fade-up">
+						<div class="owl-nav slide-nav-1 text-end nav-control"></div>
+					</div>
+				</div>
+				<div class="owl-carousel specialities-slider-one owl-theme aos" data-aos="fade-up">
+					<button class="item custom-button" type="submit" name="spe" value="6">
+					<div class="specialities-item">
+							<div class="specialities-img">
+								<span><img src="~/assets/img/specialities/specialities-01.svg" alt=""></span>
+							</div>
+							<p>Dermatology</p>
 						
-							<tbody>
-		 
-						    <tr class="alert" role="alert">
-								
-						    	<td>
-									
-									<input type="hidden" name="id" value="@i.Id.ToString()">
-						    		@i.DoctorRate.ToString()
-						    	</td>
-									<td>
-										@i.PhoneNumber.ToString()
-									</td>
-									<td>
-										<div class="email">
-											
-											<a asp-controller="Patient" asp-action="DoctorProfile" asp-route-docID="@i.Id" style="color:black;font-weight:bold">Dr.@(i.FirstName + " " + @i.LastName)</a>
-										</div>
-									</td>
-									<td>@(i.Fees.ToString()) JD</td>
+						</div>
+						</button>
 
-									<td class="quantity">
-										<div class="input-group">
-											<select name="appointment">
-												@{
-													foreach (var x in i.AvailableTime){
-														
-													if(ViewBag.selectedDate.Equals(DateTime.Now.Date))
-														{
-															if(x.Time.Date.Equals(DateTime.Now.Date))
-																{
-																	
-																	<option value="@x.Id">@x.Time.ToString()</option>
-																	
-																}
-															}
-															else
-															{
-																if(x.Time.Date.Equals(DateTime.Parse(ViewBag.selectedDate).Date))
-																{
-																	<option value="@x.Id">@x.Time.ToString()</option>
-																}
-															}
+					
+					<button class="item" type="submit" name="spe" value="5">
+						<div class="specialities-item" >
+							<div class="specialities-img">
+								<span><img src="~/assets/img/specialities/specialities-02.svg" alt=""></span>
+							</div>
+							<p>Gastroenterolo</p>
+						</div>
+					</button>
+					<button class="item" type="submit" name="spe" value="2">
+						<div class="specialities-item">
+							<div class="specialities-img">
+								<span><img src="~/assets/img/specialities/specialities-03.svg" alt=""></span>
+							</div>
+							<p>Urology</p>
+						</div>
+					</button>
+					<button class="item" type="submit" name="spe" value="3">
+						<div class="specialities-item">
+							<div class="specialities-img">
+								<span><img src="~/assets/img/specialities/specialities-04.svg" alt=""></span>
+							</div>
+							<p>Psychiatry</p>
+						</div>
+					</button>
+					<button class="item" type="submit" name="spe" value="1">
+						<div class="specialities-item">
+							<div class="specialities-img">
+								<span><img src="~/assets/img/specialities/specialities-05.svg" alt=""></span>
+							</div>
+							<p>Dentistry</p>
+						</div>
+					</button>
+					<button class="item" type="submit" name="spe" value="4">
+						<div class="specialities-item">
+							<div class="specialities-img">
+								<span><img src="~/assets/img/specialities/specialities-02.svg" alt=""></span>
+							</div>
+							<p>Neurology</p>
+						</div>
+					</button>
+				</div>
 
-													}
-												}
-												
-											</select>
-										</div>
-									</td>
-									<td>@(i.ClincLocation)</td>
-									<td>
-										<button>Confirm Appointment</button>
-									</td>
-									</tr>
-									
-	
-						</tbody>
-				
-						}
-						</table>
-					}
-					</form>
+			</div>
+		</form>
+		<!-- /Specialities Section -->
+		<!-- Doctors Section -->
+		<section class="doctors-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 aos" data-aos="fade-up">
+						<div class="section-header-one section-header-slider">
+							<h2 class="section-title">Best Doctors</h2>
+						</div>
+					</div>
+					<div class="col-md-6 aos" data-aos="fade-up">
+						<div class="owl-nav slide-nav-2 text-end nav-control"></div>
+					</div>
+				</div>
+				<div class="owl-carousel doctor-slider-one owl-theme aos" data-aos="fade-up">
+
+					<!-- Doctor Item -->
+					<div class="item">
+						<div class="doctor-profile-widget">
+							<div class="doc-pro-img">
+								<a asp-action="DoctorProfile" asp-controller="Patient">
+									<div class="doctor-profile-img">
+										<img src="~/assets/img/doctors/doctor-03.jpg" class="img-fluid" alt="">
+									</div>
+								</a>
+								<div class="doctor-amount">
+									<span>45 JOD</span>
+								</div>
+							</div>
+							<div class="doc-content">
+								<div class="doc-pro-info">
+									<div class="doc-pro-name">
+										<a asp-action="DoctorProfile" asp-controller="Patient">Dr.Mohammad Alshayeb</a>
+
+									</div>
+									<div class="reviews-ratings">
+										<p>
+											<span><i class="fas fa-star"></i> 4.5</span>
+										</p>
+									</div>
+								</div>
+								<div class="doc-pro-location">
+									<p><i class="feather-map-pin"></i> Amman, Abdoun</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Doctor Item -->
+					<!-- Doctor Item -->
+					<div class="item">
+						<div class="doctor-profile-widget">
+							<div class="doc-pro-img">
+								<a href="doctor-profile.html">
+									<div class="doctor-profile-img">
+										<img src="~/assets/img/doctors/doctor-04.jpg" class="img-fluid" alt="">
+									</div>
+								</a>
+								<div class="doctor-amount">
+									<span>30 JOD</span>
+								</div>
+							</div>
+							<div class="doc-content">
+								<div class="doc-pro-info">
+									<div class="doc-pro-name">
+										<a href="doctor-profile.html">Dr.Obaidah Alshogran</a>
+
+									</div>
+									<div class="reviews-ratings">
+										<p>
+											<span><i class="fas fa-star"></i> 4.0</span>
+										</p>
+									</div>
+								</div>
+								<div class="doc-pro-location">
+									<p><i class="feather-map-pin"></i> Ramtha</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Doctor Item -->
+					<!-- Doctor Item -->
+					<div class="item">
+						<div class="doctor-profile-widget">
+							<div class="doc-pro-img">
+								<a href="doctor-profile.html">
+									<div class="doctor-profile-img">
+										<img src="~/assets/img/doctors/doctor-05.jpg" class="img-fluid" alt="">
+									</div>
+								</a>
+								<div class="doctor-amount">
+									<span>25 JOD</span>
+								</div>
+							</div>
+							<div class="doc-content">
+								<div class="doc-pro-info">
+									<div class="doc-pro-name">
+										<a href="doctor-profile.html">Dr.Abdullah Saleh</a>
+									</div>
+									<div class="reviews-ratings">
+										<p>
+											<span><i class="fas fa-star"></i> 4.5</span>
+										</p>
+									</div>
+								</div>
+								<div class="doc-pro-location">
+									<p><i class="feather-map-pin"></i> Irbid </p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Doctor Item -->
+					<!-- Doctor Item -->
+					<div class="item">
+						<div class="doctor-profile-widget">
+							<div class="doc-pro-img">
+								<a href="doctor-profile.html">
+									<div class="doctor-profile-img">
+										<img src="~/assets/img/doctors/doctor-02.jpg" class="img-fluid" alt="">
+									</div>
+								</a>
+								<div class="doctor-amount">
+									<span>30 JOD</span>
+								</div>
+							</div>
+							<div class="doc-content">
+								<div class="doc-pro-info">
+									<div class="doc-pro-name">
+										<a href="doctor-profile.html">Dr.Maria Alsaifi</a>
+									</div>
+									<div class="reviews-ratings">
+										<p>
+											<span><i class="fas fa-star"></i> 4.3</span>
+										</p>
+									</div>
+								</div>
+								<div class="doc-pro-location">
+									<p><i class="feather-map-pin"></i>Amman</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- /Doctor Item -->
+
 				</div>
 			</div>
-		</div>
+		</section>
+		<!-- /Doctors Section -->
+		<!-- Work Section -->
+		<section class="work-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-md-12 work-img-info aos" data-aos="fade-up">
+						<div class="work-img">
+							<img src="~/assets/img/work-img.png" class="img-fluid" alt="">
+						</div>
+					</div>
+					<div class="col-lg-8 col-md-12 work-details">
+						<div class="section-header-one aos" data-aos="fade-up">
+							<h5>How it Works</h5>
+							<h2 class="section-title">4 easy steps to book your appointment</h2>
+						</div>
+						<div class="row">
+							<div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+								<div class="work-info">
+									<div class="work-icon">
+										<span><img src="~/assets/img/icons/work-01.svg" alt=""></span>
+									</div>
+									<div class="work-content">
+										<h5>Search Doctor</h5>
+										<p>Go to search box and find the right doctor for you.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+								<div class="work-info">
+									<div class="work-icon">
+										<span><img src="~/assets/img/icons/work-02.svg" alt=""></span>
+									</div>
+									<div class="work-content">
+										<h5>Check Doctor Profile</h5>
+										<p>Click on doctor name and check doctor profile.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+								<div class="work-info">
+									<div class="work-icon">
+										<span><img src="~/assets/img/icons/work-03.svg" alt=""></span>
+									</div>
+									<div class="work-content">
+										<h5>Schedule Appointment</h5>
+										<p>Choose a date convenient for you.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+								<div class="work-info">
+									<div class="work-icon">
+										<span><img src="~/assets/img/icons/work-04.svg" alt=""></span>
+									</div>
+									<div class="work-content">
+										<h5>Get Your appointment</h5>
+										<p>Confirm your appointment.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- /Work Section -->
+		<!-- FAQ Section -->
+		<section class="faq-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="section-header-one text-center aos" data-aos="fade-up" style="margin-top:25px;">
+							<h5>Get Your Answer</h5>
+							<h2 class="section-title">Frequently Asked Questions</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row align-items-center">
+					<div class="col-lg-6 col-md-12 aos" data-aos="fade-up">
+						<div class="faq-img">
+							<img src="~/assets/img/faq-img.png" class="img-fluid" alt="img">
+							<div class="faq-patients-count">
+								<div class="faq-smile-img">
+									<img src="~/assets/img/icons/smiling-icon.svg" alt="icon">
+								</div>
+								<div class="faq-patients-content">
+
+									<p>Happy Patients</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-12">
+						<div class="faq-info aos" data-aos="fade-up">
+							<div class="accordion" id="faq-details">
+
+								<!-- FAQ Item -->
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingOne">
+										<a href="javascript:void(0);" class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+											Can I make an Appointment Online with MedApp?
+										</a>
+									</h2>
+									<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faq-details">
+										<div class="accordion-body">
+											<div class="accordion-content">
+												<p>Sure, just login to our website and make your appointment.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /FAQ Item -->
+								<!-- FAQ Item -->
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingTwo">
+										<a href="javascript:void(0);" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+											Is this website safe?
+										</a>
+									</h2>
+									<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faq-details">
+										<div class="accordion-body">
+											<div class="accordion-content">
+												<p>Be sure that our site is completely secure and keeps your information confidential.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /FAQ Item -->
+								<!-- FAQ Item -->
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingThree">
+										<a href="javascript:void(0);" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+											Can I pay online?
+										</a>
+									</h2>
+									<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faq-details">
+										<div class="accordion-body">
+											<div class="accordion-content">
+												<p>The online payment service is exhaling.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<!-- Partners Section -->
+		<!-- Footer -->
+		@Html.Partial("/Views/Patient/Footer.cshtml")
+		<!-- /Footer -->
+		<!-- Cursor -->
+		<div class="mouse-cursor cursor-outer"></div>
+		<div class="mouse-cursor cursor-inner"></div>
+		<!-- /Cursor -->
+
 	</div>
-</section>
+	<!-- /Main Wrapper -->
+	<!-- ScrollToTop -->
+	<div class="progress-wrap active-progress">
+		<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+			<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919px, 307.919px; stroke-dashoffset: 228.265px;"></path>
+		</svg>
+	</div>
+	<!-- /ScrollToTop -->
+	<!-- jQuery -->
+	<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+	<!-- Bootstrap Bundle JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Feather Icon JS -->
+	<script src="~/assets/js/feather.min.js"></script>
+
+	<!-- Datepicker JS -->
+	<script src="~/assets/js/moment.min.js"></script>
+	<script src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
+
+	<!-- Owl Carousel JS -->
+	<script src="~/assets/js/owl.carousel.min.js"></script>
+
+	<!-- Slick JS -->
+	<script src="~/assets/js/slick.js"></script>
+
+	<!-- Animation JS -->
+	<script src="~/assets/js/aos.js"></script>
+
+	<!-- Counter JS -->
+	<script src="~/assets/js/counter.js"></script>
+
+	<!-- BacktoTop JS -->
+	<script src="~/assets/js/backToTop.js"></script>
+
+	<!-- Custom JS -->
+	<script src="~/assets/js/script.js"></script>
+
+</body>
+</html>

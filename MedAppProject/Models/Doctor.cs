@@ -1,4 +1,6 @@
-﻿namespace MedAppProject.Models
+﻿using System.ComponentModel;
+
+namespace MedAppProject.Models
 {
     public class Doctor : User
     {
@@ -9,6 +11,7 @@
         public List<DoctorAvailableTimes>? AvailableTime { get; set; }  
         public List<DoctorAppointment> Appointments { get; set; }
         public List<Prescription> Prescriptions { set; get; }
-        public double DoctorRate { get; set; }
+        [DefaultValue(1.0)]
+        public float DoctorRate { get; set; }
     }
 }

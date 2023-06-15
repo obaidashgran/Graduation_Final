@@ -14,6 +14,7 @@ namespace MedAppProject.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+
             base.OnModelCreating(modelBuilder);
             modelBuilder.HasSequence<int>("UserIdSequence", schema: "shared")
                 .StartsAt(100)
@@ -36,13 +37,19 @@ namespace MedAppProject.Data
             .Property(u => u.Id)
             .HasDefaultValueSql("NEXT VALUE FOR shared.UserIdSequence");
 
-
+            //modelBuilder.Entity<VMLogin>()
+            //.Property(u => u.Password)
+            //.HasConversion(
+            //hashedPassword => BCrypt.Net.BCrypt.HashPassword(hashedPassword),
+            //hashedPassword => hashedPassword
+            //);
 
 
 
 
         }
         public DbSet<DoctorAvailableTimes> DoctorAvailableTimes { get; set; }
+        public DbSet<LabAvailableTimes> LabAvailableTimes { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Pharmacist> Pharmacies { get; set; }
@@ -54,5 +61,8 @@ namespace MedAppProject.Data
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<TestInfo> testLabInfos { get; set; }
         public DbSet<VMLogin> VMLogins { get; set; }
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<LabBills> LabBills { get; set; }
+        public DbSet<MedicalRecord> MedicalRecords { get; set; }
     }
 }

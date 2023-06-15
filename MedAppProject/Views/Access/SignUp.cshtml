@@ -1,23 +1,285 @@
-﻿@model MedAppProject.Models.Patient
-@{
-    Layout = null;
-}
-<html>
-    <head>
+﻿<!DOCTYPE html> 
+<html lang="en">
+	<head>
 
-    </head>
-    <body>
-        <form asp-controller="Access" asp-action="SignUp" method="post">
-            <input type="text" asp-for="FirstName"/>
-            <input type="text" asp-for="LastName"/>
-            <input type="text" asp-for="Email"/>
-            <input type="text" asp-for="PatientLocation"/>
-            <input type="text" asp-for="PhoneNumber"/>
-            
-            </br>
-            <input type="submit" value="Submit"/>
+		<meta charset="utf-8">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
 
-        </form>
-    </body>
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+
+		<!-- Feathericon CSS -->
+		<link rel="stylesheet" href="~/assets/css/feather.css">
+
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="~/assets/css/custom.css">
+
+	</head>
+	<body class="account-page">
+
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+			<!-- Page Content -->
+			<div class="content top-space">
+				<div class="container">
+
+					<div class="row">
+					<div class="col-md-8 offset-md-2">
+
+						<!-- Register Content -->
+						<div class="account-content">
+							<div class="row align-items-center justify-content-center">
+								<div class="col-md-7 col-lg-6 login-left">
+									<img src="~/Images/doctor.jpg" class="img-fluid" alt="Register">
+								</div>
+								<div class="col-md-12 col-lg-6 login-right">
+									<div class="login-header ">
+										<h3>Register as:</h3>
+										<br />
+										<ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded ">
+											<li class="nav-item">
+												<a class="nav-link active" href="#Patient_Reg" data-bs-toggle="tab">Patient</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#Doc_Reg" data-bs-toggle="tab">Doctor</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#Lab_Reg" data-bs-toggle="tab">Lab</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#Ph_Reg" data-bs-toggle="tab">Pharmacy</a>
+											</li>
+										</ul>
+									</div>
+						  <div class="tab-content">
+									<!--Patient Register-->
+									<div class="tab-pane show active" id="Patient_Reg">
+							
+									<!-- Register Form -->
+									<form asp-action="PatientRegister" asp-controller="Access">
+										<div class="form-group form-focus">
+											<input type="text" class="form-control floating" name="firstName">
+											<label class="focus-label">First Name</label>
+										</div>
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="lastName">
+												<label class="focus-label">Last Name</label>
+											</div>
+											<div class="form-group form-focus">
+												<input type="email" class="form-control floating" name="mail">
+												<label class="focus-label">Email</label>
+											</div>
+												<div class="form-group form-focus">
+													<input type="number" class="form-control floating" name="phone">
+													<label class="focus-label">Mobile Number</label>
+												</div>
+											<div class="form-group form-focus">
+												<h4>Gender</h4>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="gender" id="male" value="male">
+													<label class="form-check-label" for="male">Male</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="gender" id="female" value="female">
+													<label class="form-check-label" for="female">Female</label>
+												</div>
+											</div>
+											<div class="form-group form-focus">
+												<h4>Birth Date</h4>
+												<input type="date" class="form-control floating">
+											</div>
+											<br />
+										<div class="form-group form-focus">
+											<input type="password" class="form-control floating" name="pass">
+											<label class="focus-label">Create Password</label>
+										</div>
+										<div class="text-end">
+											<a class="forgot-link" asp-action="Login" asp-controller="Access">Already have an account?</a>
+										</div>
+												<button class="btn btn-primary w-100 btn-lg login-btn" type="submit" style="background-color:dodgerblue">Signup</button>
+										
+									</form>
+									<!-- /Register Form -->
+									</div>
+									<!--/Pat Reg-->
+
+									<!--Doctor Reg-->
+									<div class="tab-pane" id="Doc_Reg">
+										<!-- Register Form -->
+										<form action="patient-register-step1.html">
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="firstName">
+												<label class="focus-label">First Name</label>
+											</div>
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="lastName">
+												<label class="focus-label">Last Name</label>
+											</div>
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="mail">
+												<label class="focus-label">Email</label>
+											</div>
+											<div class="form-group form-focus">
+												<input type="number" class="form-control floating" name="phone">
+												<label class="focus-label">Mobile Number</label>
+											</div>
+											<div class="form-group form-focus">
+												<h4>Gender</h4>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="gender" id="male" value="male">
+													<label class="form-check-label" for="male">Male</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="gender" id="female" value="female">
+													<label class="form-check-label" for="female">Female</label>
+												</div>
+											</div>
+											<div class="form-group form-focus">
+												<h4>Birth Date</h4>
+												<input type="date" class="form-control floating">
+											</div>
+											<br />
+												<div class="form-group form-focus">
+													<h4>Profession License File</h4>
+													<input type="file" class="form-control" id="licenseFile">
+													
+												</div>
+												<br />
+												<div class="form-group form-focus">
+													<input type="text" class="form-control floating" name="location">
+													<label class="focus-label">Clinic Location</label>
+												</div>
+
+											<div class="form-group form-focus">
+												<input type="password" class="form-control floating" name="pass">
+												<label class="focus-label">Create Password</label>
+											</div>
+											<div class="text-end">
+													<a class="forgot-link" asp-action="Login" asp-controller="Access">Already have an account?</a>
+											</div>
+												<button class="btn btn-primary w-100 btn-lg login-btn" type="submit" style="background-color:dodgerblue">Signup</button>
+
+										</form>
+										<!-- /Register Form -->
+									</div>
+									<!--/Doc Reg-->
+								   
+
+									<!--Lab Reg-->
+									<div class="tab-pane" id="Lab_Reg">
+										<!-- Register Form -->
+										<form action="patient-register-step1.html">
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="labName">
+												<label class="focus-label">Lab Name</label>
+											</div>
+											
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="mail">
+												<label class="focus-label">Email</label>
+											</div>
+											<div class="form-group form-focus">
+												<input type="number" class="form-control floating" name="phone">
+												<label class="focus-label">Mobile Number</label>
+											</div>
+											
+											
+											<div class="form-group form-focus">
+												<h5>Business License File</h5>
+												<input type="file" class="form-control" id="businessFile">
+												
+											</div>
+											<br />
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="location">
+												<label class="focus-label">Lab Location</label>
+											</div>
+
+											<div class="form-group form-focus">
+												<input type="password" class="form-control floating" name="pass">
+												<label class="focus-label">Create Password</label>
+											</div>
+											<div class="text-end">
+													<a class="forgot-link" asp-action="Login" asp-controller="Access">Already have an account?</a>
+											</div>
+												<button class="btn btn-primary w-100 btn-lg login-btn" type="submit" style="background-color:dodgerblue">Signup</button>
+
+										</form>
+										<!-- /Register Form -->
+									</div>
+									<!--/Lab Reg-->
+
+									<!--Pharmacy Reg-->
+									<div class="tab-pane" id="Ph_Reg">
+										<!-- Register Form -->
+										<form action="patient-register-step1.html">
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="Name">
+												<label class="focus-label">Pharmacy Name</label>
+											</div>
+											
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="mail">
+												<label class="focus-label">Email</label>
+											</div>
+											<div class="form-group form-focus">
+												<input type="number" class="form-control floating" name="phone">
+												<label class="focus-label">Mobile Number</label>
+											</div>
+											
+											
+											<div class="form-group form-focus">
+												<h5>Business License File</h5>
+												<input type="file" class="form-control" id="businessFile">
+												
+											</div>
+											<br />
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="location">
+												<label class="focus-label">Pharmacy Location</label>
+											</div>
+
+											<div class="form-group form-focus">
+												<input type="password" class="form-control floating" name="pass">
+												<label class="focus-label">Create Password</label>
+											</div>
+											<div class="text-end">
+													<a class="forgot-link" asp-action="Login" asp-controller="Access">Already have an account?</a>
+											</div>
+												<button class="btn btn-primary w-100 btn-lg login-btn" type="submit" style="background-color:dodgerblue">Signup</button>
+
+										</form>
+										<!-- /Register Form -->
+									</div>
+									<!--/Pharmacy Reg-->
+								</div>
+
+						     </div>
+							</div>
+						</div>
+			<!-- /Page Content -->
+			</div>
+			<!-- Footer -->
+		
+			<!-- /Footer -->
+			
+		</div>
+		<!-- /Main Wrapper -->
+
+		<!-- jQuery -->
+		<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+		<!-- Bootstrap Core JS -->
+		<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+		<!-- Custom JS -->
+		<script src="~/assets/js/script.js"></script>
+
+	</body>
 </html>

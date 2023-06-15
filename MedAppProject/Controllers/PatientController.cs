@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using MedAppProject.ViewMoels;
 using MedAppProject.Repositories;
 using MedAppProject.Models;
+using MedAppProject.ViewModels;
+using MedAppProject.ServicesClasses;
+using System.Globalization;
 
 namespace MedAppProject.Controllers
 {
@@ -11,32 +14,155 @@ namespace MedAppProject.Controllers
         private readonly IMedAppRepository<Specialization> _specialization;
         private readonly IMedAppRepository<Doctor> _doctor;
         private readonly IMedAppRepository<Patient> _patient;
+        private readonly IMedAppRepository<Pharmacist> _pharmacist;
         private readonly IMedAppRepository<DoctorAppointment> _docAppointment;
+        private readonly IMedAppRepository<LabAppointment> _labAppointment;
         private readonly IMedAppRepository<DoctorAvailableTimes> _docAvilableTime;
+        private readonly IMedAppRepository<LabAvailableTimes> _labAvilableTime;
+        private readonly IMedAppRepository<Lab> _lab;
+        private readonly IMedAppRepository<Test> _test;
+        private readonly IEmailSender _emailSender;
 
 
 
-        public PatientController(IMedAppRepository<Specialization> specialization, IMedAppRepository<Doctor> doctor,
-            IMedAppRepository<DoctorAppointment> docAppointment, IMedAppRepository<Patient> patient,
-            IMedAppRepository<DoctorAvailableTimes> docAvilableTime)
+		public PatientController(IMedAppRepository<Specialization> specialization, IMedAppRepository<Doctor> doctor,
+			IMedAppRepository<DoctorAppointment> docAppointment, IMedAppRepository<Patient> patient,
+			IMedAppRepository<DoctorAvailableTimes> docAvilableTime, IMedAppRepository<Lab> lab, IMedAppRepository<LabAvailableTimes> labAvilableTime, IMedAppRepository<LabAppointment> labAppointment, IMedAppRepository<Test> test, IEmailSender emailSender, IMedAppRepository<Pharmacist> pharmacist)
+		{
+			_specialization = specialization;
+			_doctor = doctor;
+			_docAppointment = docAppointment;
+			_patient = patient;
+			_docAvilableTime = docAvilableTime;
+			_lab = lab;
+			_labAvilableTime = labAvilableTime;
+			_labAppointment = labAppointment;
+			_test = test;
+			_emailSender = emailSender;
+			_pharmacist = pharmacist;
+		}
+		public async Task<IActionResult> SendEmail()
         {
-            _specialization = specialization;
-            _doctor = doctor;
-            _docAppointment = docAppointment;
-            _patient = patient;
-            _docAvilableTime = docAvilableTime;
+            // Create email content
+            var receiver = "smabdullah19@cit.just.edu.jo";
+            var subject = "Hello!";
+            var body = "Hi i'm obaida from MedApp company!";
+
+            // Send the email
+            await _emailSender.SendEmailAsync(receiver, subject, body);
+
+            return View();
         }
 
         // GET: PatientController
+        public IActionResult AddDataToSession(Patient patient)
+        {
+            HttpContext.Session.SetInt32("Id", patient.Id);
+            // Redirect to another action or return a view
+            return RedirectToAction("Index");
+        }
         public ActionResult Index()
         {
-            return View();
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            PatientDashboardViewModel pd = new PatientDashboardViewModel
+            {
+                PatientInfo = pa,
+                Specializations = _specialization.GetAll().ToList(),
+
+            };
+            return View(pd);
+        }
+        public ActionResult LabProfile(int labId)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            ViewBag.Patient = pa;
+            var lab = _lab.GetById(labId);
+            return View(lab);
+        }
+        public ActionResult LabSearch()
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            return View(pa);
         }
         [HttpPost]
+        public ActionResult SearchForLabs([FromForm] string city , [FromForm] string? testName)
+        {
+
+            List<Lab> la = _lab.GetAll().Where(l=>l.LabLocation.Equals(city)).ToList();
+            if (testName != null)
+            {
+                la = la.Where(l => l.TestsInfo.Any(a=>a.Name.Equals(testName))).ToList();
+            }
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            LabDashboardViewModel labs = new LabDashboardViewModel
+            {
+                Labs = la,
+                Patient = _patient.GetById(getId)
+
+            };
+            return View("Views/Patient/SearchLabResult.cshtml", labs);
+        }
+        public ActionResult SearchLabResult(LabDashboardViewModel lab)
+        {
+            return View(lab);
+        }
+        
+		public ActionResult BookAppointment(int docId)
+		{
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            ViewBag.Patient = pa;
+            var doc = _doctor.GetById(docId);
+            return View(doc);
+		}
+		public ActionResult DoctorProfile(int docId)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            ViewBag.Patient = pa;
+            var doc = _doctor.GetById(docId);
+            return View(doc);
+        }
+		public ActionResult PatientProfile()
+		{
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            DateTime today = DateTime.Today;
+
+            pa.DoctorAppointments = pa.DoctorAppointments.OrderBy(x =>
+            {
+                if (x.bookTime.Date >= today)
+                {
+                    return x.bookTime.Date - today;
+                }
+                else
+                {
+                    return today - x.bookTime.Date;
+                }
+            }).ToList();
+            pa.LabAppointments = pa.LabAppointments.OrderBy(x =>
+            {
+                if (x.bookTime.Date >= today)
+                {
+                    return x.bookTime.Date - today;
+                }
+                else
+                {
+                    return today - x.bookTime.Date;
+                }
+            }).ToList();
+
+            return View(pa);
+		}
+		[HttpPost]
         public ActionResult SearchForDoctors(PatientDashboardViewModel model , [FromForm] string? searchBox ,
             [FromForm] string? city, [FromForm] string sort, [FromForm] string? date)
 
         {
+  
             var modelSort = model;
             modelSort.Specializations = _specialization.GetAll().ToList();
             if (searchBox != null)
@@ -69,19 +195,94 @@ namespace MedAppProject.Controllers
             }
             ViewBag.selectedDate = DateTime.Now.Date;
             if(date!=null)
-            {   
-                modelSort.Doctors = modelSort.Doctors.Where(d => d.AvailableTime.Any(a => a.Time.Date.Equals(DateTime.Parse(date).Date))).ToList();
-                ViewBag.selectedDate = date;
+            {
+                DateTime parsedDate;
+                string dateFormat = "dd/MM/yyyy";
+                if (DateTime.TryParseExact(date, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+                {
+                    modelSort.Doctors = modelSort.Doctors.Where(d => d.AvailableTime.Any(a => a.Time.Date.Equals(parsedDate.Date))).ToList();
+                    ViewBag.selectedDate = parsedDate.ToString(dateFormat).ToUpper(); // Convert the date to uppercase
+                }
             }
             else
             {
-                modelSort.Doctors = modelSort.Doctors.Where(d => d.AvailableTime.Any(a => a.Time.Date.Equals(DateTime.Now.Date))).ToList();
+                modelSort.Doctors = modelSort.Doctors.Where(d => d.AvailableTime.Any(a => a.Time.Date>=DateTime.Now.Date)).ToList();
                 
             }
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            modelSort.PatientInfo = pa;
 
-
-            return View("~/Views/Patient/Index.cshtml", modelSort);
+            return View("~/Views/Patient/SearchDResult.cshtml", modelSort);
         }
+        [HttpPost]
+        public ActionResult SearchForDoctorsBySpecializations(PatientDashboardViewModel model, [FromForm] string spe)
+        {
+            model.Specializations = _specialization.GetAll().ToList();
+           // model.SelectedSpecialization = new Specialization { Id = 1, Name = "dentistry" };
+            model.Doctors = _doctor.GetAll().Where(x => x.DoctorSpecialization.Id.Equals(int.Parse(spe))).ToList();
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            model.PatientInfo = pa;
+            return View("~/Views/Patient/SearchDResult.cshtml", model);
+        }
+        
+        public ActionResult bookDoctor(int docId , DateTime time , int avId)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            var doc = _doctor.GetById(docId);
+            var pa2 = pa.DoctorAppointments.SingleOrDefault(a => a.bookTime == time);
+            var pa3 = pa.LabAppointments.SingleOrDefault(a => a.bookTime == time);
+            
+            
+            if (pa2 == null && pa3==null)
+            {
+                DoctorAppointment docApp = new DoctorAppointment
+                {
+                    patient = pa,
+                    Doctor = doc,
+                    bookTime = time
+                };
+                _docAppointment.Add(docApp);
+                var av = _docAvilableTime.GetById(avId);
+                _docAvilableTime.Delete(av);
+            }
+            PatientDashboardViewModel model= new PatientDashboardViewModel();
+
+            model.Specializations = _specialization.GetAll().ToList();
+            model.PatientInfo = pa;
+            return View("~/Views/Patient/Index.cshtml", model);
+        }
+
+        public ActionResult bookLab(int labId, DateTime time, int avId)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            var lab = _lab.GetById(labId);
+            var pa2 = pa.DoctorAppointments.SingleOrDefault(a => a.bookTime == time);
+            var pa3 = pa.LabAppointments.SingleOrDefault(a => a.bookTime == time);
+
+
+            if (pa2 == null && pa3 == null)
+            {
+                LabAppointment labApp = new LabAppointment
+                {
+                    patient = pa,
+                    Lab = lab,
+                    bookTime = time
+                };
+                _labAppointment.Add(labApp);
+                var av = _labAvilableTime.GetById(avId);
+                _labAvilableTime.Delete(av);
+            }
+            PatientDashboardViewModel model = new PatientDashboardViewModel();
+
+            model.Specializations = _specialization.GetAll().ToList();
+            model.PatientInfo = pa;
+            return View("~/Views/Patient/Index.cshtml", model);
+        }
+
 
         [HttpPost]
         public ActionResult MakeAppointment([FromForm] string patient, [FromForm] string appointment ,
@@ -104,7 +305,8 @@ namespace MedAppProject.Controllers
 
 
                 //remove from available time
-                _docAvilableTime.Delete(int.Parse(appointment));
+                var dv = _docAvilableTime.GetById(int.Parse(appointment));
+                _docAvilableTime.Delete(dv);
                 //add to docApp
                 _docAppointment.Add(doctopApp);
             }
@@ -114,16 +316,120 @@ namespace MedAppProject.Controllers
             }
             
             model.Specializations= _specialization.GetAll().ToList();
+            model.PatientInfo = patientChek;
             return View("~/Views/Patient/Index.cshtml", model);
 
         }
-        public ActionResult DoctorProfile()
+        [HttpPost]
+        public ActionResult MakeLabAppointment([FromForm] string patient, [FromForm] string appointment,
+            [FromForm] string id)
         {
-            string docId = Request.Query["docId"];
-           var doc =  _doctor.GetById(int.Parse(docId));
-            return View(doc);
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            Patient patientChek = _patient.GetById(getId);
+            DateTime times = _labAvilableTime.GetById(int.Parse(appointment)).Time;
+            var av = patientChek.LabAppointments.SingleOrDefault(a => a.bookTime.Equals(times));
+            ViewData["AppointmentMsg"] = null;
+            if (av == null)
+            {
+                //create LabApp obj to add 
+                LabAppointment labApp = new LabAppointment()
+                {
+                    patient = _patient.GetById(getId),
+                    bookTime = _labAvilableTime.GetById(int.Parse(appointment)).Time,
+                    Lab = _lab.GetById(int.Parse(id))
+
+                };
+
+
+                //remove from available time
+                var dv = _labAvilableTime.GetById(int.Parse(appointment));
+                _labAvilableTime.Delete(dv);
+                //add to docApp
+                _labAppointment.Add(labApp);
+            }
+            else
+            {
+                ViewData["AppointmentMsg"] = "You have an appointment in this time , please try again!";
+            }
+
+            return View("~/Views/Patient/LabSearch.cshtml", patientChek);
+        }
+        
+
+        public IActionResult DownloadFile(int id)
+        {
+            var test = _test.GetById(id);
+            if (test == null || test.ResultFile == null)
+            {
+                // Handle case where the test or the file does not exist
+                return NotFound();
+            }
+
+            // Return the file as a FileResult
+            return File(test.ResultFile, "application/octet-stream");
+        }
+        public IActionResult DeleteAppointment(int apId,int docId)
+		{
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+
+            var ap = _docAppointment.GetById(apId);
+            var doc = _doctor.GetById(docId);
+
+            var av = new DoctorAvailableTimes
+            {
+                Doctor = doc,
+                Time = ap.bookTime
+            };
+            _docAppointment.Delete(ap);
+            _docAvilableTime.Add(av);
+            return RedirectToAction("PatientProfile", "Patient");
+		}
+
+        //delete lab appt 
+        public IActionResult DeleteLabAppointment(int apId, int labId)
+        {
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+
+            var ap = _labAppointment.GetById(apId);
+            var lab = _lab.GetById(labId);
+
+            var av = new LabAvailableTimes
+            {
+                Lab = lab,
+                Time = ap.bookTime
+            };
+            _labAppointment.Delete(ap);
+            _labAvilableTime.Add(av);
+            return RedirectToAction("PatientProfile", "Patient");
         }
 
+        // deliver prescription
+        public IActionResult Delivery(string med , string loc,int docId)
+		{
+            int getId = HttpContext.Session.GetInt32("Id") ?? 0;
+            var pa = _patient.GetById(getId);
+            var doc = _doctor.GetById(docId);
+            var pha = _pharmacist.GetAll().FirstOrDefault(a => a.Location.Equals(loc));
+            Prescription pre = new Prescription
+            {
+                Location = loc,
+                MedName = med,
+                Patient = pa,
+                Doctor = doc,
+                Pharmacist = pha
+                
+            };
+            if(pha!=null)
+			{
+                if (pha.Prescriptions == null)
+                {
+                    pha.Prescriptions = new List<Prescription>();
+                }
+                pha.Prescriptions.Add(pre);
+            }
+            _pharmacist.Update(pha);
+            return RedirectToAction("PatientProfile", "Patient");
+		}
 
         // GET: PatientController/Details/5
         public ActionResult Details(int id)

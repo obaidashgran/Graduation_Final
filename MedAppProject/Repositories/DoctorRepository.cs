@@ -24,7 +24,7 @@ namespace MedAppProject.Repositories
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(Doctor entity)
         {
             //var a = db.Find(id);
             throw new NotImplementedException();
@@ -39,7 +39,7 @@ namespace MedAppProject.Repositories
 
         public Doctor GetById(int id)
         {
-            var doc = db.Doctors.Include(a => a.AvailableTime).Include(a=>a.Appointments).ThenInclude(p=>p.patient).SingleOrDefault(d=>d.Id==id);
+            var doc = db.Doctors.Include(s=>s.DoctorSpecialization).Include(a => a.AvailableTime).Include(a=>a.Appointments).ThenInclude(p=>p.patient).SingleOrDefault(d=>d.Id==id);
             return doc;
             //throw new NotImplementedException();
         }

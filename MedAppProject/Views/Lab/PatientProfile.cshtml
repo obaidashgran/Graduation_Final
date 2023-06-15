@@ -1,0 +1,313 @@
+﻿@model MedAppProject.ViewModels.PatientProfileForLabViewModel
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>@ViewData["Title"] - MedAppProject</title>
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+
+	<!-- Bootstrap CSS -->
+
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css" />
+	<!-- Fontawesome CSS -->
+
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css" />
+
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css" />
+	<!-- Feathericon CSS -->
+
+	<link rel="stylesheet" href="~/assets/css/feather.css" />
+	<!-- Main CSS -->
+
+	<link rel="stylesheet" href="~/assets/css/custom.css" />
+
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		@Html.Partial("/Views/Lab/NavBar.cshtml");
+		<!-- /Header -->
+		<!-- Breadcrumb -->
+		<div class="breadcrumb-bar-two">
+			<div class="container">
+				<div class="row align-items-center inner-banner">
+					<div class="col-md-12 col-12 text-center">
+						<h2 class="breadcrumb-title">Profile</h2>
+						<nav aria-label="breadcrumb" class="page-breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a asp-action="Index" asp-controller="Lab">Home</a></li>
+								<li class="breadcrumb-item" aria-current="page">Profile</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Breadcrumb -->
+		<!-- Page Content -->
+		<div class="content">
+			<div class="container">
+
+				<div class="row">
+					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar dct-dashbd-lft">
+
+						<!-- Profile Widget -->
+						<div class="card widget-profile pat-widget-profile">
+							<div class="card-body">
+								<div class="pro-widget-content">
+									<div class="profile-info-widget">
+										<a href="#" class="booking-doc-img">
+											<img src="~/Images/patient.png" alt="User Image">
+										</a>
+										<div class="profile-det-info">
+											<h3>Abu Hani</h3>
+
+											<div class="patient-details">
+												<h5><b>Patient ID :</b> 7</h5>
+												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i>Amman</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="patient-info">
+									<ul>
+										<li>Phone <span>0788272492</span></li>
+										<li>Age <span>23</span></li>
+										<li>Blood Group <span>A+</span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- /Profile Widget -->
+						<!-- Last Booking -->
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">Last Booking</h4>
+							</div>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<div class="media align-items-center d-flex">
+										<div class="me-3 flex-shrink-0">
+											<img alt="Image placeholder" src="~/Images/LabImage.png" class="avatar  rounded-circle">
+										</div>
+										<div class="media-body flex-grow-1">
+											<h5 class="d-block mb-0">X Lab </h5>
+											<span class="d-block text-sm text-muted">Lab</span>
+											<span class="d-block text-sm text-muted">14 Nov 2019 5.00 PM</span>
+										</div>
+									</div>
+								</li>
+
+							</ul>
+						</div>
+						<!-- /Last Booking -->
+
+					</div>
+
+					<div class="col-md-7 col-lg-8 col-xl-9 dct-appoinment">
+						<div class="card">
+							<div class="card-body pt-0">
+								<div class="user-tabs">
+									<ul class="nav nav-tabs nav-tabs-bottom nav-justified flex-wrap">
+										<li class="nav-item">
+											<a class="nav-link active" href="#pat_appointments" data-bs-toggle="tab">Appointments</a>
+										</li>
+										
+										<li class="nav-item">
+											<a class="nav-link" href="#billing" data-bs-toggle="tab"><span>Billing</span></a>
+										</li>
+									</ul>
+								</div>
+								<div class="tab-content">
+
+									<!-- Appointment Tab -->
+									<div id="pat_appointments" class="tab-pane fade show active">
+										<div class="text-end">		
+												<a href="#" class="add-new-btn" data-bs-toggle="modal" data-bs-target="#add_test_Result">Add Tests Result</a>
+										</div>
+										<div class="card card-table mb-0">
+											<div class="card-body">
+												<div class="table-responsive">
+													<table class="table table-hover table-center mb-0">
+														<thead>
+															<tr>
+																<th>Lab</th>
+
+																<th>Booking Date</th>
+																<th>Amount</th>
+
+																<th>Status</th>
+																<th></th>
+															</tr>
+														</thead>
+														<tbody>
+															@foreach(var x in @Model.Patient.LabAppointments)
+															{
+																
+															
+															<tr>
+																	<td>
+																		<h2 class="table-avatar">
+																			<a asp-action="Index" asp-controller="lab" class="avatar avatar-sm me-2">
+																				<img class="avatar-img rounded-circle" src="~/Images/drImage.png" alt="User Image">
+																			</a>
+																			<a asp-action="Index" asp-controller="Lab">@x.Lab.FirstName @x.Lab.LastName<span></span></a>
+																		</h2>
+																	</td>
+
+																<td>@x.bookTime.ToString("d MMMM yyyy")<span class="d-block text-info">@x.bookTime.ToString("HH:MM")</span></td>
+																	<td>50$</td>
+
+																	<td><span class="badge rounded-pill bg-success-light">Confirm</span></td>
+																	<td class="text-end">
+																		<div class="table-action">
+																			<a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+																				<i class="far fa-edit"></i> Edit
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+															}
+
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- /Appointment Tab -->
+									
+									<!-- Billing Tab -->
+									<div class="tab-pane" id="billing">
+										<div class="text-end">
+											<a class="add-new-btn" asp-action="AddBill" asp-controller="Lab" asp-route-patId="@Model.Patient.Id">Add Billing</a>
+										</div>
+										<div class="card card-table mb-0">
+											<div class="card-body">
+												<div class="table-responsive">
+
+													<table class="table table-hover table-center mb-0">
+														<thead>
+															<tr>
+																<th>Invoice No</th>
+																<th>Lab</th>
+																<th>Amount</th>
+																<th>Paid On</th>
+																<th></th>
+															</tr>
+														</thead>
+														<tbody>
+															@foreach(var b in @Model.Patient.LabBills)
+															{
+
+															
+																<tr>
+																	<td>
+																		<a href="invoice-view.html">#INV-@b.Id</a>
+																	</td>
+																	<td>
+																		<h2 class="table-avatar">
+																			<a asp-action="Index" asp-controller="Lab" class="avatar avatar-sm me-2">
+																				<img class="avatar-img rounded-circle" src="~/Images/LabImage.png" alt="User Image">
+																			</a>
+																			<a asp-action="Index" asp-controller="Lab">@Model.Lab.FirstName @Model.Lab.LastName<span>Lab</span></a>
+																		</h2>
+																	</td>
+																	<td>$@b.Amount.ToString()</td>
+																<td>@b.PaidOn.ToString("d MMMM yyyy") <span class="d-block text-info"></span></td>
+																	<td class="text-end">
+																		<div class="table-action">
+																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+																				<i class="fas fa-print"></i> Print
+																			</a>
+																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> View
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+															}
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Billing Tab -->
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- /Page Content -->
+		<!-- Footer -->
+		@Html.Partial("/Views/Lab/Footer.cshtml");
+		<!-- /Footer -->
+
+	</div>
+	<!--Add TestLabs Result-->
+	<div class="modal fade custom-modal" id="add_test_Result">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Tests Result</h3>
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<form asp-action="AddTestResult" asp-controller="Lab" method="post" enctype="multipart/form-data">					
+						<div class="modal-body">
+							<div class="form-group">
+								<input value="@Model.Patient.Id" name="paId" hidden />
+								<label>Date</label>
+								<input type="text" class="form-control datetimepicker" value="@DateTime.Today" name="date">
+							</div>
+							<div class="form-group">
+								<label>Description ( Optional )</label>
+								<textarea class="form-control" name="descreption"></textarea>
+							</div>
+							<div class="form-group">
+								<label>Upload File</label> 
+								<input type="file" class="form-control" name="file">
+							</div>	
+							<div class="submit-section text-center">
+								<button type="submit" class="btn btn-primary submit-btn">Submit</button>
+								<button type="button" class="btn btn-secondary submit-btn" data-bs-dismiss="modal">Cancel</button>							
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	<!-- /Main Wrapper -->
+	
+	<!-- jQuery -->
+	<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Datetimepicker JS -->
+	<script src="~/assets/js/moment.min.js"></script>
+	<script src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
+
+	<!-- Sticky Sidebar JS -->
+	<script src="~/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+	<script src="~/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+	<!-- Custom JS -->
+	<script src="~/assets/js/script.js"></script>
+
+</body>
+</html>

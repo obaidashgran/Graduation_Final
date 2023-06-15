@@ -25,6 +25,35 @@ namespace MedAppProject.Migrations
             modelBuilder.HasSequence<int>("UserIdSequence", "shared")
                 .StartsAt(100L);
 
+            modelBuilder.Entity("MedAppProject.Models.Bill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaidOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Bills");
+                });
+
             modelBuilder.Entity("MedAppProject.Models.Doctor", b =>
                 {
                     b.Property<int>("Id")
@@ -42,10 +71,10 @@ namespace MedAppProject.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("DoctorRate")
+                    b.Property<float>("DoctorRate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("float")
-                        .HasDefaultValue(0.0);
+                        .HasColumnType("real")
+                        .HasDefaultValue(0f);
 
                     b.Property<int>("DoctorSpecializationId")
                         .HasColumnType("int");
@@ -191,6 +220,86 @@ namespace MedAppProject.Migrations
                     b.ToTable("LabAppointments");
                 });
 
+            modelBuilder.Entity("MedAppProject.Models.LabAvailableTimes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("LabId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LabId");
+
+                    b.ToTable("LabAvailableTimes");
+                });
+
+            modelBuilder.Entity("MedAppProject.Models.LabBills", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<int>("LabId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaidOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LabId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("LabBills");
+                });
+
+            modelBuilder.Entity("MedAppProject.Models.MedicalRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descreption")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("MedicalRecords");
+                });
+
             modelBuilder.Entity("MedAppProject.Models.Patient", b =>
                 {
                     b.Property<int>("Id")
@@ -292,7 +401,7 @@ namespace MedAppProject.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PharmacistId")
+                    b.Property<int>("PharmacistId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -331,21 +440,30 @@ namespace MedAppProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LabId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<string>("Result")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TestInfoId")
-                        .HasColumnType("int");
+                    b.Property<byte[]>("ResultFile")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PatientId");
+                    b.HasIndex("LabId");
 
-                    b.HasIndex("TestInfoId");
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Tests");
                 });
@@ -358,6 +476,9 @@ namespace MedAppProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("LabId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -366,6 +487,8 @@ namespace MedAppProject.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LabId");
 
                     b.ToTable("testLabInfos");
                 });
@@ -392,12 +515,38 @@ namespace MedAppProject.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<string>("code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isVerified")
+                        .HasColumnType("bit");
+
                     b.Property<int>("userId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("VMLogins");
+                });
+
+            modelBuilder.Entity("MedAppProject.Models.Bill", b =>
+                {
+                    b.HasOne("MedAppProject.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedAppProject.Models.Patient", "Patient")
+                        .WithMany("Bills")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("MedAppProject.Models.Doctor", b =>
@@ -460,6 +609,55 @@ namespace MedAppProject.Migrations
                     b.Navigation("patient");
                 });
 
+            modelBuilder.Entity("MedAppProject.Models.LabAvailableTimes", b =>
+                {
+                    b.HasOne("MedAppProject.Models.Lab", "Lab")
+                        .WithMany("AvailableTimes")
+                        .HasForeignKey("LabId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lab");
+                });
+
+            modelBuilder.Entity("MedAppProject.Models.LabBills", b =>
+                {
+                    b.HasOne("MedAppProject.Models.Lab", "Lab")
+                        .WithMany()
+                        .HasForeignKey("LabId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedAppProject.Models.Patient", "Patient")
+                        .WithMany("LabBills")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lab");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("MedAppProject.Models.MedicalRecord", b =>
+                {
+                    b.HasOne("MedAppProject.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MedAppProject.Models.Patient", "Patient")
+                        .WithMany("MedicalRecords")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("MedAppProject.Models.Prescription", b =>
                 {
                     b.HasOne("MedAppProject.Models.Doctor", "Doctor")
@@ -474,32 +672,43 @@ namespace MedAppProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MedAppProject.Models.Pharmacist", null)
+                    b.HasOne("MedAppProject.Models.Pharmacist", "Pharmacist")
                         .WithMany("Prescriptions")
-                        .HasForeignKey("PharmacistId");
+                        .HasForeignKey("PharmacistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Doctor");
 
                     b.Navigation("Patient");
+
+                    b.Navigation("Pharmacist");
                 });
 
             modelBuilder.Entity("MedAppProject.Models.Test", b =>
                 {
+                    b.HasOne("MedAppProject.Models.Lab", "Lab")
+                        .WithMany()
+                        .HasForeignKey("LabId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MedAppProject.Models.Patient", "Patient")
                         .WithMany("Tests")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MedAppProject.Models.TestInfo", "TestInfo")
-                        .WithMany()
-                        .HasForeignKey("TestInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Lab");
 
                     b.Navigation("Patient");
+                });
 
-                    b.Navigation("TestInfo");
+            modelBuilder.Entity("MedAppProject.Models.TestInfo", b =>
+                {
+                    b.HasOne("MedAppProject.Models.Lab", null)
+                        .WithMany("TestsInfo")
+                        .HasForeignKey("LabId");
                 });
 
             modelBuilder.Entity("MedAppProject.Models.Doctor", b =>
@@ -513,14 +722,24 @@ namespace MedAppProject.Migrations
 
             modelBuilder.Entity("MedAppProject.Models.Lab", b =>
                 {
+                    b.Navigation("AvailableTimes");
+
                     b.Navigation("LabAppointments");
+
+                    b.Navigation("TestsInfo");
                 });
 
             modelBuilder.Entity("MedAppProject.Models.Patient", b =>
                 {
+                    b.Navigation("Bills");
+
                     b.Navigation("DoctorAppointments");
 
                     b.Navigation("LabAppointments");
+
+                    b.Navigation("LabBills");
+
+                    b.Navigation("MedicalRecords");
 
                     b.Navigation("Prescription");
 

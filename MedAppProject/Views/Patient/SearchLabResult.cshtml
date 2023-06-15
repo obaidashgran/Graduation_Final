@@ -1,0 +1,196 @@
+﻿@model MedAppProject.ViewModels.LabDashboardViewModel
+<!DOCTYPE html>
+@{
+	Layout = null;
+}
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+	
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="~/assets/css/feather.css">
+
+	<!-- Select2 CSS -->
+	<link rel="stylesheet" href="~/assets/plugins/select2/css/select2.min.css">
+
+	<!-- Jquery CSS -->
+	<link rel="stylesheet" href="~/assets/plugins/jquery-ui/jquery-ui.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/assets/css/custom.css">
+
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		@Html.Partial("/Views/Patient/NavBar.cshtml",@Model.Patient)
+		<!-- /Header -->
+		<!-- Page Content -->
+		<div class="doctor-content content">
+			<div class="container">
+
+				<!-- Doctor Search List -->
+				<div class="row">
+					<div class="col-xl-12 col-lg-12 map-view">
+						<div class="row">
+
+							<div class="col-lg-9">
+								@foreach(var x in Model.Labs)
+								{
+									
+								
+								<div class="card doctor-card" style="margin-top:25px;">
+
+									<div class="card-body">
+										<div class="doctor-widget-one">
+											<div class="doc-info-left">
+												<div class="doctor-img">
+														<a asp-action="DoctorProfile" asp-controller="Patient">
+														<img src="~/assets/img/labicon.png" width:"400px" height="300px">
+													</a>
+													<div class="favourite-btn">
+														<a href="javascript:void(0)" class="favourite-icon">
+															<i class="fas fa-heart"></i>
+														</a>
+													</div>
+												</div>
+												<div class="doc-info-cont">
+													<h4 class="doc-name">
+														<a asp-action="LabProfile" asp-controller="Patient" asp-route-labId="@x.Id">@x.FirstName @x.LastName</a>
+														<i class="fas fa-circle-check"></i>
+													</h4>
+													<div class="clinic-details">
+														<p class="doc-location">
+															<i class="feather-map-pin"></i>
+															<span>City</span><a href="javascript:void(0);">@x.LabLocation</a>
+														</p>
+														<p class="doc-location">
+															<i class="feather-award"></i> <span>20</span> Years of Experience
+														</p>
+													</div>
+													<div class="reviews-ratings">
+														<p>
+															<span><i class="fas fa-star"></i> 4.4</span>
+														</p>
+													</div>
+												</div>
+											</div>
+											<div class="doc-info-right">
+												<div class="clini-infos">
+													<ul>
+														<li>
+															<i class="feather-clock available-icon"></i>
+															<span class="available-date available-today">Available</span>
+														</li>
+
+													</ul>
+												</div>
+												<div>
+													<form asp-controller="Patient" asp-action="MakeLabAppointment" method="post">
+															
+															@foreach(var a in @x.AvailableTimes.Where(a=>a.Time.Date>=DateTime.Now.Date))
+															{
+																<div>
+																	<input name="id" value="@x.Id" hidden>
+																	<input name="patient" value="@Model.Patient.Id" hidden>
+																	<input type="radio"  name="appointment" value="@a.Id">
+																	<label for="@a.Time">@a.Time</label>
+																</div>
+															}
+															
+															<button type="submit">Book</button>
+														</form>
+
+												</div>
+												<div class="clinic-booking book-appoint" style="margin-top:80px">
+													<a class="btn btn-primary" asp-action="LabInfo" asp-controller="Patient">Book Appointment</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								}
+
+
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="blog-pagination rev-page">
+											<nav>
+												<ul class="pagination justify-content-center">
+													<li class="page-item disabled">
+														<a class="page-link page-prev" href="#" tabindex="-1"><i class="feather-chevrons-left me-1"></i> PREV</a>
+													</li>
+													<li class="page-item active">
+													</li>
+													<li class="page-item">
+														<a class="page-link" href="#">NEXT</a>
+													</li>
+
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-12 theiaStickySidebar map-right">
+						<div id="map" class="map-listing"></div>
+					</div>
+				</div>
+				<!-- /Doctor Search List -->
+
+			</div>
+		</div>
+		<!-- /Page Content -->
+		<!-- Footer -->
+		@Html.Partial("/Views/Patient/Footer.cshtml")
+		<!-- /Footer -->
+		<!-- Cursor -->
+		<div class="mouse-cursor cursor-outer"></div>
+		<div class="mouse-cursor cursor-inner"></div>
+		<!-- /Cursor -->
+
+	</div>
+	<!-- /Main Wrapper -->
+	<!-- jQuery -->
+	<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+	<!-- Bootstrap Bundle JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Feather Icon JS -->
+	<script src="~/assets/js/feather.min.js"></script>
+
+	<!-- Select2 JS -->
+	<script src="~/assets/plugins/select2/js/select2.min.js"></script>
+
+	<!-- Jquery UI -->
+	<script src="~/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+	<!-- Sticky Sidebar JS -->
+	<script src="~/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+	<script src="~/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+	<!-- Map JS -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6adZVdzTvBpE2yBRK8cDfsss8QXChK0I"></script>
+	<script src="~/assets/js/map.js"></script>
+
+	<!-- Custom JS -->
+	<script src="~/assets/js/script.js"></script>
+
+</body>
+</html>

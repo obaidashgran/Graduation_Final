@@ -1,0 +1,18 @@
+﻿@model MedAppProject.Models.VMLogin;
+@{
+    Layout = null;
+}
+<input asp-for="code" hidden/>
+<input asp-for="Id" hidden/>
+<input asp-for="RoleId" hidden/>
+<input asp-for="Password" hidden/>
+<input asp-for="Email" hidden/>
+<input asp-for="isVerified" hidden/>
+<input asp-for="KeepLoggedIn" hidden/>
+<input asp-for="userId" hidden/>
+
+<form asp-action="confimationPage" asp-controller="Access" method="post">
+    <input ttype="text" name="usercode"/>
+    <button type="submit">submit</button>
+</form>
+<div class="text-danger">@ViewData["ValidateMessage"]</div>

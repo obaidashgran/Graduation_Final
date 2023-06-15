@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+@{
+	Layout = null;
+}
+<html lang="en">
+<head>
+
+
+	<meta charset="utf-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+	
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="~/assets/css/feather.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/assets/css/custom.css">
+
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		@Html.Partial("/Views/Patient/NavBar.cshtml")
+		<!-- /Header -->
+		<!-- Page Content -->
+		<div class="content">
+			<div class="container">
+
+				<div class="row">
+					<!-- Profile Sidebar -->
+					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+						<div class="profile-sidebar">
+							<div class="widget-profile pro-widget-content">
+								<div class="profile-info-widget">
+									<a href="#" class="booking-doc-img">
+										<i class="fa-solid fa-circle-info fa-beat-fade fa-2xl" style="color: #6f9dec;"></i>
+									</a>
+									<div class="profile-det-info">
+										<h3>Patient name</h3>
+
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-widget">
+								<nav class="dashboard-menu">
+									<ul>
+										<li class="active">
+											<a href="patient-dashboard.html">
+												<i class="fas fa-columns"></i>
+												<span>Dashboard</span>
+											</a>
+										</li>
+
+
+										<li>
+											<a href="chat.html">
+												<i class="fas fa-comments"></i>
+												<span>Message</span>
+												<small class="unread-msg">0</small>
+											</a>
+										</li>
+
+										<li>
+											<a href="">
+												<i class="fa-solid fa-capsules" style="color: #7c797b;"></i>
+												<span>Prescriptions</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="">
+												<i class="fa-solid fa-file-medical" style="color: #626364;"></i>
+												<span>Lab result</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<i class="fa-solid fa-vial-virus" style="color: #818283;"></i>
+												<span>Lab reservaion</span>
+											</a>
+										</li>
+										<li>
+											<a href="">
+												<i class="fa-solid fa-clock-rotate-left" style="color: #6e6e6e;"></i>
+												<span>History</span>
+											</a>
+										</li>
+										<li>
+											<a href="index.html">
+												<i class="fas fa-sign-out-alt"></i>
+												<span>Logout</span>
+											</a>
+										</li>
+
+									</ul>
+								</nav>
+							</div>
+
+						</div>
+					</div>
+					<!-- / Profile Sidebar -->
+
+
+					<div class="col-md-7 col-lg-8 col-xl-9">
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="card card-table mb-0">
+											<div class="card-body">
+												<div class="table-responsive">
+													<table class="table table-hover table-center mb-0">
+														<thead>
+															<tr>
+																<th>#</th>
+													
+																<th>Order Id</th>
+																<th>Pharmacy</th>
+																<th class="text-center">Amount</th>
+																<th>Status</th>
+																<th>Order date</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>1</td>
+																<td><a href="invoice-view.html">01</a></td>
+																<td>Pharmacy Name</td>
+																<td class="text-center">15 JOD</td>
+																<td><span class="badge badge-primary">Confirmed</span></td><!--Confirmed,shiped,pinding-->
+																<td>Date</td>
+															</tr>
+
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- /Page Content -->
+		<!-- Footer -->
+		@Html.Partial("/Views/Patient/Footer.cshtml")
+
+		<!-- /Footer -->
+
+	</div>
+	<!-- /Main Wrapper -->
+	<!-- jQuery -->
+	<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Sticky Sidebar JS -->
+	<script src="~/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+	<script src="~/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+	<!-- Custom JS -->
+	<script src="~/assets/js/script.js"></script>
+
+</body>
+</html>

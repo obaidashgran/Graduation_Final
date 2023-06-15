@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+@{
+	Layout = null;
+}
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Doccure</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+	<!-- Favicons -->
+	<link href="~/assets/img/favicon.png" rel="icon">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="~/assets/css/feather.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/assets/css/custom.css">
+
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		@Html.Partial("/Views/Patient/NavBar.cshtml")
+		<!-- /Header -->
+		<!-- Page Content -->
+		<div class="content">
+			<div class="container">
+
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2">
+						<div class="invoice-content">
+							<div class="invoice-item">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="invoice-logo">
+											<img src="~/Images/websiteLogo.png" alt="logo">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<p class="invoice-details">
+											<strong>Order:</strong> #01 <br>
+											<strong>Issued:</strong>dd/00/year<br>
+											<strong>From Doctor:</strong><a href="" style="color:dodgerblue;text-decoration:underline">Doctor Name</a><br>
+
+										</p>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="invoice-item invoice-table-wrap">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="invoice-table table table-bordered">
+												<thead>
+													<tr>
+														<th>Description</th>
+														<th class="text-center">Quantity</th>
+														<th class="text-end">Total</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>General Consultation</td>
+														<td class="text-center">1</td>
+														<td class="text-end">10</td>
+													</tr>
+													
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="col-md-6 col-xl-4 ms-auto">
+										<div class="table-responsive">
+											<table class="invoice-table-two table">
+												<tbody>
+													<tr>
+														<th>Subtotal:</th>
+														<td><span>10</span></td>
+													</tr>
+													<tr>
+														<th>Total Amount:</th>
+														<td><span>10 JOD</span></td>
+													</tr>
+													<tr>
+														
+													</tr>
+												</tbody>
+											</table>
+											<div class="table-action">
+												<a href=" " class="btn btn-sm bg-primary-light">
+													<i class="" style="color: #4d81db;width:100px;font-size:25px"></i> Order it
+												</a>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- /Page Content -->
+		<!-- Footer -->
+		@Html.Partial("/Views/Patient/Footer.cshtml")
+		<!-- /Footer -->
+
+	</div>
+	<!-- /Main Wrapper -->
+	<!-- jQuery -->
+	<script src="~/assets/js/jquery-3.6.4.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Custom JS -->
+	<script src="~/assets/js/script.js"></script>
+
+</body>
+</html>
