@@ -96,6 +96,12 @@ namespace MedAppProject.Controllers
         }
         public ActionResult DoctorRegister([FromForm] string firstName, [FromForm] string lastName, [FromForm] string mail, [FromForm] string phone, [FromForm] string pass, [FromForm]string location)
         {
+            var a = _specialization.GetAll();
+            if(a is null)
+            {
+                _specialization.Add(new Specialization { Name = "test" });
+            }
+            var spe = _specialization.GetAll().FirstOrDefault();
             Doctor doc = new Doctor
             {
                 CreatedDate = DateTime.Now,
@@ -103,7 +109,8 @@ namespace MedAppProject.Controllers
                 LastName = lastName,
                 Email = mail,
                 PhoneNumber = phone,
-                ClincLocation = location
+                ClincLocation = location,
+                DoctorSpecialization = spe
             };
             _doctor.Add(doc);
             VMLogin vm = new VMLogin
